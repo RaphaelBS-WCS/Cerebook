@@ -1,1 +1,1 @@
-web: java -jar target/HelloWorld-0.0.1-SNAPSHOT.jar
+web: java -jar target/cerebook-0.0.1-SNAPSHOT.jar
