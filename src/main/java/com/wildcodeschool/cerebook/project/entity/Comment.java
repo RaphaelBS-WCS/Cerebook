@@ -15,7 +15,7 @@ public class Comment {
     @JoinColumn(name = "cerebook_uder_id")
     private CerebookUser author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "post_id")
     private Post postId;
 

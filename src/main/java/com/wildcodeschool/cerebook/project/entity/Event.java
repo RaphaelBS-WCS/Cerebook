@@ -13,24 +13,24 @@ public class Event {
     private String name;
     private Date date;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "cerebookUser_id")
     private CerebookUser creator;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "EventCategory_Id")
     private EventCategory eventCategoryId;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
     private List<Participation> participants;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "membership_event",
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "memebrship_id"))

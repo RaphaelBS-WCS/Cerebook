@@ -11,7 +11,7 @@ public class EventCategory {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "eventCategoryId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "eventCategoryId", cascade = CascadeType.ALL)
     private List<Event> events;
 
     public EventCategory() {

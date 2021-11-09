@@ -20,7 +20,7 @@ public class CerebookUser {
     @Column(columnDefinition="TEXT")
     private String bio;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     @ManyToOne
@@ -30,13 +30,13 @@ public class CerebookUser {
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<CerebookUser> friends;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    @OneToMany(mappedBy = "participant", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL)
     private List<Participation> participations;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public CerebookUser() {

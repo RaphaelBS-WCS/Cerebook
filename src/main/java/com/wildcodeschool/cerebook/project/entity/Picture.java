@@ -11,11 +11,11 @@ public class Picture {
     private Long id;
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private CerebookUser authorId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "event_id")
     private Event eventId;
 

@@ -10,11 +10,11 @@ public class Participation {
     private Long id;
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "cerebook_user_id")
     private CerebookUser participant;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "event_id")
     private Event eventId;
 

@@ -12,7 +12,7 @@ public class Membership {
     private String name;
 
     @OneToMany(mappedBy = "membershipId", cascade = CascadeType.REFRESH)
-    private List<CerebookUser> cerebookUser;
+    private List<CerebookUser> members;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "membership_event",
@@ -39,12 +39,12 @@ public class Membership {
         this.name = name;
     }
 
-    public List<CerebookUser> getCerebookUser() {
-        return cerebookUser;
+    public List<CerebookUser> getMembers() {
+        return members;
     }
 
-    public void setCerebookUser(List<CerebookUser> cerebookUser) {
-        this.cerebookUser = cerebookUser;
+    public void setMembers(List<CerebookUser> members) {
+        this.members = members;
     }
 
     public List<Event> getEvents() {

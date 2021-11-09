@@ -20,15 +20,15 @@ public class Post {
     @JoinColumn(name = "cerebookuser_id")
     private CerebookUser author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "event_id")
     private Event eventId;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne
     @JoinColumn(name = "picture_id")
     private Picture picture;
 
-    @OneToMany(mappedBy = "postId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Post() {
