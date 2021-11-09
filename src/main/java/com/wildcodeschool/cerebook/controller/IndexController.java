@@ -1,5 +1,6 @@
 package com.wildcodeschool.cerebook.controller;
 
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,6 +9,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String doctor() {
-     return "index";
+
+        return "index";
     }
 }
