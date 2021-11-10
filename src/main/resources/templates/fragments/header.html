@@ -5,6 +5,9 @@
 <head>
 
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" href="/static/scss/style.css">
+    <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.esm.js">
+    <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.umd.js">
 
 </head>
 
@@ -12,15 +15,12 @@
 
 <header th:fragment="top">
     <!-- Navbar -->
-
-        <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg" >
             <div class="container-fluid">
-                <a href="#" class="navbar-brand pe-3">Cerebook</a>
+                <a href="#" class="navbar-brand pe-3">Cerebook hello</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto my-2 my-lg-0">
@@ -39,20 +39,12 @@
                         </li>
                     </ul>
                     <div class="d-flex justify-content-lg-end justify-content-center">
-                        <div class="dropdown btn btn-secondary fs-5">
-                           <!-- <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown btn fs-5">
+                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bonjour <span class="text-pink">Lala</span>
-                            </a>-->
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                           <!-- <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
+
+                            <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
                                 <li>
                                     <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
                                         <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Edit mon profile</a>
@@ -66,7 +58,7 @@
                                         <i class="bi bi-power text-light"></i>&nbsp; Déconnexion
                                     </a>
                                 </li>
-                            </ul>-->
+                            </ul>
                         </div>
 
                     </div>
