@@ -1,4 +1,4 @@
-package com.wildcodeschool.cerebook.project.entity;
+package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 import java.util.List;
