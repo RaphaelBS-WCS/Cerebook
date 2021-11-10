@@ -17,11 +17,15 @@ public class Post {
     private String video;
 
     @ManyToOne
+    // NRO 2021-11-10 : i get the id but still, i think you
+    //  would be better without the JoinColumn
     @JoinColumn(name = "cerebookuser_id")
     private CerebookUser author;
 
     @ManyToOne
+    // NRO 2021-11-10 : useless JoinColumn
     @JoinColumn(name = "event_id")
+    // NRO 2021-11-10 : bad naming, it should be event
     private Event eventId;
 
     @ManyToOne

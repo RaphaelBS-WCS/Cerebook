@@ -12,10 +12,12 @@ public class Picture {
     private String name;
 
     @ManyToOne
+    // NRO 2021-11-10 : useless JoinColumn
     @JoinColumn(name = "author_id")
     private CerebookUser authorId;
 
     @ManyToOne
+    // NRO 2021-11-10 : useless JoinColumn
     @JoinColumn(name = "event_id")
     private Event eventId;
 
