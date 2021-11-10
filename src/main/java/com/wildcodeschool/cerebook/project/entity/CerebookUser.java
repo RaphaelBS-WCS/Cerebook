@@ -12,6 +12,11 @@ public class CerebookUser {
     private Long id;
     private String userName;
     private String password;
+    // NRO 2021-11-10 : it is better to handle the image
+    //  with an object (like Picture or ProfilPicture)
+    //  Why ? Because you will have to handle different sizes
+    //  of the picture depending of the context, so having an
+    //  object to deal with that seems good
     private String profilImage;
     private String background;
     private Date birthDate;
