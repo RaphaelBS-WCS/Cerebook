@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cerebook</title>
     <link rel="stylesheet" href="/static/scss/style.css">
 </head>
 <body>
-<div>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand teste" href="#">CEREBOOK</a>
-        </div>
-    </nav>
-<div class="container">
-    <h1 class="display-1 teste">Cerebook</h1>
 
-    <img src="/images/cerebro.png" alt="img">
-</div>
-</div>
+<header th:replace="fragments/header.html :: top">
+
+</header>
+
 
 </body>
 </html>

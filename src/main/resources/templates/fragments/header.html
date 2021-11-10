@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+
+</head>
+
+<body>
+
+<header th:fragment="top">
+    <!-- Navbar -->
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand pe-3">Cerebook</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto my-2 my-lg-0">
+
+                        <li class="nav-item text-center mx-3">
+                            <a class="nav-link active text-light" href="#"><img src="/images/friends.svg " class="text-light" alt="" width="30"></a>
+                        </li>
+                        <li class="nav-item text-center mx-3">
+                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light " alt="" width="30">Mon compte</a>
+                        </li>
+                        <li class="nav-item text-center mx-3">
+                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light" alt="" width="30">Mon panier</a>
+                        </li>
+                        <li class="nav-item text-center mx-3">
+                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light " alt="" width="30">Mon compte</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex justify-content-lg-end justify-content-center">
+                        <div class="dropdown btn btn-secondary fs-5">
+                           <!-- <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Bonjour <span class="text-pink">Lala</span>
+                            </a>-->
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                           <!-- <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
+                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Edit mon profile</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
+                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Gérer les événements </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
+                                        <i class="bi bi-power text-light"></i>&nbsp; Déconnexion
+                                    </a>
+                                </li>
+                            </ul>-->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Profile Background Image -->
+        <div class="container">
+            <h1 class="display-1 teste">Cerebook</h1>
+
+            <img src="/images/cerebro.png" alt="img">
+        </div>
+    </div>
+</header>
+
+</body>
+
+</html>
