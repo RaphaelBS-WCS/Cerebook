@@ -633,15 +633,15 @@ progress {
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) * -.5);
-  margin-left: calc(var(--bs-gutter-x) * -.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
 .row > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
 }
 
@@ -6100,15 +6100,15 @@ textarea.form-control-lg {
 }
 
 .ratio-4x3 {
-  --bs-aspect-ratio: calc(3 / 4 * 100%);
+  --bs-aspect-ratio: 75%;
 }
 
 .ratio-16x9 {
-  --bs-aspect-ratio: calc(9 / 16 * 100%);
+  --bs-aspect-ratio: 56.25%;
 }
 
 .ratio-21x9 {
-  --bs-aspect-ratio: calc(9 / 21 * 100%);
+  --bs-aspect-ratio: 42.8571428571%;
 }
 
 .fixed-top {
@@ -10764,9 +10764,53 @@ a, ul, li {
   margin: 0;
 }
 
-.teste {
-  font-family: "IBM Plex Sans", sans-serif;
-  color: #A61723;
+.navbar-toggler,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.navbar {
+  background-color: #A61723 !important;
+  height: 80px;
+  margin: -25px -25px 0 -25px;
+}
+
+#navbarNavAltMarkup {
+  background-color: #A61723 !important;
+  margin-left: -20px;
+}
+
+.navbar .navbar-nav .nav-link {
+  color: #f8f9fa !important;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+  color: #D99D55 !important;
+}
+
+.icon:hover {
+  cursor: pointer;
+  filter: invert(60%) sepia(24%) saturate(5373%) hue-rotate(1deg) brightness(120%) contrast(60%);
+}
+
+.navbar .navbar-nav .nav-link:focus {
+  color: #D99D55 !important;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.dropdown-item:hover {
+  background-color: #D99D55;
+}
+
+.dropdown-menu {
+  background-color: #050340;
 }
 
 /*# sourceMappingURL=style.css.map */
