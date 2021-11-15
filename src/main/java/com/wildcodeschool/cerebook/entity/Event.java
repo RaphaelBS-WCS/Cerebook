@@ -13,27 +13,25 @@ public class Event {
     private String name;
     private Date date;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
     @ManyToOne
-    @JoinColumn(name = "cerebookUser_id")
     private CerebookUser creator;
 
     @ManyToOne
-    @JoinColumn(name = "EventCategory_Id")
-    private EventCategory eventCategoryId;
+    private EventCategory eventCategory;
 
-    @OneToMany(mappedBy =  "eventId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
     private List<Participation> participants;
 
     @ManyToMany
     @JoinTable(name = "membership_event",
             joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "memebrship_id"))
+            inverseJoinColumns = @JoinColumn(name = "membership_id"))
     private List<Membership> memberships;
 
     public Event() {
@@ -87,12 +85,12 @@ public class Event {
         this.creator = creator;
     }
 
-    public EventCategory getEventCategoryId() {
-        return eventCategoryId;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
-    public void setEventCategoryId(EventCategory eventCategoryId) {
-        this.eventCategoryId = eventCategoryId;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     public List<Participation> getParticipants() {

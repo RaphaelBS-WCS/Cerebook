@@ -12,12 +12,10 @@ public class Picture {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private CerebookUser authorId;
+    private CerebookUser author;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event eventId;
+    private Event event;
 
     @OneToMany(mappedBy =  "picture", cascade = CascadeType.REFRESH)
     private List<Post> posts;
@@ -41,20 +39,20 @@ public class Picture {
         this.name = name;
     }
 
-    public CerebookUser getAuthorId() {
-        return authorId;
+    public CerebookUser getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(CerebookUser authorId) {
-        this.authorId = authorId;
+    public void setAuthor(CerebookUser author) {
+        this.author = author;
     }
 
-    public Event getEventId() {
-        return eventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventId(Event eventId) {
-        this.eventId = eventId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public List<Post> getPosts() {

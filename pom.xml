@@ -64,7 +64,6 @@
             <artifactId>assertj-core</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

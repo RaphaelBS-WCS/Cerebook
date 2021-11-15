@@ -17,18 +17,15 @@ public class Post {
     private String video;
 
     @ManyToOne
-    @JoinColumn(name = "cerebookuser_id")
     private CerebookUser author;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event eventId;
+    private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "picture_id")
     private Picture picture;
 
-    @OneToMany(mappedBy = "postId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Post() {
@@ -82,12 +79,12 @@ public class Post {
         this.author = author;
     }
 
-    public Event getEventId() {
-        return eventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventId(Event eventId) {
-        this.eventId = eventId;
+    public void setEvent(Event eventId) {
+        this.event = eventId;
     }
 
     public Picture getPicture() {
