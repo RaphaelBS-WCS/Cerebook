@@ -12,11 +12,9 @@ public class Picture {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
     private CerebookUser authorId;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
     private Event eventId;
 
     @OneToMany(mappedBy =  "picture", cascade = CascadeType.REFRESH)
