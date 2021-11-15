@@ -1,4 +1,4 @@
-package com.wildcodeschool.cerebook.project.entity;
+package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,7 @@ public class EventCategory {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "eventCategoryId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "eventCategory", cascade = CascadeType.ALL)
     private List<Event> events;
 
     public EventCategory() {

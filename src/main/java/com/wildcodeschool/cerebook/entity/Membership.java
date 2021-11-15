@@ -1,4 +1,4 @@
-package com.wildcodeschool.cerebook.project.entity;
+package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Membership {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "membershipId", cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "membership", cascade = CascadeType.REFRESH)
     private List<CerebookUser> members;
 
     @ManyToMany(cascade = CascadeType.REFRESH)

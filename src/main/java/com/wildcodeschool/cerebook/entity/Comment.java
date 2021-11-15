@@ -1,4 +1,4 @@
-package com.wildcodeschool.cerebook.project.entity;
+package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 
@@ -12,12 +12,10 @@ public class Comment {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "cerebook_uder_id")
     private CerebookUser author;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "post_id")
-    private Post postId;
+    private Post post;
 
     public Comment() {
     }
@@ -46,11 +44,11 @@ public class Comment {
         this.author = author;
     }
 
-    public Post getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(Post postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
