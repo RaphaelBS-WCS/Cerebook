@@ -1,80 +1,87 @@
 <!DOCTYPE HTML>
 
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link rel="stylesheet" href="/static/scss/style.css">
     <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.esm.js">
     <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.umd.js">
-
 </head>
 
 <body>
 
 <header th:fragment="top">
     <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg" >
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand pe-3">Cerebook hello</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto my-2 my-lg-0">
-
-                        <li class="nav-item text-center mx-3">
-                            <a class="nav-link active text-light" href="#"><img src="/images/friends.svg " class="text-light" alt="" width="30"></a>
-                        </li>
-                        <li class="nav-item text-center mx-3">
-                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light " alt="" width="30">Mon compte</a>
-                        </li>
-                        <li class="nav-item text-center mx-3">
-                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light" alt="" width="30">Mon panier</a>
-                        </li>
-                        <li class="nav-item text-center mx-3">
-                            <a class="nav-link active text-light" href="#"><img src=" " class="text-light " alt="" width="30">Mon compte</a>
-                        </li>
-                    </ul>
-                    <div class="d-flex justify-content-lg-end justify-content-center">
-                        <div class="dropdown btn fs-5">
-                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Bonjour <span class="text-pink">Lala</span>
+    <div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid pe-0">
+            <a href="#" class="text-warning fs-5 fw-bold mx-5">Cerebook</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 mx-auto icons">
+                    <li class="nav-item d-flex align-items-center justify-content-center mx-3">
+                        <a class="nav-link active" aria-current="page" href="#"><img src="/images/profile.svg" class="icon" alt="icon profile"></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center justify-content-center mx-3">
+                        <a class="nav-link active" href="#"><img class="icon" src="/images/home.svg" alt="icon homepage"></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center justify-content-center mx-3">
+                        <a class="nav-link mb-2" href="#"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center justify-content-center mx-3">
+                        <a class="nav-link" href="#"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="navbar-nav">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white fw-bold me-3" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                Bonjour
+                                <span class="text-warning fw-bold ">Xavier</span>
+                                <img src="/images/raven-profile.jpg" class="border bg-light rounded-circle mx-2" width="60" height="60">
                             </a>
-
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
+                                <!-- The content of the list can be modified if necessary -->
                                 <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Edit mon profile</a>
+                                    <a class="dropdown-item text-wrap py-2 text-white fw-bold" href="#">
+                                        <i class="bi bi-pencil-square"></i>  Éditer mon profil</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Gérer les événements </a>
+                                    <a class="dropdown-item text-wrap py-2 text-white fw-bold" href="#">
+                                        <i class="bi bi-geo-alt-fill"></i> Gérer mes événements</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-power text-light"></i>&nbsp; Déconnexion
+                                    <a class="dropdown-item text-wrap text-danger py-2 fw-bold" href="#">
+                                        <i class="bi bi-power text-primary"></i> Déconnexion
+
                                     </a>
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </nav>
-
-        <!-- Profile Background Image -->
-        <div class="container">
-            <h1 class="display-1 teste">Cerebook</h1>
-
-            <img src="/images/cerebro.png" alt="img">
         </div>
+    </nav>
     </div>
+
+
+
+    <!-- Profile Background Image -->
+    <div class="container">
+        <h1 class="display-1 teste">Cerebook</h1>
+
+        <img src="/images/cerebro.png" alt="img">
+    </div>
+
+
 </header>
 
 </body>
 
+
 </html>
+
