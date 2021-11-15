@@ -11,12 +11,10 @@ public class Participation {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "cerebook_user_id")
     private CerebookUser participant;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event eventId;
+    private Event event;
 
     public Participation() {
     }
@@ -45,11 +43,11 @@ public class Participation {
         this.participant = participant;
     }
 
-    public Event getEventId() {
-        return eventId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventId(Event eventId) {
-        this.eventId = eventId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

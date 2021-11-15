@@ -24,8 +24,7 @@ public class CerebookUser {
     private List<Post> posts;
 
     @ManyToOne
-    @JoinColumn(name = "membership_id")
-    private Membership membershipId;
+    private Membership membership;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<CerebookUser> friends;
@@ -122,12 +121,12 @@ public class CerebookUser {
         this.posts = posts;
     }
 
-    public Membership getMembershipId() {
-        return membershipId;
+    public Membership getMembership() {
+        return membership;
     }
 
-    public void setMembershipId(Membership membershipId) {
-        this.membershipId = membershipId;
+    public void setMembership(Membership membership) {
+        this.membership = membership;
     }
 
     public List<CerebookUser> getFriends() {
