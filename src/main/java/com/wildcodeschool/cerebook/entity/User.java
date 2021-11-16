@@ -15,6 +15,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    private CerebookUser cerebookUser;
+
     private String username;
     private String password;
     private String role;
@@ -58,5 +61,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public CerebookUser getCerebookUser() {
+        return cerebookUser;
+    }
+
+    public void setCerebookUser(CerebookUser cerebookUser) {
+        this.cerebookUser = cerebookUser;
     }
 }

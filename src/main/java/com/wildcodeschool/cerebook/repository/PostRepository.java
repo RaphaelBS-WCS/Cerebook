@@ -13,5 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByAuthor(CerebookUser author);
 
-    List<Post> findAllByAuthorFriendsMatchesOrAuthor(List<CerebookUser> author_friends, CerebookUser author);
+    List<Post> findAllByAuthorOrAuthor_Friends(CerebookUser author, List<CerebookUser> author_friends);
+    //    List<Post> findAllByAuthorFriendsMatchesOrAuthor(List<CerebookUser> author_friends, CerebookUser author);
 }

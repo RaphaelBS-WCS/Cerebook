@@ -1,4 +1,4 @@
-package com.wildcodeschool.cerebook.respository;
+package com.wildcodeschool.cerebook.repository;
 
 
 import com.wildcodeschool.cerebook.entity.User;
