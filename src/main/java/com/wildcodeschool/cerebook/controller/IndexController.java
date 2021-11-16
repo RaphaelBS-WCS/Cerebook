@@ -9,7 +9,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String doctor() {
-
         return "index";
     }
 }
