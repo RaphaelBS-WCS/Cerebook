@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.builders.*;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.concurrent.TimeUnit;
 
 
 @Configuration
@@ -43,11 +46,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/resources/public/**","/resources/templates/**" , "/", "/static/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/", true)
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and()
+                .rememberMe()
+                .rememberMeParameter("rememberMe")
+                .tokenValiditySeconds(86400)
+                .key("xyz")
                 .and()
                 .logout().permitAll()
+                .logoutUrl("logout")
+                .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "rememberMe")
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
         ;
