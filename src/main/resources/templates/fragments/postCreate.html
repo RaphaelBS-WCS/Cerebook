@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="postForm">
+        <form th:action="@{/post/create}" th:object="${newPost}" method="post">
+            <label th:for="title">Title</label>
+            <input th:field="*{title}">
+            <label th:for="content">Content</label>
+            <input th:text="*{content}">
+            <label th:for="picture">Picture</label>
+            <input th:object="*{picture}">
+
+        </form>
+    </div>
+</body>
+</html>
