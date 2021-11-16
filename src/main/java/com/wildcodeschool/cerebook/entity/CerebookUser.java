@@ -19,6 +19,8 @@ public class CerebookUser {
     private String genre;
     @Column(columnDefinition="TEXT")
     private String bio;
+    @OneToOne(cascade = CascadeType.ALL)
+    private User user;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
@@ -159,5 +161,13 @@ public class CerebookUser {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
