@@ -4,7 +4,7 @@
     <div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid pe-0">
-            <a href="#" class="text-warning fs-5 fw-bold mx-5">Cerebook</a>
+            <a th:href="@{/}" class="text-warning fs-5 fw-bold mx-5">Cerebook</a>
             <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,7 +28,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white fw-bold me-3" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bonjour
-                                <span class="text-warning fw-bold ">Xavier</span>
+                                <span sec:authentication="principal.username">User!</span>
                                 <img src="/images/raven-profile.jpg" class="border bg-light rounded-circle mx-2" width="60" height="60">
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
@@ -42,7 +42,7 @@
                                         <i class="bi bi-geo-alt-fill"></i> Gérer mes événements</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-wrap text-danger py-2 fw-bold" href="/logout">
+                                    <a class="dropdown-item text-wrap text-danger py-2 fw-bold" th:href="@{/logout}">
                                         <i class="bi bi-power text-primary"></i> Déconnexion
                                     </a>
                                 </li>

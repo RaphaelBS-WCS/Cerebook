@@ -1,11 +1,9 @@
 package com.wildcodeschool.cerebook.entity;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_user")
@@ -15,10 +13,30 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Please enter your username.")
+    @NotNull(message = "Please enter your username.")
+    @Size(min = 3, max = 45, message = "The size of your username should be more than 2 characters and less than 45.")
+    @Column(unique = true)
     private String username;
+
+    @NotNull(message = "Please enter your password.")
+    @NotBlank(message = "Please enter your password.")
+    @Size(min = 6, max = 64, message = "The size of your password should be more than 5 characters and less than 45.")
     private String password;
+
+    @NotNull(message = "Please enter your firstname.")
+    @NotBlank(message = "Please enter your firstname.")
+    @Size(min = 2, max = 155, message = "The size of your password should have more than 1 character and less than 155.")
+    private String firstName;
+
+    @NotNull(message = "Please enter your lastname.")
+    @NotBlank(message = "Please enter your lastname.")
+    @Size(min = 2, max = 155, message = "The size of your password should have more than 1 character and less than 155.")
+    private String lastName;
+
     private String role;
     private boolean enabled;
+
 
     public Long getId() {
         return id;
@@ -58,5 +76,34 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", role='" + role + '\'' +
+                ", enabled=" + enabled +
+                '}';
     }
 }
