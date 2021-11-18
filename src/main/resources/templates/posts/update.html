@@ -9,8 +9,8 @@
         <label th:for="picture">Picture</label>
         <input th:field="*{picture}">
         <label th:for="video">Video</label>
-        <input th:field="*{video}">
-        <input type="hidden" th:if="${event != null && event.id != null}" th:object="${event}">
+        <input data-th-text="*{ video }">
+        <input type="hidden" th:if="${ event != null && event.id != null }">
         <button type="submit" name="Update" value="Update" class="btn-link">Update</button>
     </form>
 </div>
