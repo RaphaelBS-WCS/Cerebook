@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<th:block th:fragment="post" th:each="post : ${allElements}">
+    <div  class="card">
+        <div class="card-body" th:each="post  ${posts}">
+            <h5 class="card-title" th:value="${post.author}"></h5>
+            <p class="card-text" th:value="${post.content}"></p>
+        </div>
+        <span th:if="${post.picture != null || post.picture.isUrl == true}">
+            <img src="${post.picture}" alt="picture">
+        </span>
+        <span th:if="${post.picture != null || post.picture.isUrl == false}">
+            <img src="@{${'/ressources/images/' + post.picture}}" alt="picture">
+        </span>
+    </div>
+    <form th:action="@{'/posts/{post_id}/delete'(post_id=${post.id})}" method="POST">
+        <button type="submit" name="Delete" value="Delete" class="btn-link">Delete</button>
+    </form>
+</th:block>
+</body>
+</html>

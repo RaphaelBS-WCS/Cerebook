@@ -23,6 +23,9 @@ public class User {
     private String role;
     private boolean enabled;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private CerebookUser cerebookUser;
+
     public Long getId() {
         return id;
     }
