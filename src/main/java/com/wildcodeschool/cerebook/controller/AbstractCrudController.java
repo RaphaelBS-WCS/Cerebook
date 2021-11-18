@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 public abstract class AbstractCrudController<E, EK> {
+
     @Autowired
     private UserRepository userRepository;
     // <editor-fold desc="Abstract methods">
@@ -39,6 +40,7 @@ public abstract class AbstractCrudController<E, EK> {
     public String create(HttpServletRequest hsr, Model model) {
         model.addAttribute("elementFields", getElementFields());
         return getControllerRoute() + "/create";
+    }
 
     @PostMapping("/create")
     public String create(HttpServletRequest hsr, @ModelAttribute E e) {

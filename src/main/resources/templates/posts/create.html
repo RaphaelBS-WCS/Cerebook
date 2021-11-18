@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <body>
     <div th:fragment="postCreate">
-        <form th:action="@{/posts}" th:object="${post}" method="POST">
+        <form th:action="@{/posts/create}" th:object="${post}" method="POST">
             <th:block th:each="field : ${elementFields}">
                 <label th:for="${field}" th:text="${#strings.capitalize(field)}"></label>
                 <input th:id="${field}" th:name="${field}" th:placeholder="${field}">

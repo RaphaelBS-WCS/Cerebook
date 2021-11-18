@@ -15,9 +15,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private CerebookUser cerebookUser;
-
     private String username;
     private String password;
     private String role;

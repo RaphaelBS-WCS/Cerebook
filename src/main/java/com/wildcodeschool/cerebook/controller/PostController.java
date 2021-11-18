@@ -1,66 +1,75 @@
 package com.wildcodeschool.cerebook.controller;
 
-import com.wildcodeschool.cerebook.entity.CerebookUser;
-import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.PostRepository;
-import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.sql.Date;
-import java.util.List;
+
 
 
 @Controller
-@RequestMapping("/post")
-public class PostController {
+@RequestMapping("/posts")
+public class PostController extends AbstractCrudLongController<Post> {
     @Autowired
     private PostRepository postRepositoryDAO;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private Principal principal;
-
-    User currentUser = userRepository.getUserByUsername(principal.getName());
-    CerebookUser cerebookUser = currentUser.getCerebookUser();
-
-    @GetMapping("/{cerebookUser.id}/getAllByAuthor")
-    public List<Post> getAllPostsByAuthor() {
-        return postRepositoryDAO.findAllByAuthor(cerebookUser);
+    @Override
+    @GetMapping("")
+    public String getAll(Model model) {
+        return getControllerRoute() + "/getAllByAuthor";
     }
 
-    @GetMapping("/{cerebookUser.id}/getAllByCerebookUserFriendsOrByAuthor")
-    public List<Post> getAllPostsByCerebookUserFriendsOrByAuthor() {
-        return  postRepositoryDAO.findAllByAuthorOrAuthor_Friends(cerebookUser, cerebookUser.getFriends());
+    @GetMapping("/{CerebookUser.id}/getAllByAuthor")
+    public String getAllPostsByAuthor(Model model, Principal principal) {
+        model.addAttribute("allElements", postRepositoryDAO.findAllByAuthorOrderByCreatedAtDesc(getCurrentCerebookUser(principal)));
+        model.addAttribute("elementFields", getElementFields());
+        return getControllerRoute() + "/getAllByAuthor";
     }
 
+    @GetMapping("/{CerebookUser.id}/getAllByCerebookUserFriendsOrByAuthor")
+    public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, Principal principal) {
+
+        model.addAttribute("allElements", postRepositoryDAO.findAllByAuthorOrByAuthorFriends(getCurrentCerebookUser(principal)));
+        model.addAttribute("elementFields", getElementFields());
+        return getControllerRoute() + "/getAllByCerebookUserFriendsOrByAuthor";
+    }
+
+    @Override
     @PostMapping("/create")
-    public String Create(@ModelAttribute Post post) {
-        if(post.getId() != null) {
-            throw new AccessDeniedException("403 forbidden");
-        }
+    public String create(HttpServletRequest hsr, Post post) {
+        preProcessElement(post, hsr);
+        getRepository().save(post);
+
+        return "redirect:/";
+    }
+
+    @Override
+    protected JpaRepository<Post, Long> getRepository() {
+        return postRepositoryDAO;
+    }
+
+    @Override
+    protected String getControllerRoute() {
+        return "posts";
+    }
+
+    @Override
+    protected String[] getElementFields() {
+        return new String[]{"content", "video"};
+    }
+
+    @Override
+    protected void preProcessElement(Post post, HttpServletRequest hsr) {
         long millis=System.currentTimeMillis();
         Date date = new Date(millis);
         post.setCreatedAt(date);
-        post.setAuthor(currentUser.getCerebookUser());
-        postRepositoryDAO.save(post);
-
-        return "redirect:/cerebookUser";
-    }
-
-    @RequestMapping(value="/{id}/update", method = RequestMethod.PUT)
-    public void update(@PathVariable String id, @RequestBody Post post) {
-        postRepositoryDAO.save(post);
-    }
-
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id) {
-        postRepositoryDAO.deleteById(id);
+        post.setAuthor(getCurrentCerebookUser(hsr.getUserPrincipal()));
     }
 }
