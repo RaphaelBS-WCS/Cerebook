@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <body>
 <div th:fragment="postUpdate">
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST">
-        <input hidden th:field="*{id}">
+        <input hidden th:id="*{ id }">
+        <label th:for="video">Video</label>
+        <input th:field="*{ video }">
         <label th:for="content">Content</label>
         <input th:field="*{ content }">
         <input type="hidden" th:if="${ event != null && event.id != null }">
