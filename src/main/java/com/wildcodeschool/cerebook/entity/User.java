@@ -1,9 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "app_user")
@@ -33,6 +31,12 @@ public class User {
     @NotBlank(message = "Please enter your lastname.")
     @Size(min = 2, max = 155, message = "The size of your password should have more than 1 character and less than 155.")
     private String lastName;
+
+    @Email(message = "E-mail format not valid.")
+    @NotEmpty(message = "Please enter email")
+    @NotNull(message = "Please enter your lastname.")
+    @Size(min = 2, max = 155, message = "The size of your email should have more than 1 character and less than 155.")
+    private String email;
 
     private String role;
     private boolean enabled;
@@ -92,6 +96,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

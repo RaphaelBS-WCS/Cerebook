@@ -6,14 +6,14 @@ import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
 @Rollback(false)
+@ActiveProfiles("test")
 public class UserRepositoryTests {
 
     @Autowired
@@ -25,7 +25,7 @@ public class UserRepositoryTests {
     @Test
     public void testCreateUser() {
         User user = new User();
-        user.setUsername("gerz");
+        user.setUsername("gerztest");
         user.setPassword("password");
         user.setFirstName("Gersey");
         user.setLastName("Stelmach");
