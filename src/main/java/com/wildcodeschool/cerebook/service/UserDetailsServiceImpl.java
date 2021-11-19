@@ -3,11 +3,13 @@ package com.wildcodeschool.cerebook.service;
 
 import com.wildcodeschool.cerebook.entity.MyUserDetails;
 import com.wildcodeschool.cerebook.entity.User;
-import com.wildcodeschool.cerebook.respository.UserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.security.Principal;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 

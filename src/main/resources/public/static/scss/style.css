@@ -10767,6 +10767,28 @@ textarea.form-control-lg {
   margin-top: 10%;
 }
 
+.form-box {
+  border: 3px solid #050340;
+  border-radius: 15px;
+}
+.form-box label {
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+.form-box input {
+  background-color: #FBFAFA;
+}
+.form-box input:focus {
+  border: 3px solid #0F4C59;
+}
+
+.title-form {
+  font-family: "IBM Plex Sans", sans-serif;
+  letter-spacing: 10px;
+}
+
 body {
   margin: 0;
   padding: 25px;
