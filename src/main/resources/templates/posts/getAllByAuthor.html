@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
-
-
-<th:block th:fragment="post" th:each="post : ${allElements}">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title" th:text="${post.author.userName}"></h5>
-            <p class="card-text" th:text="${post.content}"></p>
-            <p class="card-text" th:text="${post.video}"></p>
+<th:block th:fragment="post">
+    <div th:each="post : ${allElements}">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${post.author.userName}"></h5>
+                <p class="card-text" th:text="${post.content}"></p>
+                <p class="card-text" th:text="${post.video}"></p>
+            </div>
+            <span th:if="${post.picture} != null and ${post.picture.isUrl}">
+                <img src="${post.picture}" alt="picture">
+            </span>
+            <span th:if="${post.picture} != null and ${post.picture.isUrl} == false">
+                <img src="@{${'/ressources/images/' + post.picture}}" alt="picture">
+            </span>
+            <form th:action="@{'/posts/{post_id}/delete'(post_id=${post.id})}" method="POST">
+                <button type="submit" name="Delete" value="Delete" class="btn-link">Delete</button>
+            </form>
+            <a th:href="@{'/posts/'+ ${post.id} + '/update'}">Update</a>
+          <!--  <form th:action="@{'/posts/{post_id}/update'(post_id=${post.id})}" method="POST">
+                <button type="submit" name="Update" value="Update" class="btn-link">Update</button>
+            </form>-->
         </div>
-        <span th:if="${post.picture} != null and ${post.picture.isUrl}">
-            <img src="${post.picture}" alt="picture">
-        </span>
-        <span th:if="${post.picture} != null and ${post.picture.isUrl} == false">
-            <img src="@{${'/ressources/images/' + post.picture}}" alt="picture">
-        </span>
     </div>
-    <form th:action="@{'/posts/{post_id}/delete'(post_id=${post.id})}" method="POST">
-        <button type="submit" name="Delete" value="Delete" class="btn-link">Delete</button>
+    <form th:action="@{'/posts/create'}" method="GET">
+        <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
     </form>
 </th:block>
 </body>

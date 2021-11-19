@@ -33,12 +33,12 @@ public class PostController extends AbstractCrudLongController<Post> {
         return getControllerRoute() + "/getAllByAuthor";
     }
 
-    @GetMapping("/{CerebookUser.id}/getAllByCerebookUserFriendsOrByAuthor")
+    @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
     public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, Principal principal) {
 
         model.addAttribute("allElements", postRepositoryDAO.findAllByAuthorOrByAuthorFriends(getCurrentCerebookUser(principal)));
         model.addAttribute("elementFields", getElementFields());
-        return getControllerRoute() + "/getAllByCerebookUserFriendsOrByAuthor";
+        return getControllerRoute() + "/getAllByAuthorOrByAuthorFriends";
     }
 
     @Override
