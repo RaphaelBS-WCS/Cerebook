@@ -29,6 +29,8 @@ public class UserRepositoryTests {
         user.setPassword("password");
         user.setFirstName("Gersey");
         user.setLastName("Stelmach");
+        user.setEmail("gerseystelmach@hotmail.com");
+        user.setRole("ROLE_USER");
 
         User savedUser = userRepository.save(user);
 
