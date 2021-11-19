@@ -5,11 +5,7 @@
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST">
         <input hidden th:field="*{id}">
         <label th:for="content">Content</label>
-        <input th:field="*{content}">
-        <label th:for="picture">Picture</label>
-        <input th:field="*{picture}">
-        <label th:for="video">Video</label>
-        <input data-th-text="*{ video }">
+        <input th:field="*{ content }">
         <input type="hidden" th:if="${ event != null && event.id != null }">
         <button type="submit" name="Update" value="Update" class="btn-link">Update</button>
     </form>
