@@ -47,7 +47,7 @@ public class PostController extends AbstractCrudLongController<Post> {
         preProcessElement(post, hsr);
         getRepository().save(post);
 
-        return "redirect:/";
+        return hsr.getRequestURI();
     }
 
     @Override
