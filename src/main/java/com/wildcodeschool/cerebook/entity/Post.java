@@ -3,6 +3,8 @@ package com.wildcodeschool.cerebook.entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Post {
@@ -11,7 +13,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date createdAt;
-    private String title;
     @Column(columnDefinition="TEXT")
     private String content;
     private String video;
@@ -45,14 +46,6 @@ public class Post {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {

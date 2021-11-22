@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+
+
+<th:block th:fragment="post" th:each="post : ${allElements}">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${post.author.userName}"></h5>
+            <p class="card-text" th:text="${post.content}"></p>
+            <p class="card-text" th:text="${post.video}"></p>
+        </div>
+        <span th:if="${post.picture} != null and ${post.picture.isUrl}">
+            <img src="${post.picture}" alt="picture">
+        </span>
+        <span th:if="${post.picture} != null and ${post.picture.isUrl} == false">
+            <img src="@{${'/ressources/images/' + post.picture}}" alt="picture">
+        </span>
+    </div>
+</th:block>
+</body>
+</html>
