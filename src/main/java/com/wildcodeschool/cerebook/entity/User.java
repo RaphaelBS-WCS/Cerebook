@@ -1,10 +1,15 @@
 package com.wildcodeschool.cerebook.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+
 import javax.validation.constraints.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "app_user")
@@ -44,6 +49,9 @@ public class User {
     private String role;
     private boolean enabled;
 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CerebookUser cerebookUser;
 
     public Long getId() {
         return id;
@@ -120,5 +128,13 @@ public class User {
                 ", role='" + role + '\'' +
                 ", enabled=" + enabled +
                 '}';
+    }
+
+    public CerebookUser getCerebookUser() {
+        return cerebookUser;
+    }
+
+    public void setCerebookUser(CerebookUser cerebookUser) {
+        this.cerebookUser = cerebookUser;
     }
 }
