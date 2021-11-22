@@ -2,6 +2,9 @@ package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "app_user")

@@ -52,6 +52,7 @@ public class RegisterController {
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
+            userRepo.save(user);
 
             return "register_success";
         }
