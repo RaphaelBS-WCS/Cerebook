@@ -54,6 +54,7 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.1</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
@@ -73,6 +74,8 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>3.0.4.RELEASE</version>
         </dependency>
+=======
+>>>>>>> a83ee8e (save)
     </dependencies>
     <build>
         <plugins>
