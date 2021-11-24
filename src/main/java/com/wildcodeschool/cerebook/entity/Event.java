@@ -1,6 +1,9 @@
 package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -10,8 +13,17 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Please enter your username.")
+    @NotNull(message = "Please enter your username.")
+    @Size(min = 3, max = 45, message = "The size of your username should be more than 2 characters and less than 45.")
     private String name;
+
+
     private Date date;
+    private Date createdAt;
+    private String backgroundPhoto;
+
 
     @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
     private List<Post> posts;
@@ -20,9 +32,9 @@ public class Event {
     private List<Picture> pictures;
 
     @ManyToOne
-    private CerebookUser creator;
+    private User creator;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private EventCategory eventCategory;
 
     @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
@@ -77,11 +89,11 @@ public class Event {
         this.pictures = pictures;
     }
 
-    public CerebookUser getCreator() {
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(CerebookUser creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 
@@ -107,5 +119,33 @@ public class Event {
 
     public void setMemberships(List<Membership> memberships) {
         this.memberships = memberships;
+    }
+
+    public String getBackgroundPhoto() {
+        return backgroundPhoto;
+    }
+
+    public void setBackgroundPhoto(String backgroundPhoto) {
+        this.backgroundPhoto = backgroundPhoto;
+    }
+
+    public String getBackgroundPhotoPath() {
+        if (backgroundPhoto == null || id == null) return null;
+
+        return "src/main/resources/public/images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+    }
+
+    public String getBackgroundPhotoShortPath() {
+        if (backgroundPhoto == null || id == null) return null;
+
+        return "images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
