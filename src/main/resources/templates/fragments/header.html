@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<body>
 <header th:fragment="top">
     <!-- Navbar -->
     <div>
@@ -64,15 +67,18 @@
             <div class="profile d-flex flex-column justify-content-center align-items-center">
                 <img src=" " class="border bg-light rounded-circle photo-profile">
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
-                    <img src="/images/logoxmen.png" class="border rounded-circle ms-4">
-                    <p class="text-light text-center my-auto me-4">X-men</p>
+                    <img th:src="${user.membership.photo} " class="ms-4">
+                    <p class="text-light text-center my-auto me-4" th:text="${user.membership.name}"></p>
                 </div>
             </div>
             <!-- Show the name of the user and the number of her friends -->
             <div class="name-friendnumb">
-                <p class="profilename"> Raven Darkholme  </p>
-                <p class="friendnumb text-secondary"> 350 friends </p>
+                <p class="profilename" th:text="${user.user.username}"></p>
+                <p class="friendnumb text-secondary" > 350 friends </p>
             </div>
         </div>
     </div>
 </header>
+
+</body>
+</html>
