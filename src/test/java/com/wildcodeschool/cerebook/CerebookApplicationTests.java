@@ -11,5 +11,4 @@ class CerebookApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
