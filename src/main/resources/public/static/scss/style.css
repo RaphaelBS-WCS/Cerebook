@@ -10814,6 +10814,7 @@ a, ul, li {
   box-shadow: none;
 }
 
+<<<<<<< HEAD
 .navbar {
   background-color: #A61723 !important;
   height: 80px;
@@ -10948,6 +10949,19 @@ a, ul, li {
   .background-profile .name-friendnumb .friendnumb {
     font-size: 12px;
   }
+=======
+.navbar-nav .nav-link {
+  color: #F2DFA7;
+}
+
+.navbar {
+  background-color: #A61723 !important;
+  height: 60px;
+}
+
+.navbar-nav .nav-link:focus {
+  color: #A61723 !important;
+>>>>>>> a83ee8e (save)
 }
 
 /*# sourceMappingURL=style.css.map */
