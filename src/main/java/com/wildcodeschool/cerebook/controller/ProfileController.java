@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -43,8 +41,18 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @Override
     protected String[] getElementFields() {
-        return new String[]{"profilImage", "background", "superPowers", "genre", "bio", "membership", "user"};
+        return new String[]{"profilImage", "background", "superPowers", "genre", "bio", "membership", "user", "birthDate"};
     }
+
+    @Override
+    @PostMapping("/{id}/update")
+    public String update(HttpServletRequest hsr, @PathVariable("id") String id, CerebookUser user) {
+        preProcessElement(user, hsr);
+        getRepository().save(user);
+
+        return "redirect:/" + getControllerRoute() + "/{id}/getById";
+    }
+
 
     public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         return Period.between(birthDate, currentDate).getYears();
