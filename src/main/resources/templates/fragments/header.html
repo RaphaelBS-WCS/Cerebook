@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<body>
 <header th:fragment="top">
     <!-- Navbar -->
     <div>
@@ -12,37 +14,6 @@
                     <ul class="navbar-nav me-auto my-2 my-lg-0 mx-auto icons" sec:authorize="isAuthenticated()">
                         <li class="nav-item d-flex align-items-center justify-content-center mx-3">
                             <a class="nav-link active" aria-current="page" href="#"><img src="/images/profile.svg" class="icon" alt="icon profile"></a>
-=======
-<!DOCTYPE HTML>
-
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link rel="stylesheet" href="/static/scss/style.css">
-    <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.esm.js">
-    <link rel="stylesheet" href="/static/bootstrap-5.0.2/js/index.umd.js">
-
-</head>
-
-<body>
-
-<header th:fragment="top">
-    <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg" >
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand pe-3">Cerebook hello</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto my-2 my-lg-0">
-
-                        <li class="nav-item text-center mx-3">
-                            <a class="nav-link active text-light" href="#"><img src="/images/friends.svg " class="text-light" alt="" width="30"></a>
->>>>>>> a83ee8e (save)
                         </li>
                         <li class="nav-item d-flex align-items-center justify-content-center mx-3">
                             <a class="nav-link active" href="#"><img class="icon" src="/images/home.svg" alt="icon homepage"></a>
@@ -54,7 +25,6 @@
                             <a class="nav-link" href="#"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
                         </li>
                     </ul>
-<<<<<<< HEAD
                     <div class="d-flex justify-content-center align-items-center" sec:authorize="isAuthenticated()">
                         <div class="navbar-nav">
                             <div class="nav-item dropdown">
@@ -80,29 +50,6 @@
                                     </li>
                                 </ul>
                             </div>
-=======
-                    <div class="d-flex justify-content-lg-end justify-content-center">
-                        <div class="dropdown btn fs-5">
-                            <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Bonjour <span class="text-pink">Lala</span>
-                            </a>
-
-                            <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
-                                <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Edit mon profile</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-person-lines-fill text-light"></i> &nbsp; Gérer les événements </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item text-wrap bg-secondary text-light fw-bold" href="#">
-                                        <i class="bi bi-power text-light"></i>&nbsp; Déconnexion
-                                    </a>
-                                </li>
-                            </ul>
->>>>>>> a83ee8e (save)
                         </div>
                     </div>
                 </div>
@@ -120,15 +67,18 @@
             <div class="profile d-flex flex-column justify-content-center align-items-center">
                 <img src=" " class="border bg-light rounded-circle photo-profile">
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
-                    <img src="/images/logoxmen.png" class="border rounded-circle ms-4">
-                    <p class="text-light text-center my-auto me-4">X-men</p>
+                    <img th:src="${user.membership.photo} " class="ms-4">
+                    <p class="text-light text-center my-auto me-4" th:text="${user.membership.name}"></p>
                 </div>
             </div>
             <!-- Show the name of the user and the number of her friends -->
             <div class="name-friendnumb">
-                <p class="profilename"> Raven Darkholme  </p>
-                <p class="friendnumb text-secondary"> 350 friends </p>
+                <p class="profilename" th:text="${user.user.username}"></p>
+                <p class="friendnumb text-secondary" > 350 friends </p>
             </div>
         </div>
     </div>
 </header>
+
+</body>
+</html>
