@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class CerebookUser {
     private Long id;
     private String profilImage;
     private String background;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String superPowers;
     private String genre;
     @Column(columnDefinition="TEXT")
@@ -37,6 +38,14 @@ public class CerebookUser {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public CerebookUser() {
     }
@@ -63,14 +72,6 @@ public class CerebookUser {
 
     public void setBackground(String background) {
         this.background = background;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
     }
 
     public String getSuperPowers() {
