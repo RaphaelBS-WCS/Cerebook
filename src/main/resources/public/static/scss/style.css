@@ -6,6 +6,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Sans:wght@400;700&family=Inter:wght@500;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Sans:wght@400;700&family=Inter:wght@500;600;800&display=swap");
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -633,15 +634,15 @@ progress {
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) * -.5);
-  margin-left: calc(var(--bs-gutter-x) * -.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
 .row > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
 }
 
@@ -6100,15 +6101,15 @@ textarea.form-control-lg {
 }
 
 .ratio-4x3 {
-  --bs-aspect-ratio: calc(3 / 4 * 100%);
+  --bs-aspect-ratio: 75%;
 }
 
 .ratio-16x9 {
-  --bs-aspect-ratio: calc(9 / 16 * 100%);
+  --bs-aspect-ratio: 56.25%;
 }
 
 .ratio-21x9 {
-  --bs-aspect-ratio: calc(9 / 21 * 100%);
+  --bs-aspect-ratio: 42.8571428571%;
 }
 
 .fixed-top {
@@ -10789,6 +10790,28 @@ textarea.form-control-lg {
   letter-spacing: 10px;
 }
 
+/* Fix IE Only */
+.profileUpdate {
+  margin-top: 100px;
+  border-radius: 20px;
+}
+.profileUpdate h1, .profileUpdate .h1 {
+  font-size: 32px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .profileUpdate h1, .profileUpdate .h1 {
+    font-size: 20px;
+  }
+}
+.profileUpdate h2, .profileUpdate .h2 {
+  font-size: 26px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .profileUpdate h2, .profileUpdate .h2 {
+    font-size: 16px;
+  }
+}
+
 body {
   margin: 0;
   padding: 25px;
@@ -10814,7 +10837,6 @@ a, ul, li {
   box-shadow: none;
 }
 
-<<<<<<< HEAD
 .navbar {
   background-color: #A61723 !important;
   height: 80px;
@@ -10949,19 +10971,6 @@ a, ul, li {
   .background-profile .name-friendnumb .friendnumb {
     font-size: 12px;
   }
-=======
-.navbar-nav .nav-link {
-  color: #F2DFA7;
-}
-
-.navbar {
-  background-color: #A61723 !important;
-  height: 60px;
-}
-
-.navbar-nav .nav-link:focus {
-  color: #A61723 !important;
->>>>>>> a83ee8e (save)
 }
 
 /*# sourceMappingURL=style.css.map */
