@@ -1,5 +1,6 @@
 package com.wildcodeschool.cerebook.config;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
@@ -13,7 +14,8 @@ public class ThymeleafConfig {
     public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec) {
         final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
-        templateEngine.addDialect(sec); // Enable use of "sec"
+    /*    templateEngine.addDialect(sec); // Enable use of "sec"*/
+        templateEngine.addDialect(new LayoutDialect());
         return templateEngine;
     }
 }
