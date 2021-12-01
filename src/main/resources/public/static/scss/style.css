@@ -633,15 +633,15 @@ progress {
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) * -0.5);
-  margin-left: calc(var(--bs-gutter-x) * -0.5);
+  margin-right: calc(var(--bs-gutter-x) * -.5);
+  margin-left: calc(var(--bs-gutter-x) * -.5);
 }
 .row > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  padding-right: calc(var(--bs-gutter-x) * .5);
+  padding-left: calc(var(--bs-gutter-x) * .5);
   margin-top: var(--bs-gutter-y);
 }
 
@@ -6100,15 +6100,15 @@ textarea.form-control-lg {
 }
 
 .ratio-4x3 {
-  --bs-aspect-ratio: 75%;
+  --bs-aspect-ratio: calc(3 / 4 * 100%);
 }
 
 .ratio-16x9 {
-  --bs-aspect-ratio: 56.25%;
+  --bs-aspect-ratio: calc(9 / 16 * 100%);
 }
 
 .ratio-21x9 {
-  --bs-aspect-ratio: 42.8571428571%;
+  --bs-aspect-ratio: calc(9 / 21 * 100%);
 }
 
 .fixed-top {
@@ -10748,6 +10748,78 @@ textarea.form-control-lg {
   }
 }
 /* Fix IE Only */
+
+.signInTitle {
+  letter-spacing: 10px;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 40px;
+  color: #050340;
+}
+
+.slogan {
+  color: #050340;
+}
+
+.descriptionCerebook p {
+  font-size: 24px;
+}
+
+.homeContainer {
+  margin-top: 10%;
+}
+
+.form-box {
+  border: 3px solid #050340;
+  border-radius: 15px;
+}
+.form-box label {
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+.form-box input {
+  background-color: #FBFAFA;
+}
+.form-box input:focus {
+  border: 3px solid #0F4C59;
+}
+
+.title-form {
+  font-family: "IBM Plex Sans", sans-serif;
+  letter-spacing: 10px;
+}
+
+.headingEvents {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #050340;
+}
+
+.btn-primary {
+  background-color: #A61723;
+  border: 1px solid #A61723;
+}
+.btn-primary:hover {
+  background-color: #A61723;
+  border: 1px solid #A61723;
+  filter: brightness(150%);
+}
+
+.btn-secondary {
+  background-color: #050340;
+}
+
+.card-body {
+  background-color: #FBFAFA;
+  border: 1px solid #FBFAFA;
+}
+
+.badgeCategory {
+  position: absolute;
+  left: 5%;
+  background-color: #A61723;
+}
+
 body {
   margin: 0;
   padding: 25px;

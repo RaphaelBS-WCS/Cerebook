@@ -14,8 +14,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "app_user")
 public class User {
+
     @Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
