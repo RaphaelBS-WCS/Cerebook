@@ -21,7 +21,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/403").setViewName("403");
     }
 
-
     /*@Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
