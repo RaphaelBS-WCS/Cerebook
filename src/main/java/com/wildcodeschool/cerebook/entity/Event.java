@@ -157,7 +157,7 @@ public class Event {
     public String getBackgroundPhotoPath() {
         if (backgroundPhoto == null || id == null) return null;
 
-        return "src/main/resources/public/images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+        return "src/main/resources/public/images/WebContent/events-uploaded-files/" + id + "/" + backgroundPhoto;
     }
 
     public String getBackgroundPhotoShortPath() {

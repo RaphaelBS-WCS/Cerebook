@@ -5,7 +5,7 @@
     <div th:each="post : ${allElements}">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title" th:text="${post.author.userName}"></h5>
+                <h5 class="card-title" th:text="${post.author.getUserName()}"></h5>
                 <p class="card-text" th:text="${post.content}"></p>
                 <p class="card-text" th:text="${post.video}"></p>
             </div>

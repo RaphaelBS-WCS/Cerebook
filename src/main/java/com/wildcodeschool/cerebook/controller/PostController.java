@@ -34,10 +34,7 @@ public class PostController extends AbstractCrudLongController<Post> {
     }
 
     @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
-    public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, Principal principal) {
-
-        model.addAttribute("allElements", postRepositoryDAO.findAllByAuthorOrByAuthorFriends(getCurrentCerebookUser(principal)));
-        model.addAttribute("elementFields", getElementFields());
+    public String getAllPostsByCerebookUserFriendsOrByAuthor(@PathVariable("CerebookUser.id") String id) {
         return getControllerRoute() + "/getAllByAuthorOrByAuthorFriends";
     }
 
@@ -66,10 +63,16 @@ public class PostController extends AbstractCrudLongController<Post> {
     }
 
     @Override
+    protected Class<Post> getElementClass() {
+        return Post.class;
+    }
+
+    @Override
     protected void preProcessElement(Post post, HttpServletRequest hsr) {
         long millis=System.currentTimeMillis();
         Date date = new Date(millis);
         post.setCreatedAt(date);
         post.setAuthor(getCurrentCerebookUser(hsr.getUserPrincipal()));
     }
+
 }

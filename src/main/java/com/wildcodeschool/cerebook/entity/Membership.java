@@ -10,15 +10,6 @@ public class Membership {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     private String photo;
 
     @OneToMany(mappedBy = "membership", cascade = CascadeType.REFRESH)
@@ -63,5 +54,13 @@ public class Membership {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

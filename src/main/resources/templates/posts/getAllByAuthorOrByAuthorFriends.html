@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
 
-
-<th:block th:fragment="post" th:each="post : ${allElements}">
-    <div class="card">
+<h1>Feed</h1>
+<div id="cards"></div>
+<!--    <div class="card">
         <div class="card-body">
             <h5 class="card-title" th:text="${post.author.userName}"></h5>
             <p class="card-text" th:text="${post.content}"></p>
@@ -15,7 +15,29 @@
         <span th:if="${post.picture} != null and ${post.picture.isUrl} == false">
             <img src="@{${'/ressources/images/' + post.picture}}" alt="picture">
         </span>
-    </div>
+    </div>-->
 </th:block>
+<script>
+    function addPost(post) {
+        console.log(post);
+        document.getElementById("cards").innerHTML +=
+             `<div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">${post.author.user.userName}</h5>
+                    <p className="card-text">${post.content}</p>
+                    <p className="card-text">${post.video}</p>
+                </div>
+                ${(post.picture == null) ? "" : (post.picture.isUrl ? '<img src="${post.picture}" alt="picture">' :
+                 '<img src="/ressources/images/' + post.picture + '" alt="picture">')}
+
+
+             </div>`;
+    }
+</script>
+<script th:inline="javascript">
+    let posts = /*[[${allElements}]]*/ {};
+
+    posts.forEach(addPost);
+</script>
 </body>
 </html>
