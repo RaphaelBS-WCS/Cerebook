@@ -1,0 +1,30 @@
+.headingEvents {
+  font-family: $font_ibm;
+  color: $secondary;
+}
+
+.btn-primary {
+  background-color: $primary;
+  border: 1px solid $primary;
+  &:hover {
+    background-color: $primary;
+    border: 1px solid $primary;
+    filter: brightness(150%);
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary;
+
+}
+
+.card-body  {
+  background-color: $hover-light;
+  border: 1px solid $hover-light;
+}
+
+.badgeCategory {
+  position: absolute;
+   left: 5%;
+  background-color: $primary;
+}

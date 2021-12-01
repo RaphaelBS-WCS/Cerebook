@@ -1,7 +1,14 @@
 package com.wildcodeschool.cerebook.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -10,22 +17,35 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private Date date;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @NotBlank(message = "Please enter your username.")
+    @NotNull(message = "Please enter your username.")
+    @Size(min = 3, max = 45, message = "The size of your username should be more than 2 characters and less than 45.")
+    private String name;
+
+
+    private Date date;
+    private Date createdAt;
+    private String backgroundPhoto;
+
+    @NotBlank(message = "Please enter a description to this event.")
+    @NotNull(message = "Please enter a description to this event.")
+    @Size(min = 3, max = 500, message = "The size of your username should be more than 3 characters and less than 500.")
+    private String description;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
     @ManyToOne
-    private CerebookUser creator;
+    private User creator;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private EventCategory eventCategory;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Participation> participants;
 
     @ManyToMany
@@ -57,6 +77,15 @@ public class Event {
         return date;
     }
 
+    public String getFormatedDate() {
+        String dateString = date.toString();
+        String pattern = "dd/MM/yyyy";
+        DateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        return dateFormat.format(date);
+
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -77,11 +106,19 @@ public class Event {
         this.pictures = pictures;
     }
 
-    public CerebookUser getCreator() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(CerebookUser creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 
@@ -107,5 +144,33 @@ public class Event {
 
     public void setMemberships(List<Membership> memberships) {
         this.memberships = memberships;
+    }
+
+    public String getBackgroundPhoto() {
+        return backgroundPhoto;
+    }
+
+    public void setBackgroundPhoto(String backgroundPhoto) {
+        this.backgroundPhoto = backgroundPhoto;
+    }
+
+    public String getBackgroundPhotoPath() {
+        if (backgroundPhoto == null || id == null) return null;
+
+        return "src/main/resources/public/images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+    }
+
+    public String getBackgroundPhotoShortPath() {
+        if (backgroundPhoto == null || id == null) return null;
+
+        return "/images/WebContent/events-uploaded-files/" + id + "/" + backgroundPhoto;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

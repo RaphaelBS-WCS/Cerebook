@@ -1,6 +1,11 @@
 @import "../bootstrap-5.0.2/scss/bootstrap.scss";
 @import "variables.scss";
 
+@import "home.scss";
+@import "registration.scss";
+@import "events.scss";
+
+
 body {
   margin: 0;
   padding: 25px;
