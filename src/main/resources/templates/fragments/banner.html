@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Cerebook</title>
@@ -10,20 +10,20 @@
 
 <div th:fragment="banner">
     <!-- Profile Background Image -->
-    <div class="background-profile" sec:authorize="isAuthenticated()">
+  <div class="background-profile" sec:authorize="isAuthenticated()">
         <div class="background">
-            <img th:src="${cerebookUser.background}" alt="x men">
+            <img th:if="${cerebookUser.background}!= null"  th:src="${cerebookUser.background}" alt="x men">
         </div>
-        <!-- Upload profile image for user -->
+        &lt;!&ndash; Upload profile image for user &ndash;&gt;
         <div class="d-flex justify-content-start">
             <div class="profile d-flex flex-column justify-content-center align-items-center">
-                <img th:src="${cerebookUser.profilImage}" class="border bg-light rounded-circle photo-profile">
+                <img th:if="${cerebookUser.profilImage} != null" th:src="${cerebookUser.profilImage}!= null"  class="border bg-light rounded-circle photo-profile">
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
-                    <img th:src="${cerebookUser.membership.photo}" class="ms-4">
-                    <p class="text-light text-center my-auto me-4" th:text="${cerebookUser.membership.name}"></p>
+       <!--             <img th:if="${cerebookUser.membership.photo != null}" th:src="${cerebookUser.membership.photo}" class="ms-4">-->
+                 <!--   <p class="text-light text-center my-auto me-4" th:text="${cerebookUser.membership.name}!= null" ></p>-->
                 </div>
             </div>
-            <!-- Show the name of the user and the number of her friends -->
+            &lt;!&ndash; Show the name of the user and the number of her friends &ndash;&gt;
             <div class="name-friendnumb">
                 <p class="profilename" th:text="${cerebookUser.user.firstName} + ' ' + ${cerebookUser.user.lastName}"></p>
                 <p class="friendnumb text-secondary" > 350 friends </p>

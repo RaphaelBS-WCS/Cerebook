@@ -18,7 +18,7 @@ public class CerebookUser {
     private String genre;
     @Column(columnDefinition="TEXT")
     private String bio;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser")
     private User user;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
