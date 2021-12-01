@@ -5,6 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -24,20 +28,24 @@ public class Event {
     private Date createdAt;
     private String backgroundPhoto;
 
+    @NotBlank(message = "Please enter a description to this event.")
+    @NotNull(message = "Please enter a description to this event.")
+    @Size(min = 3, max = 500, message = "The size of your username should be more than 3 characters and less than 500.")
+    private String description;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Picture> pictures;
 
     @ManyToOne
     private User creator;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private EventCategory eventCategory;
 
-    @OneToMany(mappedBy =  "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Participation> participants;
 
     @ManyToMany
@@ -69,6 +77,15 @@ public class Event {
         return date;
     }
 
+    public String getFormatedDate() {
+        String dateString = date.toString();
+        String pattern = "dd/MM/yyyy";
+        DateFormat dateFormat = new SimpleDateFormat(pattern);
+
+        return dateFormat.format(date);
+
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
@@ -87,6 +104,14 @@ public class Event {
 
     public void setPictures(List<Picture> pictures) {
         this.pictures = pictures;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getCreator() {
@@ -138,7 +163,7 @@ public class Event {
     public String getBackgroundPhotoShortPath() {
         if (backgroundPhoto == null || id == null) return null;
 
-        return "images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+        return "/images/WebContent/events-uploaded-files/" + id + "/" + backgroundPhoto;
     }
 
     public Date getCreatedAt() {

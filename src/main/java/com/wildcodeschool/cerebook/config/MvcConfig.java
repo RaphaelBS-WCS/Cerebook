@@ -21,7 +21,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("src/main/resources/public/images/WebContent/events-uploaded-files/", registry);
     }
-
+/* To expose the directory containing the uploaded photos so the clients (web browsers) can access them. */
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
         Path uploadDir = Paths.get(dirName);
         String uploadPath = uploadDir.toFile().getAbsolutePath();

@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Controller
@@ -43,7 +44,7 @@ public class EventController {
     EventCategoryRepository eventCategoryRepository;
 
 
-    @GetMapping("/")
+    @GetMapping("")
     public String showEvents(@ModelAttribute Event event, Model model, Principal principal) {
 
         String username = principal.getName();
@@ -62,20 +63,27 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public String saveEvent(@Valid @ModelAttribute Event event, BindingResult bindingResult, Principal principal, @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException {
+    public String saveEvent(@Valid @ModelAttribute Event event, Model model, BindingResult bindingResult, Principal principal, @RequestParam("date") Date eventDate, @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException {
 
+        long millis = System.currentTimeMillis();
+        Date localDate = new Date(millis);
+
+        model.addAttribute("eventCategories", eventCategoryRepository.getAllEventCategories());
+
+        if (eventDate.before(localDate) ) {
+            bindingResult.rejectValue("date", "error.date", "The event date cannot be before the current date.");
+        }
 
         if (bindingResult.hasErrors()) {
             return "events/create";
         } else {
-            long millis = System.currentTimeMillis();
-            Date localDate = new Date(millis);
+
             event.setCreatedAt(localDate);
 
             String username = principal.getName();
             User currentUser = userRepository.getUserByUsername(username);
             event.setCreator(currentUser);
-
+       /*     Getting the name of the uploaded file and persisting it to the database */
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
 
             event.setBackgroundPhoto(fileName);
@@ -86,7 +94,7 @@ public class EventController {
 
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-            return "redirect:/";
+            return "redirect:/events";
         }
 
     }

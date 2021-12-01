@@ -41,7 +41,15 @@
                         <label class="form-label mt-3" for="date">When?</label>
                         <input type="date" th:field="*{date}" class="form-control" id="date" required/>
                         <div class="alert alert-warning" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
-                            Email error
+                            Date error
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="form-label mt-3" for="date">Few words about this event</label>
+                        <input type="text" th:field="*{description}" class="form-control" id="description" required/>
+                        <div class="alert alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                            Description error
                         </div>
                     </div>
 

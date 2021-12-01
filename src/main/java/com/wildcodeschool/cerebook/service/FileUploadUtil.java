@@ -6,6 +6,8 @@ import java.nio.file.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+/* This utility class is responsible for creating the directory if not exists,
+and save the uploaded file from MultipartFile object to a file in the file system.  */
 @Service
 public class FileUploadUtil {
 

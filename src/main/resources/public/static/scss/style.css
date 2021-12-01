@@ -10789,6 +10789,36 @@ textarea.form-control-lg {
   letter-spacing: 10px;
 }
 
+.headingEvents {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: #050340;
+}
+
+.btn-primary {
+  background-color: #A61723;
+  border: 1px solid #A61723;
+}
+.btn-primary:hover {
+  background-color: #A61723;
+  border: 1px solid #A61723;
+  filter: brightness(150%);
+}
+
+.btn-secondary {
+  background-color: #050340;
+}
+
+.card-body {
+  background-color: #FBFAFA;
+  border: 1px solid #FBFAFA;
+}
+
+.badgeCategory {
+  position: absolute;
+  left: 5%;
+  background-color: #A61723;
+}
+
 body {
   margin: 0;
   padding: 25px;
