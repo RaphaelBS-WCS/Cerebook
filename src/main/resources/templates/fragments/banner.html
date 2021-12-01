@@ -9,38 +9,29 @@
 </head>
 <body>
 
-
-</body>
-</html>
-
-
-
-
-<!--
-<header th:fragment="header">
-
-    &lt;!&ndash; Profile Background Image &ndash;&gt;
+<div th:fragment="banner">
+    <!-- Profile Background Image -->
     <div class="background-profile" sec:authorize="isAuthenticated()">
         <div class="background">
-            <img src="/images/background.jpg" alt="x men">
+            <img th:src="${cerebookUser.background}" alt="x men">
         </div>
-        &lt;!&ndash; Upload profile image for user &ndash;&gt;
+        <!-- Upload profile image for user -->
         <div class="d-flex justify-content-start">
             <div class="profile d-flex flex-column justify-content-center align-items-center">
-                <img src=" " class="border bg-light rounded-circle photo-profile">
+                <img th:src="${cerebookUser.profilImage}" class="border bg-light rounded-circle photo-profile">
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
-                    <img th:src="${user.membership.photo} " class="ms-4">
-                    <p class="text-light text-center my-auto me-4" th:text="${user.membership.name}"></p>
+                    <img th:src="${cerebookUser.membership.photo}" class="ms-4">
+                    <p class="text-light text-center my-auto me-4" th:text="${cerebookUser.membership.name}"></p>
                 </div>
             </div>
-            &lt;!&ndash; Show the name of the user and the number of her friends &ndash;&gt;
+            <!-- Show the name of the user and the number of her friends -->
             <div class="name-friendnumb">
-                <p class="profilename" th:text="${user.user.username}"></p>
+                <p class="profilename" th:text="${cerebookUser.user.firstName} + ' ' + ${cerebookUser.user.lastName}"></p>
                 <p class="friendnumb text-secondary" > 350 friends </p>
             </div>
         </div>
     </div>
-</header>
+</div>
 
 </body>
-</html>-->
+</html>

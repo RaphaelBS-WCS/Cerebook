@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
 
+<body>
+    <div layout:fragment="content">
+         <!--Banner (background image and profile photo)-->
+        <div th:replace="fragments/banner :: banner">
+        </div>
+    </div>
 </body>
-</html>
