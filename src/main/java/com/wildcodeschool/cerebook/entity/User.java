@@ -1,5 +1,6 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -49,7 +50,7 @@ public class User {
     private String role;
     private boolean enabled;
 
-
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     private CerebookUser cerebookUser;
 

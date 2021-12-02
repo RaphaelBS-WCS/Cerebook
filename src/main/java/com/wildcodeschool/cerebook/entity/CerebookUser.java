@@ -1,5 +1,8 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -18,15 +21,20 @@ public class CerebookUser {
     private String genre;
     @Column(columnDefinition="TEXT")
     private String bio;
+
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
+    @JsonManagedReference
     @ManyToOne
     private Membership membership;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<CerebookUser> friends;
 

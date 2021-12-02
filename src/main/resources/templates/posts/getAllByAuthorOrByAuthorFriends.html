@@ -17,27 +17,44 @@
         </span>
     </div>-->
 </th:block>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 <script>
     function addPost(post) {
         console.log(post);
+
         document.getElementById("cards").innerHTML +=
              `<div className="card">
                 <div className="card-body">
-                    <h5 className="card-title">${post.author.user.userName}</h5>
+                    <h5 className="card-title">${post.author.user.username}</h5>
                     <p className="card-text">${post.content}</p>
                     <p className="card-text">${post.video}</p>
                 </div>
                 ${(post.picture == null) ? "" : (post.picture.isUrl ? '<img src="${post.picture}" alt="picture">' :
                  '<img src="/ressources/images/' + post.picture + '" alt="picture">')}
-
-
              </div>`;
     }
+
 </script>
 <script th:inline="javascript">
-    let posts = /*[[${allElements}]]*/ {};
-
-    posts.forEach(addPost);
+    window.onload = function() {
+        $.ajax( {
+            type: "GET",
+            url: "/api/posts/1/getAllByAuthorOrByAuthorFriends",
+            contentType: 'application/json; charset=utf-8',
+            //data: this.response,
+            dataType: 'json',
+            success: function (data) {
+                alert('data is' + data)
+                data.forEach(addPost)
+            },
+            error: function () {
+                alert("INSIDE FAILURE");
+            }
+        });
+    };
+/*    let posts = /!*[[${allElements}]]*!/ {};
+        posts.foreach(addpost);
+    */
 </script>
 </body>
 </html>

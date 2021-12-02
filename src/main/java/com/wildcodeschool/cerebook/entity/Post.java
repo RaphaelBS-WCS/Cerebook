@@ -1,5 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Post {
     private String content;
     private String video;
 
+    @JsonManagedReference
     @ManyToOne
     private CerebookUser author;
 

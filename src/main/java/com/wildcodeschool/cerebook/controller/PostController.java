@@ -1,12 +1,16 @@
 package com.wildcodeschool.cerebook.controller;
 
+import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.Post;
+import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -19,6 +23,9 @@ import java.sql.Date;
 public class PostController extends AbstractCrudLongController<Post> {
     @Autowired
     private PostRepository postRepositoryDAO;
+
+    @Autowired
+    private CerebookUserRepository cerebookUserRepository;
 
     @Override
     @GetMapping("")
@@ -34,7 +41,7 @@ public class PostController extends AbstractCrudLongController<Post> {
     }
 
     @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
-    public String getAllPostsByCerebookUserFriendsOrByAuthor(@PathVariable("CerebookUser.id") String id) {
+    public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, @PathVariable("CerebookUser.id") String id) {
         return getControllerRoute() + "/getAllByAuthorOrByAuthorFriends";
     }
 

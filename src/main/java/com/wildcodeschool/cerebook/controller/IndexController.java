@@ -49,4 +49,9 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     protected String[] getElementFields() {
         return new String[]{"profilImage", "background", "superPowers", "genre", "bio", "membership", "user", "birthDate"};
     }
+
+    @Override
+    protected Class<CerebookUser> getElementClass() {
+        return null;
+    }
 }
