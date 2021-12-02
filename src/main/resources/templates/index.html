@@ -3,8 +3,19 @@
       layout:decorate="~{layout.html}">
 <body>
     <div layout:fragment="content">
-         <!--Banner (background image and profile photo)-->
+         <!-- Banner (background image and profile photo)-->
         <div th:replace="fragments/banner :: banner">
+        </div>
+
+        <!-- Main section -->
+        <div class="container">
+            <!-- Section aboutMe: show the basic infos of the user -->
+            <div th:replace="profiles/getById :: aboutMe">
+
+            </div>
+            <!-- Section Post + Twitter -->
+
         </div>
     </div>
 </body>
+

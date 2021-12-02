@@ -28,6 +28,7 @@
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
             <!--        <img th:if="${cerebookUser.membership.photo}!= null" th:src="${cerebookUser.membership.photo}"
                          class="ms-4">-->
+
                     <p class="text-light text-center my-auto me-4" th:if="${cerebookUser.membership.name} != null"
                        th:text="${cerebookUser.membership.name}"></p>
                     <p class="text-light text-center my-auto me-4" th:unless="${cerebookUser.membership.name} != null"
