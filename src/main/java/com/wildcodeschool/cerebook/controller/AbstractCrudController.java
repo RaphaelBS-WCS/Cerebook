@@ -20,6 +20,7 @@ public abstract class AbstractCrudController<E, EK> {
     protected abstract String getControllerRoute();
     protected abstract EK parseId(String id);
     protected abstract String[] getElementFields();
+    protected abstract Class<E> getElementClass();
     // </editor-fold>
 
     // <editor-fold desc="Route methods">
