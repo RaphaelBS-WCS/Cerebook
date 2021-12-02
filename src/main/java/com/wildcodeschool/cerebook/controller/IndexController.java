@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -19,9 +21,13 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     private CerebookUserRepository cerebookUserRepository;
 
     @GetMapping("/")
-    public String index(Model model, Principal principal) {
+    public String index(Model model, Principal principal, HttpServletResponse response) throws IOException {
+        try {
+            model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
+        } catch (Exception e) {
+            response.sendRedirect("/login");
+        }
 
-        model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
         model.addAttribute("cerebookUserFields", getElementFields());
    /*     // envoyer age
         model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
