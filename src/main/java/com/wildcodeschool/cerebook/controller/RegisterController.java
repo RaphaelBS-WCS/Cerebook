@@ -1,5 +1,6 @@
 package com.wildcodeschool.cerebook.controller;
 
+import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import com.wildcodeschool.cerebook.service.UserDetailsServiceImpl;
@@ -52,6 +53,7 @@ public class RegisterController {
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
+            user.setCerebookUser(new CerebookUser());
             userRepo.save(user);
 
             return "register_success";

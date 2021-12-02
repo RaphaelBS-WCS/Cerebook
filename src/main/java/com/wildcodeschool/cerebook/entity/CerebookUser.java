@@ -13,18 +13,19 @@ public class CerebookUser {
     private Long id;
     private String profilImage;
     private String background;
+    @Column(nullable = true)
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
     @Column(columnDefinition="TEXT")
     private String bio;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser" )
     private User user;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
