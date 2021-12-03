@@ -52,7 +52,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
         preProcessElement(cerebookUser, hsr);
         getRepository().save(cerebookUser);
 
-        return "redirect:/" + "index";
+        return "redirect:/";
     }
 
     // creation de la methode pour calculer age
