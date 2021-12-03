@@ -59,13 +59,4 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         return Period.between(birthDate, currentDate).getYears();
     }
-
-    @Override
-    @PostMapping("/{id}/update")
-    public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
-        preProcessElement(cerebookUser, hsr);
-        getRepository().save(cerebookUser);
-
-        return "redirect:/";
-    }
 }
