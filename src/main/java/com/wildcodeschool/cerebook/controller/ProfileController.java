@@ -60,3 +60,4 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
         return Period.between(birthDate, currentDate).getYears();
     }
 }
+
