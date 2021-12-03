@@ -46,6 +46,15 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
         return new String[]{"profilImage", "background", "superPowers", "genre", "bio", "membership", "user"};
     }
 
+    @Override
+    @PostMapping("/{id}/update")
+    public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
+        preProcessElement(cerebookUser, hsr);
+        getRepository().save(cerebookUser);
+
+        return "redirect:/" + "index";
+    }
+
     // creation de la methode pour calculer age
     public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         return Period.between(birthDate, currentDate).getYears();
