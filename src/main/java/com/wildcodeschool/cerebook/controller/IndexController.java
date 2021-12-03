@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpServletRequest;
->>>>>>> f3c0bcb (resolu conflict)
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
@@ -59,9 +56,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     protected String getControllerRoute() {
         return "profiles";
     }
-
-
-
 
     @Override
     protected String[] getElementFields() {
