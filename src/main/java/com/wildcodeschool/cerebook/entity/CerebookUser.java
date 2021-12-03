@@ -13,7 +13,6 @@ public class CerebookUser {
     private Long id;
     private String profilImage;
     private String background;
-    @Column(nullable = true)
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
