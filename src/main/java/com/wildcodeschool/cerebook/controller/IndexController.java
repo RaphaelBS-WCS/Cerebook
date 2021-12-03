@@ -30,8 +30,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
             response.sendRedirect("/login");
         }
         model.addAttribute("cerebookUserFields", getElementFields());
-        // envoyer age
-        model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
 
         return "index";
     }
@@ -58,10 +56,8 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         return "profiles";
     }
 
-    @PostMapping("/update")
-    public String update(HttpServletRequest hsr) {
-        return "redirect:/";
-    }
+
+
 
     @Override
     protected String[] getElementFields() {

@@ -9,7 +9,7 @@
 <body>
 <div th:fragment="aboutMe">
     <p class="card-text" th:text="'NOM : ' + ${cerebookUser.user.firstName} + ' ' + ${cerebookUser.user.lastName}"></p>
-    <p class="card-text" th:text="'AGE : ' + ${date}"></p>
+
     <p class="card-text" th:text="'GENRE : ' + ${cerebookUser.genre}"></p>
     <p class="card-text" th:text="'SUPERPOWERS : ' + ${cerebookUser.superPowers}"></p>
     <p class="card-text" th:text="'BIO :' + ${cerebookUser.bio}"></p>
