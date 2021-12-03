@@ -15,25 +15,21 @@
         </div>
 
         <!-- Main section -->
-        <div class="container">
-            <div class="row">
+        <div class="container" id="profile">
+            <section class="row">
                 <!-- Section aboutMe: show the basic infos of the user -->
-                <div class="col col-md-5" th:replace="profiles/getById :: aboutMe">
+                <div class="col-lg-5" th:replace="profiles/getById :: aboutMe">
+
                 </div>
-                <!-- Section Post + Twitter starts from here -->
-                <div class="col col-md-5" th:replace="">
+                <div class="col-lg-1 my-4 my-md-0">
                 </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div></div>
-            <!-- Section aboutMe: show the basic infos of the user -->
-            <div th:replace="profiles/getById :: aboutMe">
-
-            </div>
-            <!-- Section Post + Twitter -->
-
+                <!-- Section Post + Twitter starts from here:
+                 include a fragment of section Post inside this div (following line 21)
+                 -->
+                <div class="col-lg-6 border border-3 border-dark">
+dfssdfgdg
+                </div>
+            </section>
         </div>
     </div>
     <script src="https://kit.fontawesome.com/661d52523c.js" crossorigin="anonymous"></script>

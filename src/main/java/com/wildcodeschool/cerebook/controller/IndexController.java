@@ -26,11 +26,13 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     public String index(Model model, Principal principal, HttpServletResponse response) throws IOException {
         try {
             model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
+            // envoyer age
+            model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
+            model.addAttribute("cerebookUserFields", getElementFields());
+
         } catch (Exception e) {
             response.sendRedirect("/login");
         }
-
-        model.addAttribute("cerebookUserFields", getElementFields());
 
         return "index";
     }
@@ -67,3 +69,4 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         return Period.between(birthDate, currentDate).getYears();
     }
 }
+
