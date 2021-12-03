@@ -26,6 +26,7 @@ public class Event {
 
     private Date date;
     private Date createdAt;
+    private Date updatedAt;
     private String backgroundPhoto;
 
     @NotBlank(message = "Please enter a description to this event.")
@@ -172,5 +173,13 @@ public class Event {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
