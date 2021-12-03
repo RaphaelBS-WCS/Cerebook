@@ -69,4 +69,3 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         return Period.between(birthDate, currentDate).getYears();
     }
 }
-
