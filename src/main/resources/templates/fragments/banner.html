@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
@@ -26,8 +26,8 @@
                      th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}"
                      class="border bg-light rounded-circle photo-profile">
                 <div class="badge d-flex flex-row justify-content-around align-items-center">
-            <!--        <img th:if="${cerebookUser.membership.photo}!= null" th:src="${cerebookUser.membership.photo}"
-                         class="ms-4">-->
+                    <!--        <img th:if="${cerebookUser.membership.photo}!= null" th:src="${cerebookUser.membership.photo}"
+                                 class="ms-4">-->
                     <p class="text-light text-center my-auto me-4" th:if="${cerebookUser.membership.name} != null"
                        th:text="${cerebookUser.membership.name}"></p>
                     <p class="text-light text-center my-auto me-4" th:unless="${cerebookUser.membership.name} != null"

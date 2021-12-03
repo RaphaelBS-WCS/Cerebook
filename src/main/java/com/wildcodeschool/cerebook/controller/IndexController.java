@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Controller
 public class IndexController extends AbstractCrudLongController<CerebookUser> {
@@ -27,13 +29,16 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         } catch (Exception e) {
             response.sendRedirect("/login");
         }
-
         model.addAttribute("cerebookUserFields", getElementFields());
-   /*     // envoyer age
-        model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
-*/
 
         return "index";
+    }
+
+    @GetMapping("/profiles/{id}")
+    public String getById(Model model, @PathVariable Long id) {
+        model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(id));
+
+        return getControllerRoute() + "/getById";
     }
 
     @GetMapping("/login")
@@ -48,11 +53,16 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
 
     @Override
     protected String getControllerRoute() {
-        return null;
+        return "profiles";
     }
 
     @Override
     protected String[] getElementFields() {
         return new String[]{"profilImage", "background", "superPowers", "genre", "bio", "membership", "user", "birthDate"};
+    }
+
+    // creation de la methode pour calculer age
+    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        return Period.between(birthDate, currentDate).getYears();
     }
 }
