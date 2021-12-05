@@ -71,10 +71,12 @@
   font-size: 14px;
 }
 #cards .card-body .card-content iframe {
-  width: 100%;
-  height: auto;
+  width: 50%;
+  height: 400px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  justify-self: center;
+  align-self: center;
 }
 #cards .card-body .card-content img {
   width: 50%;
