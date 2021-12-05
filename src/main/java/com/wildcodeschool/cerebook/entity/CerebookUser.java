@@ -1,5 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ public class CerebookUser {
     private Long id;
     private String profilImage;
     private String background;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
