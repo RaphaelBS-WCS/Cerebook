@@ -11,28 +11,59 @@
       border-top-right-radius: 10px;
       display: flex;
       width: 100%;
-      justify-content: start;
+      justify-content: space-between;
       align-items: center;
       img {
         height: 50px;
       }
       background-color: #fefdf9;
       .card-title {
+        display: flex;
+        justify-content: start;
+        align-items: center;
         font-family: Roboto, serif;
         color: #050340;
-        margin-left: 8px;
         margin-bottom: 0;
-        .card-userName {
-          font-size: 16px;
+        .profile-avatar {
+          width: 50px;
+          height: 50px;
         }
-        .card_created_at {
-          font-size: 11px;
+        .card-details{
+          margin-left: 8px;
+          .card-userName {
+            font-size: 16px;
+          }
+          .card_created_at {
+            font-size: 11px;
+          }
+        }
+
+      }
+      .dropdown{
+        #dropdownMenuLink {
+          color: #fefdf9 !important;
+        }
+        .fa-ellipsis-h {
+          font-size: 25px;
+          color: #D99D55;
+        }
+        .dropdown-menu {
+          border: 2px solid #0F4C59;
+          border-radius: 10px;
+          background-color: #fefdf9;
+        }
+        .dropdown-item {
+          padding: 8px;
+        }
+        .upline {
+          border-top: 1px solid #0F4C59;
         }
       }
 
+
     }
     .card-content {
-      border-top: 2px solid #0F4C59;
+      border-top: 1px solid #0F4C59;
       width: 100%;
       display: flex;
       flex-direction: column;

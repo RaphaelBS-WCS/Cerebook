@@ -31,14 +31,7 @@ public class tweeterApi {
     public static void main(String args[]) throws IOException, URISyntaxException {
 
         getPostFromTweet();
-/*        final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAKVHVwEAAAAA7wffjcKZtfh4RfN8PwfWWrCYKNc%3DQIB3xW4obZ25aN4bnsAx83sIbRDdt1WSCWEh3SPPzuVnr6CdkL"; // System.getenv("BEARER_TOKEN");
-          if (null != bearerToken) {
-            // Replace with user ID below
-            String response = getTweets("948687002668584960", bearerToken);
-            System.out.println(response);
-        } else {
-            System.out.println("There was a problem getting your bearer token. Please make sure you set the BEARER_TOKEN environment variable");
-        }*/
+
     }
 
     /*
@@ -72,13 +65,15 @@ public class tweeterApi {
 
    public static ArrayList<Object> getPostFromTweet() throws IOException, URISyntaxException {
 
-       String[] Wolverine = new String[]{"Wolverine","948687002668584960"};
+       String[] wolverine = new String[]{"Wolverine","948687002668584960"};
+       String[] mystique = new String[] {"Mystique", "80349271"};
        ArrayList<String[]> tweetUserIds = new ArrayList<String[]>();
-       tweetUserIds.add(Wolverine);
+       tweetUserIds.add(wolverine);
+       tweetUserIds.add(mystique);
        ArrayList<Object> tweetPosts = new ArrayList<Object>();
 
        for(String[] tweetUserId : tweetUserIds) {
-           final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAKVHVwEAAAAA7wffjcKZtfh4RfN8PwfWWrCYKNc%3DQIB3xW4obZ25aN4bnsAx83sIbRDdt1WSCWEh3SPPzuVnr6CdkL";
+           final String bearerToken = System.getenv("BEARER_TOKEN");
            String response = getTweets(tweetUserId[1], bearerToken);
            JsonNode jsonNode = new ObjectMapper().readValue(response, JsonNode.class);
            JsonNode data = jsonNode.get("data");
