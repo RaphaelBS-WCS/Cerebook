@@ -26,7 +26,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
    /*     // envoyer age
         model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
 */
-
         return "index";
     }
 

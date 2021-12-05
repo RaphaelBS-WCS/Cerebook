@@ -1,0 +1,59 @@
+#cards .card-body {
+  background-color: #fefdf9;
+  padding: 0 !important;
+  margin: 8px;
+  border: 2px solid #0F4C59;
+  border-radius: 10px;
+  padding: 2px;
+}
+#cards .card-body .card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: start;
+  align-items: center;
+  background-color: #fefdf9;
+}
+#cards .card-body .card-header img {
+  height: 50px;
+}
+#cards .card-body .card-header .card-title {
+  font-family: Roboto, serif;
+  color: #050340;
+  margin-left: 8px;
+  margin-bottom: 0;
+}
+#cards .card-body .card-header .card-title .card-userName {
+  font-size: 16px;
+}
+#cards .card-body .card-header .card-title .card_created_at {
+  font-size: 11px;
+}
+#cards .card-body .card-content {
+  border-top: 2px solid #0F4C59;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+#cards .card-body .card-content .card-text {
+  padding: 8px;
+  font-family: Roboto, serif;
+  font-size: 14px;
+}
+#cards .card-body .card-content iframe {
+  width: 100%;
+  height: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+#cards .card-body .card-content img {
+  width: 50%;
+  height: auto;
+  justify-self: center;
+  align-self: center;
+}
+
+/*# sourceMappingURL=post.css.map */

@@ -1,6 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,7 +15,10 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdAt;
+
     @Column(columnDefinition="TEXT")
     private String content;
     private String video;
@@ -26,6 +30,7 @@ public class Post {
     @ManyToOne
     private Event event;
 
+    @JsonManagedReference
     @ManyToOne
     private Picture picture;
 

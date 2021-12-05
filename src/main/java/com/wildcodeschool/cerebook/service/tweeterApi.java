@@ -1,6 +1,8 @@
 package com.wildcodeschool.cerebook.service;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wildcodeschool.cerebook.entity.Post;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,11 +15,11 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.apache.tomcat.util.json.JSONParser;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Sample code to demonstrate the use of the v2 User Tweet timeline endpoint
@@ -27,14 +29,16 @@ public class tweeterApi {
     // export 'BEARER_TOKEN'='<your_bearer_token>'
 
     public static void main(String args[]) throws IOException, URISyntaxException {
-        final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAKVHVwEAAAAA7wffjcKZtfh4RfN8PwfWWrCYKNc%3DQIB3xW4obZ25aN4bnsAx83sIbRDdt1WSCWEh3SPPzuVnr6CdkL"; // System.getenv("BEARER_TOKEN");
-        if (null != bearerToken) {
+
+        getPostFromTweet();
+/*        final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAKVHVwEAAAAA7wffjcKZtfh4RfN8PwfWWrCYKNc%3DQIB3xW4obZ25aN4bnsAx83sIbRDdt1WSCWEh3SPPzuVnr6CdkL"; // System.getenv("BEARER_TOKEN");
+          if (null != bearerToken) {
             // Replace with user ID below
-            String response = getTweets("2244994945", bearerToken);
+            String response = getTweets("948687002668584960", bearerToken);
             System.out.println(response);
         } else {
             System.out.println("There was a problem getting your bearer token. Please make sure you set the BEARER_TOKEN environment variable");
-        }
+        }*/
     }
 
     /*
@@ -66,12 +70,30 @@ public class tweeterApi {
         return tweetResponse;
     }
 
-    private String getPostFromTweet(String TweetUserId) throws IOException, URISyntaxException {
+   public static ArrayList<Object> getPostFromTweet() throws IOException, URISyntaxException {
 
-        String post = null;
-        final String bearerToken = System.getenv("BEARER_TOKEN");
-        post = getTweets("1329168713241812996", "bearerToken");
-        System.out.println(post);
-        return post;
-    }
+       String[] Wolverine = new String[]{"Wolverine","948687002668584960"};
+       ArrayList<String[]> tweetUserIds = new ArrayList<String[]>();
+       tweetUserIds.add(Wolverine);
+       ArrayList<Object> tweetPosts = new ArrayList<Object>();
+
+       for(String[] tweetUserId : tweetUserIds) {
+           final String bearerToken = "AAAAAAAAAAAAAAAAAAAAAKVHVwEAAAAA7wffjcKZtfh4RfN8PwfWWrCYKNc%3DQIB3xW4obZ25aN4bnsAx83sIbRDdt1WSCWEh3SPPzuVnr6CdkL";
+           String response = getTweets(tweetUserId[1], bearerToken);
+           JsonNode jsonNode = new ObjectMapper().readValue(response, JsonNode.class);
+           JsonNode data = jsonNode.get("data");
+           for (int i = 0; i < data.size(); i++) {
+               JsonNode object = data.get(i);
+               String username = tweetUserId[0];
+               String created_at = object.get("created_at").asText();
+               String content = object.get("text").asText();
+               String stringTweetPost = "{\"created_at\":\""+ created_at + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}}" ;
+               System.out.println(stringTweetPost);
+
+               JsonNode tweetPost = new ObjectMapper().readValue(stringTweetPost, JsonNode.class);
+               tweetPosts.add(tweetPost);
+           }
+       }
+       return tweetPosts;
+   }
 }

@@ -6,6 +6,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 @import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,500;1,500&family=Fraunces:ital,wght@0,300;0,400;1,300&family=IBM+Plex+Sans:wght@400;700&family=Inter:wght@500;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import "post.css";
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -633,15 +635,15 @@ progress {
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) * -.5);
-  margin-left: calc(var(--bs-gutter-x) * -.5);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
 .row > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
 }
 
@@ -6100,15 +6102,15 @@ textarea.form-control-lg {
 }
 
 .ratio-4x3 {
-  --bs-aspect-ratio: calc(3 / 4 * 100%);
+  --bs-aspect-ratio: 75%;
 }
 
 .ratio-16x9 {
-  --bs-aspect-ratio: calc(9 / 16 * 100%);
+  --bs-aspect-ratio: 56.25%;
 }
 
 .ratio-21x9 {
-  --bs-aspect-ratio: calc(9 / 21 * 100%);
+  --bs-aspect-ratio: 42.8571428571%;
 }
 
 .fixed-top {
@@ -10748,7 +10750,6 @@ textarea.form-control-lg {
   }
 }
 /* Fix IE Only */
-
 .signInTitle {
   letter-spacing: 10px;
   font-family: "Inter", sans-serif;
@@ -10883,6 +10884,102 @@ a, ul, li {
 
 .dropdown-menu {
   background-color: #050340;
+}
+
+.background-profile {
+  margin-left: -25px;
+  margin-right: -25px;
+}
+.background-profile .background img {
+  height: 60vh;
+  object-fit: cover;
+  width: 100%;
+  z-index: -1;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .background img {
+    height: 30vh;
+    max-width: 100%;
+  }
+}
+.background-profile .profile {
+  margin-left: 15%;
+  margin-top: -10%;
+}
+.background-profile .profile .photo-profile {
+  z-index: 3;
+  border: 2px solid #A61723 !important;
+  width: 300px;
+  height: 300px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .profile .photo-profile {
+    margin-top: -20%;
+    margin-left: -15%;
+    width: 100px;
+    height: 100px;
+  }
+}
+.background-profile .profile .badge {
+  background-color: #0F4C59;
+  border: 1px solid #D99D55;
+  border-radius: 20px;
+  z-index: 5;
+  height: 50px;
+  width: 230px;
+  margin-top: -7%;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .profile .badge {
+    height: 30px;
+    width: 120px;
+  }
+}
+.background-profile .profile .badge p {
+  font-size: 24px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .profile .badge p {
+    font-size: 16px;
+  }
+}
+.background-profile .profile .badge img {
+  width: 40px;
+  height: 40px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .profile .badge img {
+    width: 20px;
+    height: 20px;
+  }
+}
+.background-profile .name-friendnumb {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .name-friendnumb {
+    margin-top: 2%;
+    margin-left: 2%;
+  }
+}
+.background-profile .name-friendnumb .profilename {
+  color: #050340;
+  font-size: 36px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .name-friendnumb .profilename {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+.background-profile .name-friendnumb .friendnumb {
+  font-size: 24px;
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .background-profile .name-friendnumb .friendnumb {
+    font-size: 12px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
