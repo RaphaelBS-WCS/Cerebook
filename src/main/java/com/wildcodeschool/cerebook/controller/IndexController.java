@@ -24,7 +24,7 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     private CerebookUserRepository cerebookUserRepository;
 
     @GetMapping("/")
-    public String index(Model model, Principal principal) throws IOException {
+    public String index(Model model, Principal principal) {
         if(principal == null) {
             return "redirect:/login";
         }
