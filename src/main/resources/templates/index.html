@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Cerebook</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/scss/style.css">
+</head>
+
 <body>
     <div layout:fragment="content">
          <!-- Banner (background image and profile photo)-->
@@ -8,14 +15,26 @@
         </div>
 
         <!-- Main section -->
-        <div class="container">
 
-            <!-- Section aboutMe: show the basic infos of the user -->
-            <div th:replace="profiles/getById :: aboutMe">
-            </div>
-            <!-- Section Post + Twitter -->
+        <div class="container" id="profile">
+            <section class="row">
+                <!-- Section aboutMe: show the basic infos of the user -->
+                <div class="col-lg-5" th:replace="profiles/getById :: aboutMe">
 
+                </div>
+                <div class="col-lg-1 my-4 my-md-0">
+                </div>
+                <!-- Section Post + Twitter starts from here:
+                 include a fragment of section Post inside this div (following line 21)
+                 -->
+                <div class="col-lg-6 border border-3 border-dark">
+                </div>
+            </section>
         </div>
     </div>
+    <script src="https://kit.fontawesome.com/661d52523c.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
+</html>
+>>>>>>> 37c805440e009870a16ecac0d16f468890a3942a
 
