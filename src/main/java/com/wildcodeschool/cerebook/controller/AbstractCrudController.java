@@ -33,7 +33,7 @@ public abstract class AbstractCrudController<E, EK> {
 
     public CerebookUser getCurrentCerebookUser(Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
-        System.out.println(user + " / " + principal.getName());
+//        System.out.println(user + " / " + principal.getName());
         return user.getCerebookUser();
     }
 

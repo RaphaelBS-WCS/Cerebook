@@ -63,14 +63,14 @@ public class tweeterApi {
         return tweetResponse;
     }
 
-   public static ArrayList<Object> getPostFromTweet() throws IOException, URISyntaxException {
+   public static ArrayList<JsonNode> getPostFromTweet() throws IOException, URISyntaxException {
 
        String[] wolverine = new String[]{"Wolverine","948687002668584960"};
        String[] mystique = new String[] {"Mystique", "80349271"};
        ArrayList<String[]> tweetUserIds = new ArrayList<String[]>();
        tweetUserIds.add(wolverine);
        tweetUserIds.add(mystique);
-       ArrayList<Object> tweetPosts = new ArrayList<Object>();
+       ArrayList<JsonNode> tweetPosts = new ArrayList<>();
 
        for(String[] tweetUserId : tweetUserIds) {
            final String bearerToken = System.getenv("BEARER_TOKEN");
@@ -80,11 +80,9 @@ public class tweeterApi {
            for (int i = 0; i < data.size(); i++) {
                JsonNode object = data.get(i);
                String username = tweetUserId[0];
-               String created_at = object.get("created_at").asText();
+               String createdAt = object.get("created_at").asText().substring(0,10);
                String content = object.get("text").asText();
-               String stringTweetPost = "{\"created_at\":\""+ created_at + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}}" ;
-               System.out.println(stringTweetPost);
-
+               String stringTweetPost = "{\"createdAt\":\""+ createdAt + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}}" ;
                JsonNode tweetPost = new ObjectMapper().readValue(stringTweetPost, JsonNode.class);
                tweetPosts.add(tweetPost);
            }

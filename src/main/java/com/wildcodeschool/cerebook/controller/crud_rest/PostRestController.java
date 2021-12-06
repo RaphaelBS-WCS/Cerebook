@@ -1,5 +1,9 @@
 package com.wildcodeschool.cerebook.controller.crud_rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
@@ -16,8 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -29,25 +33,27 @@ public class PostRestController extends AbstractCrudRestLongController<Post> {
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
-
-    /*@Override
-    public String getAll() {
-        return getControllerRoute() + "/getAllByAuthor";
-    }*/
-
     @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
-    public List<Object> getAllPostsByCerebookUserFriendsOrByAuthor(@PathVariable("CerebookUser.id") String id) throws IOException, URISyntaxException {
+    public List<JsonNode> getAllPostsByCerebookUserFriendsOrByAuthor(@PathVariable("CerebookUser.id") String id) throws IOException, URISyntaxException {
         CerebookUser cerebookUser = cerebookUserRepository.findById(parseId(id)).orElseThrow(() ->
                 new ResponseStatusException(
                         HttpStatus.NOT_FOUND, getNotFoundMessage(id)
                 ));
-        List<Post> cerebookPosts = postRepository.findAllByAuthorOrByAuthorFriends(cerebookUser);
-        List<Object> tweetPosts = tweeterApi.getPostFromTweet();
-        List<Object> posts = new ArrayList<Object>();
+        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule()).configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        List<JsonNode> cerebookPosts = postRepository.findAllByAuthorOrByAuthorFriends(cerebookUser)
+                .stream().map(p -> (JsonNode)(objectMapper.valueToTree(p))).collect(Collectors.toList());
+        List<JsonNode> tweetPosts = tweeterApi.getPostFromTweet();
+        List<JsonNode> posts = new ArrayList<JsonNode>();
         posts.addAll(cerebookPosts);
         posts.addAll(tweetPosts);
+        Collections.sort(posts,new Comparator<JsonNode>() {
+            public int compare(JsonNode post, JsonNode post2) {
+                return post2.get("createdAt").textValue().compareTo(post.get("createdAt").textValue());
+            }});
         return posts;
     }
+
+
 
     @Override
     protected JpaRepository<Post, Long> getRepository() {

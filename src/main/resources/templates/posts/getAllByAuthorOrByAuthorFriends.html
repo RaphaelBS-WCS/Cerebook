@@ -5,9 +5,10 @@
 <div id="cards"></div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-<script>
+<script th:inline="javascript">
+    let currentUser = /*[[${currentUser}]]*/ {};
     function addPost(post) {
-        console.log(post);
+        let id = parseInt(post.id);
         document.getElementById("cards").innerHTML +=
              `<div class="card-body">
                 <div class="card-header">
@@ -15,18 +16,19 @@
                         ${(post.author.profilImage) ? '<img class="rounded-circle profile-avatar" src="/images/' + post.author.profilImage + '" alt="picture">' : '<img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">'}
                         <div class="card-details">
                             <div class="card_userName">${post.author.user.username}</div>
-                            <div class="card_created_at">${post.created_At}</div>
+                            <div class="card_created_at">${post.createdAt}</div>
                         </div>
                     </div>
-                    <div class="dropdown">
+                    ${(post.author.user.username === currentUser.user.username) ?
+                    `<div class="dropdown">
                       <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="fas fa-ellipsis-h"></span>
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href='/posts/ + ${post.id} + /update'>Modifier mon post</a></li>
-                        <li><a class="dropdown-item  upline" href='/posts/ + ${post.id} + /delete'>Supprimmer mon post</a></li>
+                        <li><a class="dropdown-item" href='/posts/${id}/update'>Modifier mon post</a></li>
+                        <li><a class="dropdown-item  upline" href='/posts/${id}/delete'>Supprimmer mon post</a></li>
                       </ul>
-                    </div>
+                    </div>` : ``}
                 </div>
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>

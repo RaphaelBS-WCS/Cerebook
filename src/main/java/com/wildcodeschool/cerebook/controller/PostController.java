@@ -1,21 +1,19 @@
 package com.wildcodeschool.cerebook.controller;
 
-import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.sql.Date;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @Controller
@@ -41,7 +39,8 @@ public class PostController extends AbstractCrudLongController<Post> {
     }
 
     @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
-    public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, @PathVariable("CerebookUser.id") String id) {
+    public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, @PathVariable("CerebookUser.id") String id, Principal principal) {
+        model.addAttribute("currentUser", getCurrentCerebookUser(principal));
         return getControllerRoute() + "/getAllByAuthorOrByAuthorFriends";
     }
 
@@ -76,9 +75,9 @@ public class PostController extends AbstractCrudLongController<Post> {
 
     @Override
     protected void preProcessElement(Post post, HttpServletRequest hsr) {
-        long millis=System.currentTimeMillis();
-        Date date = new Date(millis);
-        post.setCreatedAt(date);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime date = LocalDateTime.now();
+        post.setCreatedAt(LocalDate.from(date));
         post.setAuthor(getCurrentCerebookUser(hsr.getUserPrincipal()));
     }
 

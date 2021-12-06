@@ -5,9 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Entity
 public class Post {
@@ -17,7 +16,7 @@ public class Post {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(columnDefinition="TEXT")
     private String content;
@@ -48,11 +47,11 @@ public class Post {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
