@@ -3,6 +3,7 @@ package com.wildcodeschool.cerebook.controller;
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,10 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/";
+        }
         return "login";
     }
 
