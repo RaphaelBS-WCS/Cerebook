@@ -24,16 +24,15 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     private CerebookUserRepository cerebookUserRepository;
 
     @GetMapping("/")
-    public String index(Model model, Principal principal, HttpServletResponse response) throws IOException {
-        try {
-            model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
-            // envoyer age
-            model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
-            model.addAttribute("cerebookUserFields", getElementFields());
-
-        } catch (Exception e) {
-            response.sendRedirect("/login");
+    public String index(Model model, Principal principal) throws IOException {
+        if(principal == null) {
+            return "redirect:/login";
         }
+
+        model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
+        // envoyer age
+        model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
+        model.addAttribute("cerebookUserFields", getElementFields());
 
         return "index";
     }
