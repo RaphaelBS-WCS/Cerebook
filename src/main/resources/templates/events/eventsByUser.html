@@ -38,8 +38,8 @@
 
                             <p th:if="${event.getDescription() != null}" class="card-text"
                                th:text="${event.getDescription()}"></p>
-                            <a th:href="${'/events/show/' + event.getId()}" class="btn btn-secondary">See more</a>
-                            <a th:href="${'/events/edit/' + event.getId()}" class="btn btn-warning">Modify</a>
+                            <a th:href="${'/events/show/' + event.getId()}" class="btn btn-secondary my-2">See more</a>
+                            <a th:href="${'/events/edit/' + event.getId()}" class="btn btn-warning my-2">Modify</a>
                         </div>
                     </div>
                 </div>

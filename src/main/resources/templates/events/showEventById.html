@@ -12,27 +12,61 @@
 <body>
 <main>
     <div layout:fragment="content">
-        <div class="container-fluid">
-            <img class="img-fluid" style="max-height: 400px;" th:src="${eventByIdAndUser.getBackgroundPhotoShortPath()}"
+        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+        <div>
+            <img class="img-fluid w-100 heroImageEvent" style="max-height: 400px;"
+                 th:src="${eventById.getBackgroundPhotoShortPath()}"
                  alt="">
         </div>
-        <section class="container">
-
-            <h2 class="display-3 mt-5 headingEvents fw-bold" th:text="${eventByIdAndUser.name}"></h2>
-
+        <section class="container eventSections">
             <div class="row">
-                <div class="col">
-                    <div class="shadow border-1">
-                        <h3 class="my-3 display-4">Details</h3>
+                <div class="d-block d-flex justify-content-between align-items-center">
+                    <h2 class="display-3 my-5 headingEvents fw-bold d-inline" th:text="${eventById.name}"></h2>
+                    <form th:action="@{/events/inscription_event/{eventId}(eventId=${eventById.id})}" method="POST"
+                          th:object="${participation}">
+                        <button type="submit" class="btn btn-primary">Participate</button>
+                    </form>
+                </div>
+            </div>
+            <div class="d-lg-flex justify-content-between align-items-start">
 
-                        <h4 class="fw-bold">What? <span th:text="${eventByIdAndUser.description}"></span></h4>
-                        <h4 class="fw-bold">When? <span th:text="${eventByIdAndUser.date}"></span></h4>
-                        <h4 class="fw-bold">Who?</h4>
-                        <h4 class="fw-bold">Event organizer: <span
-                                th:text="${eventByIdAndUser.creator.getUsername()}"></span></h4>
+                <div class="shadow border-1 rounded eventBox p-5 my-5">
+                    <h3 class="my-3 display-4 mb-5">Description</h3>
+
+                    <h4 class="fw-bold my-4">What? <span class="fw-light"
+                                                         th:text="${eventById.description}"></span></h4>
+                    <h4 class="fw-bold my-4">When? <span class="fw-light"
+                                                         th:text="${eventById.getFormatedDate()}"></span>
+                    </h4>
+                    <h4 class="fw-bold my-4">Who? <span class="fw-light"> </span></h4>
+                    <h4 class="fw-bold my-4">Event organizer: <span class="fw-light"
+                                                                    th:text="${eventById.creator.getUsername()}"></span>
+                    </h4>
+                </div>
+
+
+                <div class="shadow border-1 rounded eventBox p-5 my-5">
+                    <h3 class="my-3 display-4 mb-5">Participants</h3>
+                    <div th:if="${findAllParticipations != null}"
+                         th:each="participant : ${findAllParticipations}">
+                        <div class="d-flex align-items-center justify-content-center my-3">
+                            <img th:if="${participant.getParticipant().getProfilImage()} != null"
+                                 th:src="${participant.getParticipant().getProfilImage()}"
+                                 class="border bg-light rounded-circle mx-2"
+                                 width="60" height="60" alt="participant profile photo"/>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img th:unless="${participant.getParticipant().getProfilImage()} != null"
+                                     src="https://www.e-xpertsolutions.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                                     class="border bg-light rounded-circle mx-2"
+                                     width="60" height="60" alt="participant profile photo"/>
+                            <h5 class="mx-5 " th:text="${participant.getParticipant().getUser().getUsername()}"></h5>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </section>
     </div>
 </main>

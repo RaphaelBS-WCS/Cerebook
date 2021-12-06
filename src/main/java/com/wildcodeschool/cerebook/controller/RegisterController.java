@@ -45,14 +45,13 @@ public class RegisterController {
         }
 
         if (bindingResult.hasErrors() || bindingResult.hasFieldErrors() || bindingResult.hasGlobalErrors()) {
-           /* System.out.println("*****************************************" + user + "*****************************************");*/
+            /* System.out.println("*****************************************" + user + "*****************************************");*/
             return "registration";
         } else {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
-
 
             user.setCerebookUser(new CerebookUser());
             userRepo.save(user);
