@@ -18,6 +18,7 @@ import java.util.List;
 public interface CerebookUserRepository extends JpaRepository<CerebookUser, Long> {
     CerebookUser findCerebookUserById(Long user);
 
-    CerebookUser findByUser(User cerebookUser);
-
+  /*  @Query("SELECT c FROM CerebookUser c INNER JOIN User u ON c.user = u WHERE u.username = :username")
+    CerebookUser findCerebookUserByUsername(@Param("username") String username);
+*/
 }

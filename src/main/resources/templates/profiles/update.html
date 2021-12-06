@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<body>
+<div th:fragment="profileUpdate">
+  <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST">
+    <input hidden th:id="*{id}">
+    <label th:for="profilImage">Image Profile</label>
+    <input th:field="*{profilImage}">
+    <label th:for="background">Image arriereplan</label>
+    <input th:field="*{background}">
+    <label th:for="content">Superpower</label>
+    <input th:field="*{superPowers}">
+    <label th:for="genre">Genre</label>
+    <input th:field="*{genre}">
+    <label th:for="bio">Bio</label>
+    <input th:field="*{bio}">
+    <label th:for="birthDate">Date</label>
+    <input type="date" th:value="*{birthDate}" th:field="*{birthDate}" />
+    <label th:for="membership">Membership</label>
+    <input th:field="*{membership.id}">
+    <label th:for="user">User</label>
+    <input th:field="*{user}">
+
+    <button type="submit" name="Update" value="Update" class="btn-link">Update</button>
+  </form>
+</div>
+</body>
+</html>
