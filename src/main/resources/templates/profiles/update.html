@@ -23,11 +23,11 @@
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
         <div class="my-3">
             <div class="mb-3">
-                <label>Importer Image d'arriere plan : </label>
+                <label>BACKGROUND PHOTO </label>
                 <input type="file" name="backgroundImage" />
             </div>
             <div class="mb-3">
-                <label>Importer Photo de profil : </label>
+                <label>PROFILE PHOTO</label>
                 <input type="file" name="profileImage" />
             </div>
             <input hidden th:id="*{id}">

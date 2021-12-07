@@ -59,7 +59,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
-        try {
+       try {
             Part backgroundImagePart = hsr.getPart("backgroundImage");
             String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();
             cerebookUser.setBackground(fileName);
@@ -82,17 +82,29 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
         } catch (ServletException e) {
             e.printStackTrace();
         }
-
         preProcessElement(cerebookUser, hsr);
         getRepository().save(cerebookUser);
-
         return "redirect:/";
     }
-
 
     // creation de la methode pour calculer age
     public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
         return Period.between(birthDate, currentDate).getYears();
+    }
+
+
+    @Override
+    protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
+        if(cerebookUser.getProfilImage().isEmpty()) {
+            cerebookUser.setProfilImage(
+                    cerebookUserRepository.getById(cerebookUser.getId())
+                            .getProfilImage());
+        }
+        if(cerebookUser.getBackground().isEmpty()) {
+            cerebookUser.setBackground(
+                    cerebookUserRepository.getById(cerebookUser.getId())
+                            .getBackground());
+        }
     }
 }
 
