@@ -18,8 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * Sample code to demonstrate the use of the v2 User Tweet timeline endpoint
@@ -49,6 +48,8 @@ public class tweeterApi {
         ArrayList<NameValuePair> queryParameters;
         queryParameters = new ArrayList<>();
         queryParameters.add(new BasicNameValuePair("tweet.fields", "created_at"));
+        queryParameters.add(new BasicNameValuePair("expansions", "attachments.media_keys"));
+        queryParameters.add(new BasicNameValuePair("media.fields", "url"));
         uriBuilder.addParameters(queryParameters);
 
         HttpGet httpGet = new HttpGet(uriBuilder.build());
@@ -66,10 +67,10 @@ public class tweeterApi {
    public static ArrayList<JsonNode> getPostFromTweet() throws IOException, URISyntaxException {
 
        String[] wolverine = new String[]{"Wolverine","948687002668584960"};
-       String[] mystique = new String[] {"Mystique", "80349271"};
+       //String[] mystique = new String[] {"Mystique", "80349271"};
        ArrayList<String[]> tweetUserIds = new ArrayList<String[]>();
        tweetUserIds.add(wolverine);
-       tweetUserIds.add(mystique);
+       //tweetUserIds.add(mystique);
        ArrayList<JsonNode> tweetPosts = new ArrayList<>();
 
        for(String[] tweetUserId : tweetUserIds) {
@@ -77,14 +78,46 @@ public class tweeterApi {
            String response = getTweets(tweetUserId[1], bearerToken);
            JsonNode jsonNode = new ObjectMapper().readValue(response, JsonNode.class);
            JsonNode data = jsonNode.get("data");
+           Map<String, String> mediaKeyurlMap = new HashMap<String, String>();
+           JsonNode media = null;
+           if (jsonNode.get("includes") != null) {
+               media = jsonNode.get("includes").get("media");
+               for (JsonNode picture : media) {
+                   String type = picture.get("type").asText();
+                   if (type.equals("photo")) {
+                       mediaKeyurlMap.put(picture.get("media_key").asText(), picture.get("url").asText());
+                   }
+               }
+           }
+
            for (int i = 0; i < data.size(); i++) {
                JsonNode object = data.get(i);
                String username = tweetUserId[0];
-               String createdAt = object.get("created_at").asText().substring(0,10);
+               String createdAt = object.get("created_at").asText().substring(0, 10);
                String content = object.get("text").asText();
-               String stringTweetPost = "{\"createdAt\":\""+ createdAt + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}}" ;
+               String url = "";
+               if (jsonNode.get("includes") != null) {
+                   if (object.get("attachments") != null) {
+                       for (Map.Entry<String, String> entry : mediaKeyurlMap.entrySet()) {
+                           String dicoMediaKey = entry.getKey();
+                           String mediaKey = object.get("attachments").get("media_keys").toString().substring(2,23);
+                           if (mediaKey.equals(dicoMediaKey)) {
+                               url = entry.getValue();
+                           }
+                       }
+                   }
+               }
+               String stringTweetPost;
+               String stringTweetPostContent = "{\"createdAt\":\"" + createdAt + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}";
+               String stringTweetPostPicture = ",\"picture\":{\"id\":\"\",\"name\":\"" + url + "\",\"isUrl\":true,\"author\":null,\"event\":null}}";
+               if (url != "") {
+                   stringTweetPost = stringTweetPostContent + stringTweetPostPicture;
+               } else {
+                   stringTweetPost = stringTweetPostContent + "}\";";
+               }
                JsonNode tweetPost = new ObjectMapper().readValue(stringTweetPost, JsonNode.class);
                tweetPosts.add(tweetPost);
+               System.out.println(tweetPost);
            }
        }
        return tweetPosts;
