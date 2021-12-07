@@ -16,4 +16,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
 
     @Query("SELECT p FROM Participation p WHERE p.event = :event")
     List<Participation> getAllByEvent(@Param("event") Event event);
+
+    @Query("SELECT p FROM Participation p WHERE p.event = :event AND p.participant =:participant")
+    Participation getParticipationByEventAndByCerebookUser(@Param("event") Event event, @Param("participant") CerebookUser participant);
 }

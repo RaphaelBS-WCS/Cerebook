@@ -38,9 +38,19 @@ public class EventController {
     @Autowired
     EventCategoryRepository eventCategoryRepository;
 
-
     @GetMapping("")
-    public String showEvents(@ModelAttribute Event event, Model model, Principal principal) {
+    public String showAllEvents(Principal principal, Model model) {
+        if (principal == null) {
+            return "redirect: /login";
+        }
+
+        model.addAttribute("allEvents", eventRepository.findAllEvents());
+
+        return "events/allEvents";
+    }
+
+    @GetMapping("/myown")
+    public String showMyEvents(@ModelAttribute Event event, Model model, Principal principal) {
 
         String username = principal.getName();
         User currentUser = userRepository.getUserByUsername(username);
@@ -61,26 +71,39 @@ public class EventController {
                                  Principal principal,
                                  @PathVariable Long eventId) {
 
+        boolean isParticipating = false;
+        Event currentEvent = eventRepository.getEventById(eventId);
+        List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
+        String username = principal.getName();
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+
         model.addAttribute("eventById", eventRepository.getEventById(eventId));
-        model.addAttribute("findAllParticipations", participationRepository.getAllByEvent(eventRepository.getEventById(eventId)));
+        model.addAttribute("findAllParticipations", participants);
+
+        Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
+
+        if (cuSet.contains(currentCerebookUser)) {
+            isParticipating = true;
+        }
+        model.addAttribute("isParticipating", isParticipating);
 
         return "events/showEventById";
     }
 
     @PostMapping("/inscription_event/{eventId}")
-    public String inscribeParticipant(@ModelAttribute Event event,
-                                      Model model,
-                                      Principal principal,
-                                      Participation participation,
-                                      @PathVariable Long eventId,
-                                      RedirectAttributes redirAttrs) {
+    public String enrollParticipantToEvent(@ModelAttribute Event event,
+                                           Model model,
+                                           Principal principal,
+                                           Participation participation,
+                                           @PathVariable Long eventId,
+                                           RedirectAttributes redirAttrs) {
 
-        model.addAttribute("eventById", eventRepository.getEventById(eventId));
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
 
         String username = principal.getName();
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
 
-        Event currentEvent = eventRepository.getEventById(eventId);
         List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
 
         model.addAttribute("findAllParticipations", participants);
@@ -95,6 +118,34 @@ public class EventController {
             participationRepository.save(participation);
             redirAttrs.addFlashAttribute("success", "You are now inscribed in this event.");
         }
+        return "redirect:/events/show/{eventId}";
+    }
+
+    @PostMapping("/unroll_event/{eventId}")
+    public String unenrollParticipantFromEvent(@ModelAttribute Event event,
+                                               Model model,
+                                               Principal principal,
+                                               Participation participation,
+                                               @PathVariable Long eventId,
+                                               RedirectAttributes redirAttrs) {
+
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
+
+        String username = principal.getName();
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+
+        List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
+        Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
+
+        if (cuSet.contains(currentCerebookUser)) {
+            Participation relativeParticipation = participationRepository.getParticipationByEventAndByCerebookUser(currentEvent, currentCerebookUser);
+            participationRepository.delete(relativeParticipation);
+            redirAttrs.addFlashAttribute("success", "You were unrolled from this event.");
+        } else {
+            redirAttrs.addFlashAttribute("error", "You are not enrolled in this event");
+        }
+
         return "redirect:/events/show/{eventId}";
     }
 
@@ -188,6 +239,7 @@ public class EventController {
             String username = principal.getName();
             User currentUser = userRepository.getUserByUsername(username);
             event.setCreator(currentUser);
+
             /*     Getting the name of the uploaded file and persisting it to the database */
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             event.setBackgroundPhoto(fileName);

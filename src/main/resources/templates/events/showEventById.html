@@ -23,9 +23,18 @@
             <div class="row">
                 <div class="d-block d-flex justify-content-between align-items-center">
                     <h2 class="display-3 my-5 headingEvents fw-bold d-inline" th:text="${eventById.name}"></h2>
-                    <form th:action="@{/events/inscription_event/{eventId}(eventId=${eventById.id})}" method="POST"
+                    <form th:if="${isParticipating} == false"
+                          th:action="@{/events/inscription_event/{eventId}(eventId=${eventById.id})}" method="POST"
                           th:object="${participation}">
-                        <button type="submit" class="btn btn-primary">Participate</button>
+                         <button  type="submit" class="btn btn-primary">Participate</button>
+                      <!--   <button th:unless="${isParticipating} == false" type="submit" class="btn btn-secondary" disabled>Already participating</button>&ndash;&gt;-->
+                    </form>
+
+                    <form th:unless="${isParticipating} == false"
+                          th:action="@{/events/unroll_event/{eventId}(eventId=${eventById.id})}" method="POST"
+                          th:object="${participation}">
+                        <button type="submit" class="btn btn-dark">Unsubscribe</button>
+
                     </form>
                 </div>
             </div>
@@ -60,11 +69,12 @@
                                      src="https://www.e-xpertsolutions.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
                                      class="border bg-light rounded-circle mx-2"
                                      width="60" height="60" alt="participant profile photo"/>
-                            <h5 class="mx-5 " th:text="${participant.getParticipant().getUser().getUsername()}"></h5>
+                                <h5 class="mx-5 "
+                                    th:text="${participant.getParticipant().getUser().getUsername()}"></h5>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
         </section>
