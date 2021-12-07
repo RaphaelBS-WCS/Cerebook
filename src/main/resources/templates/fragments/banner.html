@@ -7,14 +7,14 @@
     <!-- Profile Background Image -->
     <div class="background-profile" sec:authorize="isAuthenticated()">
         <div class="background">
-            <img th:if="${cerebookUser.background}!= null" th:src="${cerebookUser.background}" alt="x men">
+            <img th:if="${cerebookUser.background}!= null"  th:src="@{|images/Profiles/${cerebookUser.id}/background/${cerebookUser.background}|}" alt="x men">
             <img th:unless="${cerebookUser.background}!= null"
                  th:src="@{https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg}" alt="x men">
         </div>
         <!--        &lt;!&ndash; Upload profile image for user &ndash;&gt;-->
         <div class="d-flex justify-content-start">
             <div class="profile d-flex flex-column justify-content-center align-items-center">
-                <img th:if="${cerebookUser.profilImage} != null" th:src="${cerebookUser.profilImage}"
+                <img th:if="${cerebookUser.profilImage} != null" th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}"
                      class="border bg-light rounded-circle photo-profile">
                 <img th:unless="${cerebookUser.profilImage} != null"
                      th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}"

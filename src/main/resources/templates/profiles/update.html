@@ -22,7 +22,14 @@
 
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
         <div class="my-3">
-
+            <div class="mb-3">
+                <label>Importer Image d'arriere plan : </label>
+                <input type="file" name="backgroundImage" />
+            </div>
+            <div class="mb-3">
+                <label>Importer Photo de profil : </label>
+                <input type="file" name="profileImage" />
+            </div>
             <input hidden th:id="*{id}">
             <div class="mb-3">
                 <label class="form-label" th:for="genre">Genre</label>
@@ -47,15 +54,14 @@
                 <label class="form-label" th:for="membership">Membership</label>
                 <input class="form-control" th:field="*{membership.id}" >
             </div>
+           <div class="mb-3">
+                <input type="hidden" class="form-control" th:field="*{user}" >
+            </div>
             <div class="mb-3">
                 <label class="form-label" th:for="user">user</label>
                 <input class="form-control" th:field="*{user.firstName}" >
             </div>
-            <label>Photos: </label>
-            <input type="file" name="image" accept="image/png, image/jpeg" />
-            <div class="mb-3">
-                <button type="submit" name="Update" class="btn btn-success px-4 my-5">Valider</button>
-            </div>
+            <button type="submit" name="Update" class="btn btn-success px-4 my-5">Valider</button>
         </div>
     </form>
     </div>

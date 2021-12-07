@@ -3,13 +3,23 @@ package com.wildcodeschool.cerebook.controller;
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.service.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
@@ -49,11 +59,36 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
+        try {
+            Part backgroundImagePart = hsr.getPart("backgroundImage");
+            String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();
+            cerebookUser.setBackground(fileName);
+            String uploadDir = "src/main/resources/public/images/Profiles/" + id + "/background";
+            FileUploadUtil.saveFile(uploadDir, fileName, backgroundImagePart);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Part profileImagePart = hsr.getPart("profileImage");
+            String fileName = Paths.get(profileImagePart.getSubmittedFileName()).getFileName().toString();
+            cerebookUser.setProfilImage(fileName);
+            String uploadDir = "src/main/resources/public/images/Profiles/" + id + "/profile";
+            FileUploadUtil.saveFile(uploadDir, fileName, profileImagePart);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
+
         preProcessElement(cerebookUser, hsr);
         getRepository().save(cerebookUser);
 
         return "redirect:/";
     }
+
 
     // creation de la methode pour calculer age
     public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
