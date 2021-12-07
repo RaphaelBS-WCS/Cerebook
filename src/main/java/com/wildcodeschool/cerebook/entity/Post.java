@@ -26,6 +26,8 @@ public class Post {
     @ManyToOne
     private CerebookUser author;
 
+    private Boolean isTweetos;
+
     @ManyToOne
     private Event event;
 
@@ -101,5 +103,13 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Boolean getTweetos() {
+        return isTweetos;
+    }
+
+    public void setTweetos(Boolean tweetos) {
+        isTweetos = tweetos;
     }
 }

@@ -109,11 +109,11 @@ public class tweeterApi {
                }
                String stringTweetPost;
                String stringTweetPostContent = "{\"createdAt\":\"" + createdAt + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}";
-               String stringTweetPostPicture = ",\"picture\":{\"id\":\"\",\"name\":\"" + url + "\",\"isUrl\":true,\"author\":null,\"event\":null}}";
+               String stringTweetPostPicture = ",\"picture\":{\"id\":\"\",\"name\":\"" + url + "\",\"isUrl\":true,\"author\":null,\"event\":null}";
                if (url != "") {
-                   stringTweetPost = stringTweetPostContent + stringTweetPostPicture;
+                   stringTweetPost = stringTweetPostContent + stringTweetPostPicture + ",\"tweetos\":true}\";";
                } else {
-                   stringTweetPost = stringTweetPostContent + "}\";";
+                   stringTweetPost = stringTweetPostContent + ",\"tweetos\":true}\";";
                }
                JsonNode tweetPost = new ObjectMapper().readValue(stringTweetPost, JsonNode.class);
                tweetPosts.add(tweetPost);

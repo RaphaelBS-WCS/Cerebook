@@ -18,6 +18,7 @@
                             <div class="card_userName">${post.author.user.username}</div>
                             <div class="card_created_at">${post.createdAt}</div>
                         </div>
+                        ${(post.tweetos) ? '<img src="/images/tweetos.png" class="tweetos" alt="tweetos">' : ""}
                     </div>
                     ${(post.author.user.username === currentUser.user.username) ?
                     `<div class="dropdown">

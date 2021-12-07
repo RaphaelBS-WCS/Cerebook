@@ -78,6 +78,7 @@ public class PostController extends AbstractCrudLongController<Post> {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
         post.setCreatedAt(LocalDate.from(date));
+        post.setTweetos(false);
         post.setAuthor(getCurrentCerebookUser(hsr.getUserPrincipal()));
     }
 

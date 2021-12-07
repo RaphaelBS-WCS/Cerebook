@@ -39,6 +39,13 @@
 #cards .card-body .card-header .card-title .card-details .card_created_at {
   font-size: 11px;
 }
+#cards .card-body .card-header .card-title .tweetos {
+  height: 15px;
+  width: auto;
+  align-self: start;
+  margin-left: 8px;
+  margin-top: 8px;
+}
 #cards .card-body .card-header .dropdown #dropdownMenuLink {
   color: #fefdf9 !important;
 }
