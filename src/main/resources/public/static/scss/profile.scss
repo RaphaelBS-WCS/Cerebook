@@ -1,29 +1,3 @@
-// Style user's profile
-#profile {
-  margin-top: 80px;
-  @include sm-max {
-    margin-top: 40px;
-  }
-
-  .aboutMe {
-    border: 2px solid $intermediate;
-
-    h2 {
-      font-size: 36px;
-      @include sm-max {
-        font-size: 24px;
-      }
-    }
-
-    h3 {
-      font-size: 24px;
-      @include sm-max {
-        font-size: 18px;
-      }
-    }
-  }
-}
-
 // Profile Background Image
 .background-profile {
   margin-left: -25px;
@@ -58,7 +32,7 @@
     }
 
     .badge {
-      background-color: $intermediate;
+      background-color: $green-element;
       border: 1px solid $information;
       border-radius: 20px;
       z-index: 5;
@@ -110,6 +84,39 @@
       @include sm-max {
         font-size: 12px;
 
+      }
+    }
+  }
+}
+
+// Style user's profile
+#profile {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 50px;
+  margin-top: 80px;
+  @include sm-max {
+    margin-top: 40px;
+  }
+  .aboutMe {
+    grid-column: 1/3;
+    grid-row: 1;
+    border: 1px solid $green-element;
+    border-radius: 10px;
+    background-color: $bgcolor;
+
+    h2 {
+      font-size: 36px;
+      @include sm-max {
+        font-size: 24px;
+      }
+    }
+
+    h3 {
+      font-size: 24px;
+      @include sm-max {
+        font-size: 18px;
       }
     }
   }

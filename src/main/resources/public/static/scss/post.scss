@@ -1,9 +1,14 @@
 #cards {
+  grid-column: 3/6;
+  grid-row: 1;
+  h1 {
+    text-align: center;
+  }
   .card-body {
-    background-color: #fefdf9;
+    background-color: $bgcolor;
     padding: 0 !important;
     margin: 8px;
-    border: 2px solid #0F4C59;
+    border: 2px solid $green-element;
     border-radius: 10px;
     padding: 2px;
     .card-header {
@@ -16,13 +21,13 @@
       img {
         height: 50px;
       }
-      background-color: #fefdf9;
+      background-color: $bgcolor;
       .card-title {
         display: flex;
         justify-content: start;
         align-items: center;
         font-family: Roboto, serif;
-        color: #050340;
+        color: $secondary;
         margin-bottom: 0;
         .profile-avatar {
           width: 50px;
@@ -47,29 +52,29 @@
       }
       .dropdown{
         #dropdownMenuLink {
-          color: #fefdf9 !important;
+          color: $bgcolor !important;
         }
         .fa-ellipsis-h {
           font-size: 25px;
-          color: #D99D55;
+          color: $information;
         }
         .dropdown-menu {
-          border: 2px solid #0F4C59;
+          border: 2px solid $green-element;
           border-radius: 10px;
-          background-color: #fefdf9;
+          background-color: $bgcolor;
         }
         .dropdown-item {
           padding: 8px;
         }
         .upline {
-          border-top: 1px solid #0F4C59;
+          border-top: 1px solid $green-element;
         }
       }
 
 
     }
     .card-content {
-      border-top: 1px solid #0F4C59;
+      border-top: 1px solid $green-element;
       width: 100%;
       display: flex;
       flex-direction: column;

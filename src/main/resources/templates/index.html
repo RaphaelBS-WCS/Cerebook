@@ -10,20 +10,11 @@
 
     <!-- Main section -->
 
-    <div class="container" id="profile">
-        <section class="row">
-            <!-- Section aboutMe: show the basic infos of the user -->
-            <div class="col-lg-5" th:replace="profiles/getById :: aboutMe">
-
-            </div>
-            <div class="col-lg-1 my-4 my-md-0">
-            </div>
-            <!-- Section Post + Twitter starts from here:
-             include a fragment of section Post inside this div (following line 16)
-             -->
-            <div class="col-lg-6 border border-2 border-dark" th:replace="posts/getAllByAuthor :: postByAuthor">
-            </div>
-        </section>
+    <div class="container wrapper" id="profile">
+        <!-- Section aboutMe: show the basic infos of the user -->
+        <div class="one" th:replace="profiles/getById :: aboutMe"></div>
+        <!-- Section user's posts -->
+        <div class="three" th:replace="posts/getAllByAuthor :: postByAuthor"></div>
     </div>
 </div>
 </body>

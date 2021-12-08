@@ -1,6 +1,7 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
@@ -28,7 +30,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         if(principal == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
         // envoyer age
         model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));

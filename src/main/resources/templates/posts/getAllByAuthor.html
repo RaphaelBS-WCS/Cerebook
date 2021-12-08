@@ -1,5 +1,14 @@
 <th:block th:fragment="postByAuthor">
     <div id="cards">
+        <h1>POSTS</h1>
+        <form th:action="@{/posts/create}" th:object="${post}" method="POST">
+            <th:block th:each="field : ${posts}">
+                <label th:for="${field}" th:text="${#strings.capitalize(field)}"></label>
+                <input th:id="${field}" th:name="${field}" th:placeholder="${field}">
+                <br>
+            </th:block>
+            <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
+        </form>
         <div th:each="post : ${posts}">
             <div class="card-body">
                 <div class="card-header">
@@ -18,17 +27,15 @@
                             <img src="/images/tweetos.png" class="tweetos" alt="tweetos">
                         </span>
                     </div>
-                    <span th:if="${post.author.user.username} == ${currentUser.user.username}">
-                        <div class="dropdown">
-                            <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fas fa-ellipsis-h"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href='/posts/${id}/update'>Modifier mon post</a></li>
-                                <li><a class="dropdown-item  upline" href='/posts/${id}/delete'>Supprimmer mon post</a></li>
-                            </ul>
-                        </div>
-                    </span>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="fas fa-ellipsis-h"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href='/posts/${id}/update'>Modifier mon post</a></li>
+                            <li><a class="dropdown-item  upline" href='/posts/${id}/delete'>Supprimmer mon post</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="card-content">
                     <p class="card-text" th:text="${post.content}"></p>
