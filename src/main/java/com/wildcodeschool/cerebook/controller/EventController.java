@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
@@ -69,13 +70,16 @@ public class EventController {
     public String showEventsById(@ModelAttribute Event event,
                                  Model model,
                                  Principal principal,
-                                 @PathVariable Long eventId) {
+                                 @PathVariable Long eventId,
+                                 RedirectAttributes redirAttrs) {
 
         boolean isParticipating = false;
+        boolean isOwner = false;
         Event currentEvent = eventRepository.getEventById(eventId);
         List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
         String username = principal.getName();
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+        String eventCreator = currentEvent.getCreator().getUsername();
 
         model.addAttribute("eventById", eventRepository.getEventById(eventId));
         model.addAttribute("findAllParticipations", participants);
@@ -87,7 +91,33 @@ public class EventController {
         }
         model.addAttribute("isParticipating", isParticipating);
 
+        if (Objects.equals(username, eventCreator)) {
+            isOwner = true;
+        }
+        model.addAttribute("isOwner", isOwner);
+
         return "events/showEventById";
+    }
+
+    @PostMapping("/delete_event/{eventId}")
+    public String removeEvent(@ModelAttribute Event event,
+                              @PathVariable Long eventId,
+                              Principal principal,
+                              Model model,
+                              RedirectAttributes redirAttrs) {
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
+
+        String username = principal.getName();
+        String eventCreator = currentEvent.getCreator().getUsername();
+
+        if (Objects.equals(username, eventCreator)) {
+            redirAttrs.addFlashAttribute("error", "You are not authorized.");
+        } else {
+            eventRepository.delete(currentEvent);
+            redirAttrs.addFlashAttribute("success", "Event successfully deleted.");
+        }
+        return "redirect:/events/myown";
     }
 
     @PostMapping("/inscription_event/{eventId}")
@@ -219,7 +249,8 @@ public class EventController {
                             BindingResult bindingResult,
                             Principal principal,
                             @RequestParam("date") Date eventDate,
-                            @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException {
+                            @RequestParam("backgroundPhotoFile") MultipartFile multipartFile
+    ) throws ServletException, IOException {
 
         long millis = System.currentTimeMillis();
         Date localDate = new Date(millis);
@@ -228,6 +259,10 @@ public class EventController {
 
         if (eventDate.before(localDate)) {
             bindingResult.rejectValue("date", "error.date", "The event date cannot be before the current date.");
+        }
+
+        if (multipartFile.isEmpty()) {
+            return "events/create";
         }
 
         if (bindingResult.hasErrors()) {
