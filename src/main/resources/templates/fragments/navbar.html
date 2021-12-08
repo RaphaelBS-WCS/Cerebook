@@ -33,7 +33,7 @@
                         <a class="nav-link mb-2" href="#"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link" href="#"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
+                        <a class="nav-link" th:href="@{/events}"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
                     </li>
                 </ul>
                 <div class="d-flex justify-content-center align-items-center" sec:authorize="isAuthenticated()">

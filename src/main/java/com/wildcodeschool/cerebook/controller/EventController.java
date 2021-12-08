@@ -1,27 +1,26 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.*;
-import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
-import com.wildcodeschool.cerebook.repository.EventCategoryRepository;
-import com.wildcodeschool.cerebook.repository.EventRepository;
-import com.wildcodeschool.cerebook.repository.UserRepository;
+import com.wildcodeschool.cerebook.repository.*;
 import com.wildcodeschool.cerebook.service.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/events")
@@ -34,11 +33,24 @@ public class EventController {
     UserRepository userRepository;
 
     @Autowired
+    ParticipationRepository participationRepository;
+
+    @Autowired
     EventCategoryRepository eventCategoryRepository;
 
-
     @GetMapping("")
-    public String showEvents(@ModelAttribute Event event, Model model, Principal principal) {
+    public String showAllEvents(Principal principal, Model model) {
+        if (principal == null) {
+            return "redirect: /login";
+        }
+
+        model.addAttribute("allEvents", eventRepository.findAllEvents());
+
+        return "events/allEvents";
+    }
+
+    @GetMapping("/myown")
+    public String showMyEvents(@ModelAttribute Event event, Model model, Principal principal) {
 
         String username = principal.getName();
         User currentUser = userRepository.getUserByUsername(username);
@@ -54,18 +66,87 @@ public class EventController {
     }
 
     @GetMapping("/show/{eventId}")
-    public String showEventsById(@ModelAttribute Event event, Model model, Principal principal, @PathVariable Long eventId) {
+    public String showEventsById(@ModelAttribute Event event,
+                                 Model model,
+                                 Principal principal,
+                                 @PathVariable Long eventId) {
 
+        boolean isParticipating = false;
+        Event currentEvent = eventRepository.getEventById(eventId);
+        List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
         String username = principal.getName();
-        User currentUser = userRepository.getUserByUsername(username);
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
 
-        try {
-            model.addAttribute("eventByIdAndUser", eventRepository.getEventByIdAndByCreator(currentUser, eventId));
-        } catch (Exception e) {
-            return "events/showEventById";
+        model.addAttribute("eventById", eventRepository.getEventById(eventId));
+        model.addAttribute("findAllParticipations", participants);
+
+        Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
+
+        if (cuSet.contains(currentCerebookUser)) {
+            isParticipating = true;
         }
+        model.addAttribute("isParticipating", isParticipating);
 
         return "events/showEventById";
+    }
+
+    @PostMapping("/inscription_event/{eventId}")
+    public String enrollParticipantToEvent(@ModelAttribute Event event,
+                                           Model model,
+                                           Principal principal,
+                                           Participation participation,
+                                           @PathVariable Long eventId,
+                                           RedirectAttributes redirAttrs) {
+
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
+
+        String username = principal.getName();
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+
+        List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
+
+        model.addAttribute("findAllParticipations", participants);
+        /* Recovering all the users from the all Participants of the current Event */
+        Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
+
+        if (cuSet.contains(currentCerebookUser)) {
+            redirAttrs.addFlashAttribute("error", "You are already subscribed in this event.");
+        } else {
+            participation.setParticipant(currentCerebookUser);
+            participation.setEvent(eventRepository.getEventById(eventId));
+            participationRepository.save(participation);
+            redirAttrs.addFlashAttribute("success", "You are now inscribed in this event.");
+        }
+        return "redirect:/events/show/{eventId}";
+    }
+
+    @PostMapping("/unroll_event/{eventId}")
+    public String unenrollParticipantFromEvent(@ModelAttribute Event event,
+                                               Model model,
+                                               Principal principal,
+                                               Participation participation,
+                                               @PathVariable Long eventId,
+                                               RedirectAttributes redirAttrs) {
+
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
+
+        String username = principal.getName();
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+
+        List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
+        Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
+
+        if (cuSet.contains(currentCerebookUser)) {
+            Participation relativeParticipation = participationRepository.getParticipationByEventAndByCerebookUser(currentEvent, currentCerebookUser);
+            participationRepository.delete(relativeParticipation);
+            redirAttrs.addFlashAttribute("success", "You were unrolled from this event.");
+        } else {
+            redirAttrs.addFlashAttribute("error", "You are not enrolled in this event");
+        }
+
+        return "redirect:/events/show/{eventId}";
     }
 
 
@@ -87,14 +168,13 @@ public class EventController {
                               Principal principal,
                               @RequestParam("date") Date eventDate,
                               BindingResult bindingResult,
-                              @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException
-    {
+                              @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException {
 
         Event currentEvent = eventRepository.getEventById(id);
 
-     if (!principal.getName().equals(currentEvent.getCreator().getUsername())) {
-         throw new IOException("User not allowed.");
-     }
+        if (!principal.getName().equals(currentEvent.getCreator().getUsername())) {
+            throw new IOException("User not allowed.");
+        }
         String username = principal.getName();
         User currentUser = userRepository.getUserByUsername(username);
 
@@ -120,7 +200,7 @@ public class EventController {
             String uploadDir = "src/main/resources/public/images/WebContent/events-uploaded-files/" + updatedEvent.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-            return "redirect:/events/show/" +  id;
+            return "redirect:/events/show/" + id;
         }
 
     }
@@ -159,6 +239,7 @@ public class EventController {
             String username = principal.getName();
             User currentUser = userRepository.getUserByUsername(username);
             event.setCreator(currentUser);
+
             /*     Getting the name of the uploaded file and persisting it to the database */
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
             event.setBackgroundPhoto(fileName);
