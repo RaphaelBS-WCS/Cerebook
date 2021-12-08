@@ -3,10 +3,13 @@ package com.wildcodeschool.cerebook.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class CerebookUser {
@@ -16,6 +19,7 @@ public class CerebookUser {
     private Long id;
     private String profilImage;
     private String background;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
@@ -23,7 +27,7 @@ public class CerebookUser {
     private String bio;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser")
     private User user;
 
     @JsonBackReference
@@ -164,5 +168,19 @@ public class CerebookUser {
 
     public String getUserName() {
         return user.getUsername();
+    }
+
+    /*Interpretating all objects with the same Cerebook ID as the same object */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CerebookUser that = (CerebookUser) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

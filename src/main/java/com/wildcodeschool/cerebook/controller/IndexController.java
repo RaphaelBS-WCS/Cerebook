@@ -3,6 +3,7 @@ package com.wildcodeschool.cerebook.controller;
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Controller
 public class IndexController extends AbstractCrudLongController<CerebookUser> {
@@ -20,17 +25,23 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
 
     @GetMapping("/")
     public String index(Model model, Principal principal) {
+        if(principal == null) {
+            return "redirect:/login";
+        }
 
         model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
+        // envoyer age
+        model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
         model.addAttribute("cerebookUserFields", getElementFields());
-   /*     // envoyer age
-        model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
-*/
+
         return "index";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/";
+        }
         return "login";
     }
 
@@ -52,5 +63,10 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     @Override
     protected Class<CerebookUser> getElementClass() {
         return null;
+    }
+
+    // creation de la methode pour calculer age
+    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        return Period.between(birthDate, currentDate).getYears();
     }
 }

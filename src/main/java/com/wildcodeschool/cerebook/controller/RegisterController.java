@@ -1,5 +1,6 @@
 package com.wildcodeschool.cerebook.controller;
 
+import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import com.wildcodeschool.cerebook.service.UserDetailsServiceImpl;
@@ -25,13 +26,12 @@ public class RegisterController {
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-
         return "registration";
     }
 
 
     @PostMapping("/process_register")
-    public String processRegister(@Valid User user, BindingResult bindingResult) {
+    public String processRegister(@Valid User user, BindingResult bindingResult, Model model) {
 
         if (userRepo.findByUsername(user.getUsername()) != null) {
             bindingResult.rejectValue("username", "error.username", "Username already exists!");
@@ -45,13 +45,15 @@ public class RegisterController {
         }
 
         if (bindingResult.hasErrors() || bindingResult.hasFieldErrors() || bindingResult.hasGlobalErrors()) {
-           /* System.out.println("*****************************************" + user + "*****************************************");*/
+            /* System.out.println("*****************************************" + user + "*****************************************");*/
             return "registration";
         } else {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
+
+            user.setCerebookUser(new CerebookUser());
             userRepo.save(user);
 
             return "register_success";
