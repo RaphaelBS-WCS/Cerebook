@@ -35,6 +35,7 @@ public class PostController extends AbstractCrudLongController<Post> {
     public String getAllPostsByAuthor(Model model, Principal principal) {
         model.addAttribute("allElements", postRepositoryDAO.findAllByAuthorOrderByCreatedAtDesc(getCurrentCerebookUser(principal)));
         model.addAttribute("elementFields", getElementFields());
+        model.addAttribute("currentUser", getCurrentCerebookUser(principal));
         return getControllerRoute() + "/getAllByAuthor";
     }
 
@@ -65,7 +66,7 @@ public class PostController extends AbstractCrudLongController<Post> {
 
     @Override
     protected String[] getElementFields() {
-        return new String[]{"content", "video"};
+        return new String[]{"content", "video", "picture"};
     }
 
     @Override
