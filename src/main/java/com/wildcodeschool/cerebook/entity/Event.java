@@ -37,9 +37,6 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private List<Picture> pictures;
-
     @ManyToOne
     private User creator;
 
@@ -97,14 +94,6 @@ public class Event {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public List<Picture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
     }
 
     public String getDescription() {

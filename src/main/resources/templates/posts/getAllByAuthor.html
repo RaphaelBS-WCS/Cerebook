@@ -1,14 +1,42 @@
 <th:block th:fragment="postByAuthor">
     <div id="cards">
-        <h1>POSTS</h1>
-        <form th:action="@{/posts/create}" th:object="${post}" method="POST">
-            <th:block th:each="field : ${posts}">
-                <label th:for="${field}" th:text="${#strings.capitalize(field)}"></label>
-                <input th:id="${field}" th:name="${field}" th:placeholder="${field}">
-                <br>
-            </th:block>
-            <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
-        </form>
+    <h1>POSTS</h1>
+        <button type="button" class="btn newPost" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Publish a new Post
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">Publish a new Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{'/posts/create'}" method="POST" enctype="multipart/form-data">
+                            <label class ="mb-2">Content</label>
+                            <textarea name = "content" placeholder="What's new?"></textarea>
+                            <label class ="mb-2">Video</label>
+                            <input type="text" name="video" placeholder="youtube embed url"/>
+                            <div class="mb-3" id="postPicture">
+                                <label class="mb-1">Picture</label>
+                                <input type="file" name="postPicture" accept="image/*" onchange="loadFile(event)" />
+                            </div>
+                            <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
+                            <script>
+                                var loadFile = function(event) {
+                                    var output = document.getElementById('postPicture');
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                    output.style.backgroundImage=`url(${output.src})`;
+                                    output.onload = function() {
+                                        URL.revokeObjectURL(output.src)
+                                    }
+                                };
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div th:each="post : ${posts}">
             <div class="card-body">
                 <div class="card-header">
@@ -32,24 +60,20 @@
                             <span class="fas fa-ellipsis-h"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href='/posts/${id}/update'>Modifier mon post</a></li>
-                            <li><a class="dropdown-item  upline" href='/posts/${id}/delete'>Supprimmer mon post</a></li>
+                            <li><a class="dropdown-item" th:href="'/posts/' + ${post.id} + '/update'">Modifier mon post</a></li>
+                            <li>
+                                <form method="POST" th:action="'/posts/' + ${post.id} + '/delete'">
+                                    <input type="hidden" name="urlRedirect" value="/"/>
+                                    <a class="dropdown-item  upline" href="#" onclick="this.parentNode.submit()">Supprimmer mon post</a>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-content">
                     <p class="card-text" th:text="${post.content}"></p>
-                    <span th:if="${post.video} != null">
-                        <iframe th:src="|${post.video}|" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </span>
-                    <span th:if="${post.picture} != null">
-                        <span th:if="${post.picture.isUrl} == true">
-                            <img src="${post.picture.name}" alt="picture">
-                        </span>
-                        <span th:unless="${post.picture} == null">
-                            <img src="'/images/' + ${post.picture.name}" alt="picture">
-                        </span>
-                    </span>
+                    <iframe th:if="${post.video} != null" th:src="|${post.video}|" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <img th:if="${post.picture} != null" th:src="'/images/Posts/' + ${post.picture}" alt="picture">
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@
              `<div class="card-body">
                 <div class="card-header">
                     <div class="card-title">
-                        ${(post.author.profilImage) ? '<img class="rounded-circle profile-avatar" src="/images/' + post.author.profilImage + '" alt="picture">' : '<img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">'}
+                        ${(post.author.profilImage) ? '<img class="rounded-circle profile-avatar" src="/images/Profiles/' + post.author.id + '/profile/' + post.author.profilImage + '" alt="picture">' : '<img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">'}
                         <div class="card-details">
                             <div class="card_userName">${post.author.user.username}</div>
                             <div class="card_created_at">${post.createdAt}</div>
@@ -34,8 +34,7 @@
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>
                     ${(post.video == null) ? "" : '<iframe width="560" height="315" src="' + post.video + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'}
-                    ${(post.picture == null) ? "" : (post.picture.isUrl ? '<img src="' + post.picture.name + '" alt="picture">' :
-                    '<img src="/images/' + post.picture.name + '" alt="picture">')}
+                    ${(post.picture == null) ? "" : '<img src="/images/' + post.picture.name + '" alt="picture">'}
                 </div>
             </div>`;
     }

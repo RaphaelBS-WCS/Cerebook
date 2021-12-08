@@ -10983,13 +10983,35 @@ textarea.form-control-lg {
 #cards h1, #cards .h1 {
   text-align: center;
 }
+#cards .newPost {
+  background-color: #050340;
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+#cards .modal-content {
+  background-color: #fefdf9;
+  border: 2px solid #0F4C59;
+  border-radius: 10px;
+  padding: 8px;
+}
+#cards .modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+#cards .modal-content form label {
+  text-align: center;
+}
 #cards .card-body {
   background-color: #fefdf9;
   padding: 0 !important;
-  margin: 8px;
   border: 2px solid #0F4C59;
   border-radius: 10px;
-  padding: 2px;
 }
 #cards .card-body .card-header {
   border-top-left-radius: 10px;

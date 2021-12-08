@@ -68,14 +68,16 @@ public abstract class AbstractCrudController<E, EK> {
         preProcessElement(e, hsr);
         getRepository().save(e);
 
-        return "redirect:/" + getControllerRoute();
+        return "redirect:/";
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") String id) {
+    public String delete(@PathVariable("id") String id, @RequestParam(value = "urlRedirect", defaultValue = "") String urlRedirect) {
         getRepository().deleteById(parseId(id));
-
-        return "redirect:/" + getControllerRoute();
+        if (urlRedirect.isEmpty()) {
+            return "redirect:/" + getControllerRoute();
+        }
+        return "redirect:/" + urlRedirect;
     }
     // </editor-fold>
 

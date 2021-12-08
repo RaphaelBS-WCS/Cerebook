@@ -4,13 +4,36 @@
   h1 {
     text-align: center;
   }
+  .newPost {
+    background-color: $secondary;
+    color: white;
+    border-radius: 10px;
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .modal-content {
+    background-color: $bgcolor;
+    border: 2px solid $green-element;
+    border-radius: 10px;
+    padding: 8px;
+    form {
+      label {
+        text-align: center;
+      }
+      display: flex;
+      flex-direction: column;
+      align-self: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+  }
   .card-body {
     background-color: $bgcolor;
     padding: 0 !important;
-    margin: 8px;
     border: 2px solid $green-element;
     border-radius: 10px;
-    padding: 2px;
     .card-header {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;

@@ -1,6 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,6 +40,7 @@ public class CerebookUser {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     @JsonManagedReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;

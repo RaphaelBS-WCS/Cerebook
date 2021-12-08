@@ -4,6 +4,7 @@ import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.PostRepository;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,12 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostController postController;
+
     @GetMapping("/")
     public String index(Model model, Principal principal) {
         if(principal == null) {
@@ -34,6 +41,7 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
         model.addAttribute("cerebookUserFields", getElementFields());
         model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
+        model.addAttribute("postElementFields", postController.getElementFields());
 
         return "index";
     }

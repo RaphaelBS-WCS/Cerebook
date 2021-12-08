@@ -20,6 +20,7 @@ public class Post {
 
     @Column(columnDefinition="TEXT")
     private String content;
+
     private String video;
 
     @JsonManagedReference
@@ -28,12 +29,10 @@ public class Post {
 
     private Boolean isTweetos;
 
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Event event;
 
-    @JsonManagedReference
-    @ManyToOne
-    private Picture picture;
+    private String picture;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
@@ -89,14 +88,6 @@ public class Post {
         this.event = eventId;
     }
 
-    public Picture getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
-
     public List<Comment> getComments() {
         return comments;
     }
@@ -111,5 +102,13 @@ public class Post {
 
     public void setTweetos(Boolean tweetos) {
         isTweetos = tweetos;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
