@@ -87,8 +87,15 @@
             <button type="submit" name="Update" class="btn btn-success px-4 my-5">Valider</button>
         </div>
     </form>
+        <form method="POST" th:action="'/cerebookUsers/' + ${cerebookUser.id} + '/delete'">
+        <input type="hidden" name="urlRedirect" value="/"/>
+        <a class="dropdown-item  upline" href="#" onclick="this.parentNode.submit()">Supprimmer mon post</a>
+    </form>
+
     </div>
 
 </div>
+
+
 </body>
 </html>
