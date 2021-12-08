@@ -6,7 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+
 import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class CerebookUser {
@@ -160,5 +163,19 @@ public class CerebookUser {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    /*Interpretating all objects with the same Cerebook ID as the same object */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CerebookUser that = (CerebookUser) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

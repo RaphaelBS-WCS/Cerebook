@@ -19,6 +19,10 @@
                 <a class="btn btn-primary px-3 rounded" th:href="@{/events/create}" role="button">
                     <img src="/images/addsquare.svg" class="px-2">
                     Create a new event</a>
+
+                <a class="btn btn-secondary px-3 rounded" th:href="@{/events}" role="button">
+                    <img src="/images/events.svg" class="px-2">
+                    Discover all events from Cerebook</a>
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-5">
@@ -38,8 +42,8 @@
 
                             <p th:if="${event.getDescription() != null}" class="card-text"
                                th:text="${event.getDescription()}"></p>
-                            <a th:href="${'/events/show/' + event.getId()}" class="btn btn-secondary">See more</a>
-                            <a th:href="${'/events/edit/' + event.getId()}" class="btn btn-warning">Modify</a>
+                            <a th:href="${'/events/show/' + event.getId()}" class="btn btn-secondary my-2">See more</a>
+                            <a th:href="${'/events/edit/' + event.getId()}" class="btn btn-warning my-2">Modify</a>
                         </div>
                     </div>
                 </div>
