@@ -57,6 +57,11 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     }
 
     @Override
+    protected Class<CerebookUser> getElementClass() {
+        return null;
+    }
+
+    @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
        try {

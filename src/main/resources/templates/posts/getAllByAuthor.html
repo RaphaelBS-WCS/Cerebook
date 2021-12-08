@@ -43,7 +43,7 @@
                         <iframe th:src="|${post.video}|" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </span>
                     <span th:if="${post.picture} != null">
-                        <span th:if="${post.picture.isUrl = true">
+                        <span th:if="${post.picture.isUrl} == true">
                             <img src="${post.picture.name}" alt="picture">
                         </span>
                         <span th:unless="${post.picture} == null">
