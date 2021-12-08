@@ -1,6 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 public class CerebookUser {
