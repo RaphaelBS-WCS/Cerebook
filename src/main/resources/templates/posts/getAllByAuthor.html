@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
-<link rel="stylesheet" href="/static/scss/style.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-<body>
-<div id="cards">
-    <th:block th:fragment="post">
-        <div th:each="post : ${allElements}">
+<th:block th:fragment="postByAuthor">
+    <div id="cards">
+        <div th:each="post : ${posts}">
             <div class="card-body">
                 <div class="card-header">
                     <div class="card-title">
                         <span th:if="${post.author.profilImage}">
-                            <img class="rounded-circle profile-avatar" th:src="@{|/images/${post.author.profilImage}|}" alt="picture">
+                            <img class="rounded-circle profile-avatar" th:src="@{|/images/Profiles/${cerebookUser.id}/profile/${post.author.profilImage}|}" alt="picture">
                         </span>
                         <span th:unless="${post.author.profilImage}">
                             <img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">
@@ -52,12 +46,6 @@
                 </div>
             </div>
         </div>
-        <form th:action="@{'/posts/create'}" method="GET">
-            <button type="submit" name="Create" value="Create" class="btn-link">Create</button>
-        </form>
-    </th:block>
-</div>
-<script src="https://kit.fontawesome.com/365f79b953.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+    </div>
+</th:block>
+

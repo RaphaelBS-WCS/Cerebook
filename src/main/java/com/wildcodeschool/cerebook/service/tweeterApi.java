@@ -67,10 +67,10 @@ public class tweeterApi {
    public static ArrayList<JsonNode> getPostFromTweet() throws IOException, URISyntaxException {
 
        String[] wolverine = new String[]{"Wolverine","948687002668584960"};
-       //String[] mystique = new String[] {"Mystique", "80349271"};
+       String[] mystique = new String[] {"Mystique", "80349271"};
        ArrayList<String[]> tweetUserIds = new ArrayList<String[]>();
        tweetUserIds.add(wolverine);
-       //tweetUserIds.add(mystique);
+       tweetUserIds.add(mystique);
        ArrayList<JsonNode> tweetPosts = new ArrayList<>();
 
        for(String[] tweetUserId : tweetUserIds) {

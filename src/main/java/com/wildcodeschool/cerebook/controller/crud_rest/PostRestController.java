@@ -42,7 +42,6 @@ public class PostRestController extends AbstractCrudRestLongController<Post> {
         ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule()).configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         List<JsonNode> cerebookPosts = postRepository.findAllByAuthorOrByAuthorFriends(cerebookUser)
                 .stream().map(p -> (JsonNode)(objectMapper.valueToTree(p))).collect(Collectors.toList());
-        System.out.println(cerebookPosts);
         List<JsonNode> tweetPosts = tweeterApi.getPostFromTweet();
         List<JsonNode> posts = new ArrayList<JsonNode>();
         posts.addAll(cerebookPosts);

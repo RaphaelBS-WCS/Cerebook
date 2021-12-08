@@ -67,12 +67,4 @@ public class Membership {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 }
