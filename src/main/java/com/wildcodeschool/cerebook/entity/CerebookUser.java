@@ -32,7 +32,7 @@ public class CerebookUser {
     private String bio;
 
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser")
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     @JsonBackReference
@@ -40,7 +40,7 @@ public class CerebookUser {
     private List<Post> posts;
 
     @JsonManagedReference
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
     @JsonBackReference

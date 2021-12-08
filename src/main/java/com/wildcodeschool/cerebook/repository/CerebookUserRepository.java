@@ -18,8 +18,6 @@ import java.util.List;
 public interface CerebookUserRepository extends JpaRepository<CerebookUser, Long> {
     CerebookUser findCerebookUserById(Long user);
 
-    CerebookUser findByUser(User cerebookUser);
-
     @Query("SELECT c1, count(c1) as cc1 " +
             "FROM CerebookUser c1 " +
             "JOIN CerebookUser c2 ON c1 IN (SELECT c2f FROM c2.friends c2f) " +

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Cerebook</title>
@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Navbar -->
-<div th:fragment="navbar">
+<div th:fragment="navbar-update">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid pe-0">
             <a th:href="@{/}" class="text-warning fs-5 fw-bold mx-5">Cerebook</a>
@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 mx-auto icons" sec:authorize="isAuthenticated()">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 mx-auto icons">
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
                         <a class="nav-link active" aria-current="page" href="#"><img src="/images/profile.svg"
                                                                                      class="icon"
@@ -30,28 +30,28 @@
                                                                  alt="icon homepage"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link mb-2" th:href="@{|/friends|}"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
+                        <a class="nav-link mb-2" href="#"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link" th:href="@{/events}"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
+                        <a class="nav-link" href="#"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
                     </li>
                 </ul>
-                <div class="d-flex justify-content-center align-items-center" sec:authorize="isAuthenticated()">
+                <div class="d-flex justify-content-center align-items-center">
                     <div class="navbar-nav">
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white fw-bold me-3" href="#" role="button"
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bonjour
-                                <span sec:authentication="principal.username">User!</span>
-                                <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>
-                                <img th:unless="${cerebookUser.profilImage}" th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>
+                                <span th:utext="${username}"></span>
+                                <img th:if="${profilImage} != null"  th:src="${profilImage}" class="border bg-light rounded-circle mx-2"
+                                         width="60" height="60"/>
+                                <img th:unless="${profilImage}" th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}" class="border bg-light rounded-circle mx-2"
+                                         width="60" height="60"/>
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
                                 <!-- The content of the list can be modified if necessary -->
                                 <li>
-                                    <a class="dropdown-item text-wrap py-2 text-white fw-bold" th:href="@{|/profiles/${cerebookUser.id}/update|}">
+                                    <a class="dropdown-item text-wrap py-2 text-white fw-bold" th:href="@{|/profiles/${id}/update|}">
                                         <i class="bi bi-pencil-square"></i> Éditer mon profil</a>
                                 </li>
                                 <li>
