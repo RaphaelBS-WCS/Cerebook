@@ -10959,6 +10959,15 @@ textarea.form-control-lg {
   }
 }
 
+
+.friends .card-title {
+  color: #A61723; }
+.friends .card-img-top {
+  width: 100%;
+  height: 20vh;
+  object-fit: cover; }
+
+
 body {
   margin: 0;
   padding: 0;

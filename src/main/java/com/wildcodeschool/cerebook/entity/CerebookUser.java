@@ -3,13 +3,18 @@ package com.wildcodeschool.cerebook.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+
+import java.util.*;
 import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 public class CerebookUser {
@@ -39,8 +44,11 @@ public class CerebookUser {
     private Membership membership;
 
     @JsonBackReference
-    @ManyToMany(cascade = CascadeType.REFRESH)
-    private List<CerebookUser> friends;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="cerebook_user_friends")
+    @JsonIgnore
+    private final Set<CerebookUser> friends = new TreeSet<>();
+
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Event> events;
@@ -118,20 +126,21 @@ public class CerebookUser {
         this.posts = posts;
     }
 
+    public Set<CerebookUser> getFriends() {
+        return friends;
+    }
+
+    public void addFriend(CerebookUser friend) {
+        friends.add(friend);
+        friend.getFriends().add(this);
+    }
+
     public Membership getMembership() {
         return membership;
     }
 
     public void setMembership(Membership membership) {
         this.membership = membership;
-    }
-
-    public List<CerebookUser> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<CerebookUser> friends) {
-        this.friends = friends;
     }
 
     public List<Event> getEvents() {
