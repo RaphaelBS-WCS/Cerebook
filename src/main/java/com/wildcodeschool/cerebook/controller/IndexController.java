@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
@@ -37,6 +37,13 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         return "index";
     }
 
+    @GetMapping("/profiles/{id}")
+    public String getById(Model model, @PathVariable Long id) {
+        model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(id));
+
+        return getControllerRoute() + "/getById";
+    }
+
     @GetMapping("/login")
     public String login(Principal principal) {
         if (principal != null) {
@@ -52,7 +59,7 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
 
     @Override
     protected String getControllerRoute() {
-        return null;
+        return "profiles";
     }
 
     @Override
@@ -65,3 +72,4 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         return Period.between(birthDate, currentDate).getYears();
     }
 }
+

@@ -1,7 +1,6 @@
 package com.wildcodeschool.cerebook.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -27,13 +26,14 @@ public class CerebookUser {
     private String genre;
     @Column(columnDefinition="TEXT")
     private String bio;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser")
+
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
     @ManyToMany(cascade = CascadeType.ALL)
