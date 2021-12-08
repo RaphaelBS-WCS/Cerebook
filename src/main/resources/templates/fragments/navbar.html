@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Cerebook</title>
@@ -31,10 +30,10 @@
                                                                  alt="icon homepage"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link mb-2" href="#"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
+                        <a class="nav-link mb-2" th:href="@{|/friends|}"><img class="icon" src="/images/friend.svg" alt="icon friends"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link" href="#"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
+                        <a class="nav-link" th:href="@{/events}"><img class="icon" src="/images/events.svg" alt="icon calender"></a>
                     </li>
                 </ul>
                 <div class="d-flex justify-content-center align-items-center" sec:authorize="isAuthenticated()">
@@ -44,10 +43,10 @@
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bonjour
                                 <span sec:authentication="principal.username">User!</span>
-                            <!--    <img th:if="${cerebookUser.profilImage} != null"  th:src="${cerebookUser.profilImage}" class="border bg-light rounded-circle mx-2"
+                                <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
                                      width="60" height="60"/>
                                 <img th:unless="${cerebookUser.profilImage}" th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>-->
+                                     width="60" height="60"/>
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
                                 <!-- The content of the list can be modified if necessary -->

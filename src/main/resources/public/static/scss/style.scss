@@ -5,6 +5,8 @@
 @import "registration.scss";
 @import "events.scss";
 @import "profile.scss";
+@import "friend.scss";
+
 
 body {
   margin: 0;
@@ -34,7 +36,6 @@ a, ul, li{
 .navbar {
   background-color: $primary !important;
   height: 80px;
-  margin: -25px -25px 0 -25px;
 }
 
 #navbarNavAltMarkup {

@@ -1,6 +1,25 @@
 .headingEvents {
   font-family: $font_ibm;
   color: $secondary;
+
+}
+
+.eventSections {
+  h5 {
+    font-size: 1.5rem;
+  }
+}
+
+.eventBox {
+  background-color: $hover;
+  border: 10px solid $green-element;
+}
+
+.heroImageEvent {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
 
 .btn-primary {
