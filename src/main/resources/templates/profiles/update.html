@@ -20,33 +20,33 @@
 
     <h1 class="mt-5 title-form text-uppercase fw-bold">Modifier mon profile</h1>
 
-    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data" id="form1" runat="server">
+    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
         <div class="my-3">
 
-           <div class="mb-3" id="output">
-                <label>BACKGROUND PHOTO </label>
+           <div class="mb-3" id="backgroundImageDiv">
+                <label class="mb-1">BACKGROUND PHOTO </label>
                 <input type="file" name="backgroundImage" accept="image/*" onchange="loadFile(event)" />
 
             </div>
             <script>
                 var loadFile = function(event) {
-                    var output = document.getElementById('output');
+                    var output = document.getElementById('backgroundImageDiv');
                     output.src = URL.createObjectURL(event.target.files[0]);
+                    output.style.backgroundImage=`url(${output.src})`;
                     output.onload = function() {
                         URL.revokeObjectURL(output.src)
                     }
                 };
             </script>
-
             <div class="mb-3">
                 <label>PROFILE PHOTO</label>
+                <img id="profilImage"/>
                 <input type="file" name="profileImage" accept="image/*" onchange="loadFile2(event)" />
-                <img id="toto"/>
             </div>
 
             <script>
                 var loadFile2 = function(event) {
-                    var output = document.getElementById('toto');
+                    var output = document.getElementById('profilImage');
                     output.src = URL.createObjectURL(event.target.files[0]);
                     output.onload = function() {
                         URL.revokeObjectURL(output.src)
