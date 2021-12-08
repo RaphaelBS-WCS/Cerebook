@@ -22,8 +22,6 @@ public class RegisterController {
     @Autowired
     private UserRepository userRepo;
 
-    private CerebookUser cerebookUser;
-
     private UserDetailsServiceImpl userService;
 
     @GetMapping("/registration")
@@ -56,9 +54,9 @@ public class RegisterController {
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
 
-            CerebookUser toto = new CerebookUser();
-            user.setCerebookUser(toto);
-            toto.setUser(user);
+            CerebookUser cerebookUser = new CerebookUser();
+            user.setCerebookUser(cerebookUser);
+            cerebookUser.setUser(user);
             userRepo.save(user);
 
             return "register_success";
