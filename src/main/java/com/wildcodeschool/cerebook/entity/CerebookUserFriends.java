@@ -20,6 +20,16 @@ public class CerebookUserFriends implements Serializable {
     @JoinColumn(name = "friends_id")
     private CerebookUser friend;
 
+    /*public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
+    }
+
+    private boolean isAccepted;*/
+
     public CerebookUser getOriginatedUser() {
         return originatedUser;
     }

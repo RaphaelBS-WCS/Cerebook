@@ -6,13 +6,19 @@ import com.wildcodeschool.cerebook.entity.Event;
 import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
+import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.*;
 
 @Controller
@@ -21,16 +27,24 @@ public class FriendsController{
     CerebookUserRepository cerebookUserRepository;
 
     @Autowired
-    CerebookUserFriendsRepository cerebookUserFriendsRepository;
+    UserRepository userRepository;
 
+    @Autowired
+    CerebookUserFriendsRepository cerebookUserFriendsRepository;
 
     @GetMapping("/friends")
     public String showFriends(@ModelAttribute CerebookUserFriends cerebookUserFriends, Model model, Principal principal) {
 
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
+
         // Get the friend list
-        List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findAll();
+        List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUser(currentCerebookUser);
         model.addAttribute("friends", friendsList);
+
+        // Get the suggestion friend list
+        model.addAttribute("suggestfriends", cerebookUserRepository.findFriendsSuggestions(currentCerebookUser));
 
         return "friends/getAll";
     }
+
 }

@@ -31,7 +31,7 @@ public interface CerebookUserRepository extends JpaRepository<CerebookUser, Long
             "ORDER BY cc1 DESC "
     )
 
-    List<Object[]> findFriendsSuggestions(
+    List<CerebookUser> findFriendsSuggestions(
             @Param("user") CerebookUser cerebookUser
     );
 }
