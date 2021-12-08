@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Objects;
 
 public abstract class AbstractCrudController<E, EK> {
 
@@ -72,12 +73,9 @@ public abstract class AbstractCrudController<E, EK> {
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") String id, @RequestParam(value = "urlRedirect", defaultValue = "") String urlRedirect) {
+    public String delete(@PathVariable("id") String id) {
         getRepository().deleteById(parseId(id));
-        if (urlRedirect.isEmpty()) {
-            return "redirect:/" + getControllerRoute();
-        }
-        return "redirect:/" + urlRedirect;
+        return "redirect:/";
     }
     // </editor-fold>
 

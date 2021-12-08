@@ -9,11 +9,15 @@
     let currentUser = /*[[${currentUser}]]*/ {};
     function addPost(post) {
         let id = parseInt(post.id);
+        let regEx = /^http;
+        let isUrl = post.video.match(regEx);
+        console.log(isUrl);
         document.getElementById("cards").innerHTML +=
              `<div class="card-body">
                 <div class="card-header">
                     <div class="card-title">
-                        ${(post.author.profilImage) ? '<img class="rounded-circle profile-avatar" src="/images/Profiles/' + post.author.id + '/profile/' + post.author.profilImage + '" alt="picture">' : '<img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">'}
+                        ${(post.author.profilImage) ? '<img class="rounded-circle profile-avatar" src="/images/Profiles/' + post.author.id + '/profile/' + post.author.profilImage + '" alt="picture">'
+                                    : '<img class="rounded-circle profile-avatar" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" alt="picture">'}
                         <div class="card-details">
                             <div class="card_userName">${post.author.user.username}</div>
                             <div class="card_created_at">${post.createdAt}</div>
@@ -34,7 +38,7 @@
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>
                     ${(post.video == null) ? "" : '<iframe width="560" height="315" src="' + post.video + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'}
-                    ${(post.picture == null) ? "" : '<img src="/images/' + post.picture.name + '" alt="picture">'}
+                    ${(post.picture == null) ? "" : (post.picture.match(new RegExp(/^http/gm))) ? '<img src="' + post.picture.name + '" alt="picture">' :'<img src="/images/' + post.picture.name + '" alt="picture">'}
                 </div>
             </div>`;
     }
@@ -42,14 +46,14 @@
 </script>
 <script th:inline="javascript">
     window.onload = function() {
+        console.log(currentUser);
         $.ajax( {
             type: "GET",
-            url: "/api/posts/1/getAllByAuthorOrByAuthorFriends",
+            url: "/api/posts/"  + currentUser.id + "/getAllByAuthorOrByAuthorFriends",
             contentType: 'application/json; charset=utf-8',
             //data: this.response,
             dataType: 'json',
             success: function (data) {
-                data
                 data.forEach(addPost)
             },
         });

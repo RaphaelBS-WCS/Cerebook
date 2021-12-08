@@ -63,7 +63,6 @@
                             <li><a class="dropdown-item" th:href="'/posts/' + ${post.id} + '/update'">Modifier mon post</a></li>
                             <li>
                                 <form method="POST" th:action="'/posts/' + ${post.id} + '/delete'">
-                                    <input type="hidden" name="urlRedirect" value="/"/>
                                     <a class="dropdown-item  upline" href="#" onclick="this.parentNode.submit()">Supprimmer mon post</a>
                                 </form>
                             </li>
@@ -72,8 +71,12 @@
                 </div>
                 <div class="card-content">
                     <p class="card-text" th:text="${post.content}"></p>
-                    <iframe th:if="${post.video} != null" th:src="|${post.video}|" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <img th:if="${post.picture} != null" th:src="'/images/Posts/' + ${post.picture}" alt="picture">
+                    <span th:if="${post.video} != null">
+                            <iframe th:src="|${post.video}|" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </span>
+                    <span th:if="${post.picture} != null">
+                            <img th:src="'/images/Posts/' + ${post.picture}" alt="picture">
+                    </span>
                 </div>
             </div>
         </div>

@@ -48,8 +48,8 @@ public class PostController extends AbstractCrudLongController<Post> {
 
     @GetMapping("/{CerebookUser.id}/getAllByAuthorOrByAuthorFriends")
     public String getAllPostsByCerebookUserFriendsOrByAuthor(Model model, @PathVariable("CerebookUser.id") String id, Principal principal) {
-        CerebookUser cerebookUser = cerebookUserRepository.getById(Long.parseLong(id));
-        model.addAttribute("cerebookUser", cerebookUser);
+        model.addAttribute("currentUser", getCurrentCerebookUser(principal));
+        //model.addAttribute("currentUser", cerebookUserRepository.getById(Long.parseLong(id)));
         return getControllerRoute() + "/getAllByAuthorOrByAuthorFriends";
     }
 
@@ -116,8 +116,15 @@ public class PostController extends AbstractCrudLongController<Post> {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime date = LocalDateTime.now();
         post.setCreatedAt(LocalDate.from(date));
+
         post.setTweetos(false);
         post.setAuthor(getCurrentCerebookUser(hsr.getUserPrincipal()));
+        if(post.getVideo().isEmpty()) {
+            post.setVideo(null);
+        }
+        if(post.getPicture().isEmpty()) {
+            post.setPicture(null);
+        }
 /*        if(post.getPicture().isEmpty()) {
             post.setPicture(
                     postRepositoryDAO.getById(post.getId())
