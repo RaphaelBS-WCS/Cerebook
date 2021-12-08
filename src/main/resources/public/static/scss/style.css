@@ -8522,12 +8522,14 @@ textarea.form-control-lg {
         .background-profile .name-friendnumb .friendnumb {
           font-size: 12px; } }
 
+
 .friends .card-title {
   color: #A61723; }
 .friends .card-img-top {
   width: 100%;
   height: 20vh;
   object-fit: cover; }
+
 
 body {
   margin: 0;
