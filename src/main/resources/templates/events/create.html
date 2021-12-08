@@ -19,6 +19,7 @@
                 <div class="alert alert-info">You've successfully registered the event!</div>
             </div>
 
+
             <div class="container text-center justify-content-center form-box mt-5">
 
                 <h1 class="mt-5 title-form text-uppercase fw-bold">Event Creation</h1>
@@ -59,12 +60,10 @@
                         </div>
 
                         <div>
-                            <label class="form-label mt-3" for="backgroundPhoto">Event Background</label>
+                            <label class="form-label mt-3" for="backgroundPhotoFile">Event Background</label>
                             <input type="file" name="backgroundPhotoFile" class="form-control"
-                                   minlength="6" maxlength="64" id="backgroundPhoto" accept="image/png, image/jpeg"/>
-                            <!--  <div class="alert alert-warning" th:if="${#fields.hasErrors('backgroundPhoto')}"
-                                   th:errors="*{backgroundPhoto}">Background photo error
-                              </div>-->
+                                   minlength="6" maxlength="255" id="backgroundPhotoFile" accept="image/png, image/jpeg"
+                                   required/>
                         </div>
 
                         <div>
