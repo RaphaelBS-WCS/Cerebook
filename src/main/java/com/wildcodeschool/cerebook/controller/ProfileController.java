@@ -37,7 +37,9 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
         model.addAttribute("user", cerebookUserRepository.findCerebookUserById(id));
         model.addAttribute("userFields", getElementFields());
         // envoyer age
-        model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+        if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
+            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+        }
         return getControllerRoute() + "/getById";
     }
 
