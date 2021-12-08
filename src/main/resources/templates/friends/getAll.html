@@ -19,7 +19,7 @@
                         <h5 class="fw-bold text-center mt-3" th:text="${friend.getFriend().getUser().getFirstName()} + ' ' + ${friend.getFriend().getUser().getLastName()}"></h5>
                     </div>
                     <div class="card-button d-flex flex-column w-75 mx-auto">
-                        <a href="#" class="btn btn-secondary my-3">Envoyer un message</a>
+                      <!--  <a href="#" class="btn btn-secondary my-3">Envoyer un message</a>-->
                         <a href="#" class="btn btn-primary mb-4">Remove friend</a>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <h5 class="mt-3 fw-bold text-center" th:text="${suggestfriend.getUser().getFirstName()} + ' ' + ${suggestfriend.getUser().getLastName()}" ></h5>
                     </div>
                     <div class="card-button d-flex flex-column w-75 mx-auto">
-                        <a href="#" class="btn btn-secondary my-3">Add friend</a>
+                        <a href="#" class="btn btn-success my-3">Add friend</a>
                         <a href="#" class="btn btn-primary mb-4">Supprimer</a>
                     </div>
                 </div>
