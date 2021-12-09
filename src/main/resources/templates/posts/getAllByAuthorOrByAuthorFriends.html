@@ -11,10 +11,10 @@
 <script>
     function addPost(post) {
         let id = parseInt(post.id);
-        let regEx = new  RegExp('/^http/');
+        let regEx = new  RegExp('^http');
         let isUrl = null;
-        if (post.video != null) {
-            isUrl = post.video.match(regEx);
+        if (post.picture != null) {
+            isUrl = post.picture.match(regEx);
         }
         document.getElementById("cards").innerHTML +=
              `<div class="card-body">
@@ -42,7 +42,7 @@
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>
                     ${(post.video == null) ? "" : '<iframe width="560" height="315" src="' + post.video + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'}
-                    ${(post.picture == null) ? "" : (isUrl === null) ? '<img src="' + post.picture.name + '" alt="picture">' :'<img src="/images/Posts/' + post.picture.name + '" alt="picture">'}
+                    ${(post.picture == null) ? "" : (isUrl === null) ? '<img src="/images/Posts/' + post.picture + '" alt="picture">' : '<img src="' + post.picture + '" alt="picture">'}
                 </div>
             </div>`
         ;

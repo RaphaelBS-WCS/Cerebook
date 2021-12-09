@@ -1,10 +1,6 @@
 package com.wildcodeschool.cerebook.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +14,7 @@ import java.util.Objects;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "friends"})
 public class CerebookUser {
 
     @Id
@@ -45,10 +42,9 @@ public class CerebookUser {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cerebook_user_friends")
-    @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
 

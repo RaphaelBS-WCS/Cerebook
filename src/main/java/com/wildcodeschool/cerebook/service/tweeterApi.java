@@ -109,7 +109,7 @@ public class tweeterApi {
                }
                String stringTweetPost;
                String stringTweetPostContent = "{\"createdAt\":\"" + createdAt + "\",\"content\":\"" + content + "\",\"author\":{\"user\":{\"username\":\"" + username + "\"}}";
-               String stringTweetPostPicture = ",\"picture\":{\"id\":\"\",\"name\":\"" + url + "\",\"isUrl\":true,\"author\":null,\"event\":null}";
+               String stringTweetPostPicture = ",\"picture\":\"" + url + "\"";
                if (url != "") {
                    stringTweetPost = stringTweetPostContent + stringTweetPostPicture + ",\"tweetos\":true}\";";
                } else {
