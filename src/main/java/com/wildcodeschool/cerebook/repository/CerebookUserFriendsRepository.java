@@ -16,11 +16,11 @@ import java.util.List;
 public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUserFriends, CerebookUserFriendsId> {
 
     // Query served to get all friend requests (unconfirmed relation)
-    @Query("select c from CerebookUserFriends c where c.originatedUser = :originatedUser AND c.isAccepted = false")
-    public List<CerebookUserFriends> getAllFriendRequests(@Param("originatedUser") CerebookUser originatedUser);
+    @Query("select c from CerebookUserFriends c where c.friend = :friend AND c.isAccepted = false")
+    public List<CerebookUserFriends> getAllFriendRequests(@Param("friend") CerebookUser friend);
 
     // Query served to get all friends of current  (confirmed relation)
-    @Query("SELECT c FROM CerebookUserFriends c WHERE c.originatedUser = :originatedUser AND c.isAccepted = true")
+    @Query("SELECT c, count(c) FROM CerebookUserFriends c WHERE (c.originatedUser = :originatedUser OR c.friend = :originatedUser) AND c.isAccepted = true GROUP BY c")
     public List<CerebookUserFriends> findCerebookUserFriendsByOriginatedUserAndAccepted(@Param("originatedUser") CerebookUser originatedUser);
 
     // Query served to save a friend into friend list after accepting the invitation
@@ -29,11 +29,14 @@ public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUse
     @Transactional
     void acceptFriend(@Param("originatedUser") CerebookUser originatedUser, @Param("friend") CerebookUser friend);
 
-  /*  // Query served to add a suggested friend into friend list
-    @Modifying(clearAutomatically = true)
-    @Query(value = "INSERT INTO CerebookUserFriends (originatedUser, friend, isAccepted) VALUES (:originatedUser, :friend, false)")
+    // Query served to add a suggested friend into friend list
+ /*   @Modifying(clearAutomatically = true)
+    @Query("INSERT INTO CerebookUserFriends (originatedUser, friend, isAccepted) VALUES (:originatedUser, :friend, false)")
     @Transactional
-    void addFriend(@Param("originatedUser") CerebookUser originatedUser, @Param("friend") CerebookUser friend);
+    void addFriend(@Param("originatedUser") CerebookUser originatedUser, @Param("friend") CerebookUser friend)
+    {
+
+    }
 */
     /*
     @Modifying(clearAutomatically = true)

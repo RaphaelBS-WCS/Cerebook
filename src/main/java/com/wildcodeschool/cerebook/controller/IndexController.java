@@ -40,10 +40,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
             return "redirect:/login";
         }
         model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
-        // envoyer age
-        if (getCurrentCerebookUser(principal).getBirthDate() != null) {
-            model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
-        }
         model.addAttribute("cerebookUserFields", getElementFields());
         model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
         model.addAttribute("postElementFields", postController.getElementFields());

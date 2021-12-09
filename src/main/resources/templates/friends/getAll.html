@@ -14,14 +14,28 @@
         <!-- friend card -->
         <div th:if="${friends != null}" th:each="friend : ${friends}" class="col-sm-6 col-md-4 col-lg-3 mb-5">
             <div class="card h-100 d-flex flex-column border border-2 shadow bg-body rounded">
-                <img th:src="${friend.getFriend().getProfilImage()}" class="card-img-top w-100 mh-100 border-bottom" alt="">
-                <div class="d-flex flex-column">
-                    <div class="card-title">
-                        <h5 class="fw-bold text-center mt-3" th:text="${friend.getFriend().getUser().getFirstName()} + ' ' + ${friend.getFriend().getUser().getLastName()}"></h5>
+                <div th:if="${friend.getOriginatedUser().getId() == currentUser.getId() }" >
+                    <img th:src="${friend.getFriend().getProfilImage()}" class="card-img-top w-100 mh-100 border-bottom" alt="">
+                    <div class="d-flex flex-column">
+                        <div class="card-title">
+                            <h5 class="fw-bold text-center mt-3" th:text="${friend.getFriend().getUser().getFirstName()} + ' ' + ${friend.getFriend().getUser().getLastName()}"></h5>
+                        </div>
+                        <div class="card-button d-flex flex-column w-75 mx-auto">
+                            <!--  <a href="#" class="btn btn-secondary my-3">Envoyer un message</a>-->
+                            <a href="#" class="btn btn-primary mb-4">Remove</a>
+                        </div>
                     </div>
-                    <div class="card-button d-flex flex-column w-75 mx-auto">
-                      <!--  <a href="#" class="btn btn-secondary my-3">Envoyer un message</a>-->
-                        <a href="#" class="btn btn-primary mb-4">Remove</a>
+                </div>
+                <div th:if="${friend.getOriginatedUser().getId() != currentUser.getId() }" >
+                    <img th:src="${friend.getOriginatedUser().getProfilImage()}" class="card-img-top w-100 mh-100 border-bottom" alt="">
+                    <div class="d-flex flex-column">
+                        <div class="card-title">
+                            <h5 class="fw-bold text-center mt-3" th:text="${friend.getOriginatedUser().getUser().getFirstName()} + ' ' + ${friend.getOriginatedUser().getUser().getLastName()}"></h5>
+                        </div>
+                        <div class="card-button d-flex flex-column w-75 mx-auto">
+                            <!--  <a href="#" class="btn btn-secondary my-3">Envoyer un message</a>-->
+                            <a href="#" class="btn btn-primary mb-4">Remove</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,13 +50,14 @@
         <!-- friend request card -->
         <div th:if="${friends != null}" th:each="friendrequest : ${friendrequests}" class="col-sm-6 col-md-4 col-lg-3 mb-5">
             <div class="card h-100 d-flex flex-column border border-2 shadow bg-body rounded">
-                <img th:src="${friendrequest.getFriend().getProfilImage()}" class="card-img-top w-100 mh-100 border-bottom" alt="">
+
+                <img th:src="${friendrequest.getOriginatedUser().getProfilImage()}" class="card-img-top w-100 mh-100 border-bottom" alt="">
                 <div class="d-flex flex-column">
                     <div class="card-title">
-                        <h5 class="fw-bold text-center mt-3" th:text="${friendrequest.getFriend().getUser().getFirstName()} + ' ' + ${friendrequest.getFriend().getUser().getLastName()}"></h5>
+                        <h5 class="fw-bold text-center mt-3" th:text="${friendrequest.getOriginatedUser().getUser().getFirstName()} + ' ' + ${friendrequest.getOriginatedUser().getUser().getLastName()}"></h5>
                     </div>
                     <div class="card-button d-flex flex-column w-75 mx-auto">
-                        <a th:href="@{'/friends/' + ${friendrequest.getFriend().getId()} + '/accept'}" class="btn btn-success my-3">Confirm</a>
+                        <a th:href="@{'/friends/' + ${friendrequest.getOriginatedUser().getId()} + '/accept'}" class="btn btn-success my-3">Confirm</a>
                         <a href="#" class="btn btn-primary mb-4">Remove</a>
                     </div>
                 </div>

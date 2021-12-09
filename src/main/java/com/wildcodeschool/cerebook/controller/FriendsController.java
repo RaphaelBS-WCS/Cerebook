@@ -34,7 +34,7 @@ public class FriendsController{
     public String showFriends(@ModelAttribute CerebookUserFriends cerebookUserFriends, Model model, Principal principal, CerebookUser cerebookUser) {
 
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
-
+        model.addAttribute("currentUser", currentCerebookUser);
         // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
         List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
         model.addAttribute("friends", friendsList);
@@ -46,10 +46,32 @@ public class FriendsController{
             model.addAttribute("countFriend", countFriend);
         // Get the invitations : get friendrequests(Or pending requests to be Approved): get all the rows with isAccepted = false.
         List<CerebookUserFriends> friendsRequests = cerebookUserFriendsRepository.getAllFriendRequests(currentCerebookUser);
+
         model.addAttribute("friendrequests", friendsRequests);
 
         // Get the suggestion friend list
-        model.addAttribute("suggestfriends", cerebookUserRepository.findFriendsSuggestions(currentCerebookUser));
+        List<CerebookUser> suggestion = cerebookUserRepository.findFriendsSuggestions(currentCerebookUser);
+        System.out.println("currentUser: " + currentCerebookUser.getId().toString());
+        for(CerebookUserFriends friends : friendsRequests)
+        {
+            System.out.println("Friends id: " + friends.getOriginatedUser().getId().toString());
+            System.out.println("Friends accepted: " + friends.isAccepted());
+            if(!friends.isAccepted())
+            {
+                for (CerebookUser user : suggestion)
+                {
+                    System.out.println("user: " + user.getId().toString());
+                    if(user.getId().equals(friends.getOriginatedUser().getId()))
+                    {
+                        System.out.println("try remove");
+                        suggestion.remove(user);
+                        break;
+                    }
+                }
+            }
+        }
+        model.addAttribute("suggestfriends", suggestion);
+
 
         return "friends/getAll";
     }
@@ -63,7 +85,7 @@ public class FriendsController{
         CerebookUser friend = cerebookUserRepository.getById(friendId);
 
         // Run the request that add the new-added friend in to the friend list
-        cerebookUserFriendsRepository.acceptFriend(currentCerebookUser, friend);
+        cerebookUserFriendsRepository.acceptFriend(friend, currentCerebookUser);
 
         return "redirect:/friends";
     }
@@ -79,8 +101,11 @@ public class FriendsController{
             currentCerebookUser.getFriends().add(friend);
             cerebookUserRepository.save(currentCerebookUser);
 
-            friend.getFriends().add(currentCerebookUser);
-            cerebookUserRepository.save(friend);
+//            friend.getFriends().add(currentCerebookUser);
+//            cerebookUserRepository.save(friend);
+
+           /* CerebookUserFriends newUserFriend= new CerebookUserFriends(currentCerebookUser, friend, false);
+            cerebookUserFriendsRepository.save(newUserFriend);*/
 
             // Remove the friend from suggestion friend list
             // Get the list of all my suggestion friends, define the friend that i added and delete him from the suggestion list

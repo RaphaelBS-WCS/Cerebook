@@ -43,25 +43,36 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ProfileController postController;
+
     @GetMapping("/{id}/getById")
     public String getById(Model model, @PathVariable("id") Long id, Principal principal) {
-        model.addAttribute("user", cerebookUserRepository.getById(id));
-        model.addAttribute("userFields", getElementFields());
-        // envoyer age
-        if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
-            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
-        }
+        if (principal != null) {
 
-        // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
-        CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
-        List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
-        model.addAttribute("friends", friendsList);
-        // Get the number of friends
-        int countFriend = 0;
-        for (CerebookUserFriends friend: friendsList) {
-            countFriend++;
+            model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(id));
+
+            // envoyer age
+            if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
+                model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+            }
+
+            model.addAttribute("cerebookUserFields", getElementFields());
+            model.addAttribute("posts", cerebookUserRepository.findCerebookUserById(id).getPosts());
+            model.addAttribute("postElementFields", postController.getElementFields());
+
+            // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
+            CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
+            List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
+            model.addAttribute("friends", friendsList);
+            // Get the number of friends
+            int countFriend = 0;
+            for (CerebookUserFriends friend: friendsList) {
+                countFriend++;
+            }
+
+            model.addAttribute("countFriend", countFriend);
         }
-        model.addAttribute("countFriend", countFriend);
 
         return getControllerRoute() + "/getById";
     }
