@@ -25,7 +25,8 @@
                     <div class="my-3">
                         <div>
                             <label class="form-label mt-5" for="eventName">How is it called?</label>
-                            <span class="fw-bold text-secondary">Current name: </span><span class="text-secondary" th:text="${eventByIdAndUser.name}"></span>
+                            <span class="fw-bold text-secondary">Current name: </span><span class="text-secondary"
+                                                                                            th:text="${eventByIdAndUser.name}"></span>
                             <input type="text" th:field="*{name}" class="form-control" id="eventName" required/>
                             <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
                                  th:errors="*{name}">Username error
@@ -34,7 +35,8 @@
 
                         <div>
                             <label class="form-label mt-3" for="date">When?</label>
-                            <span class="fw-bold text-secondary">Current date: </span><span class="text-secondary" th:text="${eventByIdAndUser.getFormatedDate()}"></span>
+                            <span class="fw-bold text-secondary">Current date: </span><span class="text-secondary"
+                                                                                            th:text="${eventByIdAndUser.getFormatedDate()}"></span>
                             <input type="date" th:field="*{date}" class="form-control" id="date" required/>
                             <div class="alert alert-warning" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">
                                 Date error
@@ -43,7 +45,8 @@
 
                         <div>
                             <label class="form-label mt-3" for="date">Few words about this event</label>
-                            <span class="fw-bold text-secondary">Current description: </span><span class="text-secondary" th:text="${eventByIdAndUser.description}"></span>
+                            <span class="fw-bold text-secondary">Current description: </span><span
+                                class="text-secondary" th:text="${eventByIdAndUser.description}"></span>
                             <input type="text" th:text="*{description}" th:field="*{description}" class="form-control"
                                    id="description"
                                    required/>
@@ -57,7 +60,7 @@
                             <label class="form-label mt-3" for="backgroundPhoto">Event Background</label>
                             <img th:src="${eventByIdAndUser.getBackgroundPhotoShortPath()}" class="img-thumbnail">
                             <input type="file" name="backgroundPhotoFile" class="form-control"
-                                   minlength="6" maxlength="64" id="backgroundPhoto" accept="image/png, image/jpeg"/>
+                                   minlength="6" maxlength="64" id="backgroundPhoto" accept="image/png, image/jpeg" required/>
                             <!--  <div class="alert alert-warning" th:if="${#fields.hasErrors('backgroundPhoto')}"
                                    th:errors="*{backgroundPhoto}">Background photo error
                               </div>-->
@@ -65,16 +68,19 @@
 
                         <div>
                             <label class="form-label mt-3" for="eventCategory">Category</label>
-                            <span class="fw-bold text-secondary">Current category: </span><span class="text-secondary" th:text="${eventByIdAndUser.eventCategory.getName()}"></span>
+                            <span class="fw-bold text-secondary">Current category: </span><span class="text-secondary"
+                                                                                                th:text="${eventByIdAndUser.eventCategory.getName()}"></span>
                             <select class="form-select" id="eventCategory" th:field="*{eventCategory}">
                                 <option th:each="category : ${eventCategories}" th:value="${category.getId()}"
                                         th:text="${category.getName()}"></option>
                             </select>
                             <div class=" alert alert-warning" th:if="${#fields.hasErrors('eventCategory')}"
                                  th:errors="*{eventCategory}">Event category photo error
+                            </div>
 
-                        <div>
-                            <button type="submit" class="btn btn-warning px-4 my-5">Modify the event</button>
+                            <div class="my-4">
+                                <button type="submit" class="btn btn-warning px-4 my-5">Modify the event</button>
+                            </div>
                         </div>
                     </div>
                 </form>

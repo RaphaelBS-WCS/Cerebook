@@ -43,10 +43,12 @@
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Bonjour
                                 <span sec:authentication="principal.username">User!</span>
-                                <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
+                          <!--      <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
+                                     width="60" height="60"/>-->
+                                <img  th:src="${cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
                                      width="60" height="60"/>
-                                <img th:unless="${cerebookUser.profilImage}" th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>
+                            <!--    <img th:unless="${cerebookUser.profilImage}" th:src="@{cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
+                                     width="60" height="60"/>-->
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
                                 <!-- The content of the list can be modified if necessary -->

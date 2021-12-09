@@ -57,6 +57,8 @@ public class RegisterController {
             CerebookUser cerebookUser = new CerebookUser();
             user.setCerebookUser(cerebookUser);
             cerebookUser.setUser(user);
+            cerebookUser.setProfilImage("");
+            cerebookUser.setBackground("");
             userRepo.save(user);
 
             return "register_success";

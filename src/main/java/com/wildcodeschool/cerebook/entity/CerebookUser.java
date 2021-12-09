@@ -24,7 +24,7 @@ public class CerebookUser {
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String bio;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -37,7 +37,7 @@ public class CerebookUser {
     private Membership membership;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="cerebook_user_friends")
+    @JoinTable(name = "cerebook_user_friends")
     @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
@@ -127,6 +127,7 @@ public class CerebookUser {
         friend.getFriends().add(this);
     }
 
+
     public Membership getMembership() {
         return membership;
     }
@@ -179,5 +180,22 @@ public class CerebookUser {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public String getDefaultBackgroundPath() {
+
+        if (Objects.equals(background, "")) {
+            return "/images/graybg.jpg";
+        } else {
+            return "/images/Profiles/" + id + "/background/" + background;
+        }
+    }
+
+    public String getDefaultProfilImagePath() {
+        if (Objects.equals(profilImage, "")) {
+            return "/images/default-avatar.png";
+        } else {
+            return "/images/Profiles/" + id + "/profile/" + profilImage;
+        }
     }
 }

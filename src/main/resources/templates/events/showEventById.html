@@ -46,14 +46,14 @@
             <div class="d-lg-flex justify-content-between align-items-start">
 
                 <div class="shadow border-1 rounded eventBox p-5 my-5">
-                    <h3 class="my-3 display-4 mb-5">Description</h3>
+                    <h3 class="my-3 display-4 mb-5 text-center">Description</h3>
 
                     <h4 class="fw-bold my-4">What? <span class="fw-light"
                                                          th:text="${eventById.description}"></span></h4>
                     <h4 class="fw-bold my-4">When? <span class="fw-light"
                                                          th:text="${eventById.getFormatedDate()}"></span>
                     </h4>
-                    <h4 class="fw-bold my-4">Who? <span class="fw-light"> </span></h4>
+
                     <h4 class="fw-bold my-4">Event organizer: <span class="fw-light"
                                                                     th:text="${eventById.creator.getUsername()}"></span>
                     </h4>
@@ -61,22 +61,15 @@
 
 
                 <div class="shadow border-1 rounded eventBox p-5 my-5">
-                    <h3 class="my-3 display-4 mb-5">Participants</h3>
+                    <h3 class="my-3 display-4 mb-5 text-center">Participants</h3>
                     <div th:if="${findAllParticipations != null}"
                          th:each="participant : ${findAllParticipations}">
                         <div class="d-flex align-items-center justify-content-center my-3">
-                            <img th:if="${participant.getParticipant().getProfilImage()} != null"
-                                 th:src="${participant.getParticipant().getProfilImage()}"
+                            <img th:src="${participant.getParticipant().getDefaultProfilImagePath()}"
                                  class="border bg-light rounded-circle mx-2"
                                  width="60" height="60" alt="participant profile photo"/>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <img th:unless="${participant.getParticipant().getProfilImage()} != null"
-                                     src="https://www.e-xpertsolutions.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                                     class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60" alt="participant profile photo"/>
-                                <h5 class="mx-5 "
-                                    th:text="${participant.getParticipant().getUser().getUsername()}"></h5>
-                            </div>
+                            <h5 class="mx-5"
+                                th:text="${participant.getParticipant().getUser().getUsername()}"></h5>
                         </div>
                     </div>
                 </div>
