@@ -21,7 +21,7 @@
             <div class="my-3">
 
                 <div class="my-5" id="backgroundImageDiv">
-                    <label class="mt-5 bg-light p-2">BACKGROUND PHOTO </label>
+                    <label class="mt-5 bg-light p-1 rounded">BACKGROUND PHOTO </label>
                     <label class="btn btn-secondary btn-block btn-outlined"
                            onclick="document.getElementById('backgroundImageId').click()">Choose Your Background
                         Image</label>
@@ -32,6 +32,8 @@
                     var loadFile = function (event) {
                         var output = document.getElementById('backgroundImageDiv');
                         output.style.minHeight = "400px";
+                        output.style.width = "100%";
+                        output.style.backgroundSize = "cover";
                         output.src = URL.createObjectURL(event.target.files[0]);
                         output.style.backgroundImage = `url(${output.src})`;
 
@@ -103,7 +105,7 @@
         </form>
         <form method="POST" th:action="'/profiles/' + ${id} + '/delete'">
             <input type="hidden" name="urlRedirect" value="/"/>
-            <a class="btn btn-primary btn-block btn-outlined" onclick="confirmSubmit(this)">Delete my profile</a>
+            <a class="btn btn-primary btn-block btn-outlined mb-5" onclick="confirmSubmit(this)">Delete my profile</a>
 
             <script>
                 function confirmSubmit(link) {
