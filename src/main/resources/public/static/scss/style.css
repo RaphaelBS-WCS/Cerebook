@@ -11039,8 +11039,9 @@ textarea.form-control-lg {
   align-items: center;
   flex-direction: column;
 }
-#cards .modal-content form #updatePostPicturePreview {
+#cards .modal-content form img {
   height: auto;
+  max-width: 95%;
 }
 #cards .card-body {
   margin-bottom: 16px;
