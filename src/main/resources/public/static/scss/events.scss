@@ -13,6 +13,10 @@
 .eventBox {
   background-color: $hover;
   border: 10px solid $green-element;
+  @include lg-min {
+    width: 46%;
+  }
+
 }
 
 .heroImageEvent {
@@ -25,6 +29,7 @@
 .btn-primary {
   background-color: $primary;
   border: 1px solid $primary;
+
   &:hover {
     background-color: $primary;
     border: 1px solid $primary;
@@ -37,13 +42,13 @@
 
 }
 
-.card-body  {
+.card-body {
   background-color: $hover-light;
   border: 1px solid $hover-light;
 }
 
 .badgeCategory {
   position: absolute;
-   left: 5%;
+  left: 5%;
   background-color: $primary;
 }

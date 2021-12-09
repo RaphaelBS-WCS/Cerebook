@@ -18,7 +18,7 @@
 
     <div class="container text-center justify-content-center form-box mt-5">
 
-    <h1 class="mt-5 title-form text-uppercase fw-bold">Modifier mon profile</h1>
+    <h1 class="mt-5 title-form text-uppercase fw-bold">Edit my profile</h1>
 
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
         <div class="my-3">
@@ -61,7 +61,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" th:for="birthDate"></label>
+                <label class="form-label" th:for="birthDate">Birthdate</label>
                 <input class="form-control" type="date" th:field="*{birthDate}">
             </div>
 
@@ -71,19 +71,27 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" th:for="bio">Biographie</label>
+                <label class="form-label" th:for="bio">Biography</label>
                 <input class="form-control" th:field="*{bio}" >
             </div>
             <div class="mb-3">
-                <label class="form-label" th:for="membership">Membership</label>
+                <label class="form-label" th:for="membership.id">Membership</label>
                 <input class="form-control" th:field="*{membership.id}" >
+<!--                <select class="form-select" id="eventCategory" th:field="*{membership}">
+                    <option th:each="member : ${membership}" th:value="${membership.getId()}"
+                            th:text="${member.name}"></option>
+                </select>-->
             </div>
            <div class="mb-3">
                 <input type="hidden" class="form-control" th:field="*{user}" >
             </div>
             <div class="mb-3">
-                <label class="form-label" th:for="user">user</label>
+                <label class="form-label" th:for="user.firstName">First Name</label>
                 <input class="form-control" th:field="*{user.firstName}" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" th:for="user.lastName">Last Name</label>
+                <input class="form-control" th:field="*{user.lastName}" >
             </div>
             <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
         </div>
