@@ -7,11 +7,15 @@
 <div id="cards"></div>
 <script th:inline="javascript">
     let currentUser = /*[[${currentUser}]]*/ {};
+</script>
+<script>
     function addPost(post) {
         let id = parseInt(post.id);
-        let regEx = /^http;
-        let isUrl = post.video.match(regEx);
-        console.log(isUrl);
+        let regEx = new  RegExp('/^http/');
+        let isUrl = null;
+        if (post.video != null) {
+            isUrl = post.video.match(regEx);
+        }
         document.getElementById("cards").innerHTML +=
              `<div class="card-body">
                 <div class="card-header">
@@ -38,15 +42,14 @@
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>
                     ${(post.video == null) ? "" : '<iframe width="560" height="315" src="' + post.video + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'}
-                    ${(post.picture == null) ? "" : (post.picture.match(new RegExp(/^http/gm))) ? '<img src="' + post.picture.name + '" alt="picture">' :'<img src="/images/' + post.picture.name + '" alt="picture">'}
+                    ${(post.picture == null) ? "" : (isUrl === null) ? '<img src="' + post.picture.name + '" alt="picture">' :'<img src="/images/Posts/' + post.picture.name + '" alt="picture">'}
                 </div>
-            </div>`;
+            </div>`
+        ;
     }
-
 </script>
 <script th:inline="javascript">
     window.onload = function() {
-        console.log(currentUser);
         $.ajax( {
             type: "GET",
             url: "/api/posts/"  + currentUser.id + "/getAllByAuthorOrByAuthorFriends",
