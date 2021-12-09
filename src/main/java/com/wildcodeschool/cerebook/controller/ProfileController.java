@@ -1,8 +1,6 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
-import com.wildcodeschool.cerebook.entity.Membership;
-import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.MembershipRepository;
 import com.wildcodeschool.cerebook.service.FileUploadUtil;
@@ -11,23 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Collection;
-import java.util.Map;
-
 
 @Controller
 @RequestMapping("/profiles")
@@ -36,6 +24,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
+    @Autowired
     private MembershipRepository membershipRepository;
 
     @GetMapping("/{id}/getById")
@@ -68,13 +57,17 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     protected Class<CerebookUser> getElementClass() {
         return null;
     }
+    @Override
+    @GetMapping("/{id}/update")
+    public String updateGet(@PathVariable("id") String id, Model model) {
+        model.addAttribute("memberships", membershipRepository.findAll());
+        return super.updateGet(id, model);
+    }
 
     @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
-        //Model toto = new Model();
 
-       hsr.setAttribute("memberships", "toto");
        try {
             Part backgroundImagePart = hsr.getPart("backgroundImage");
             String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();

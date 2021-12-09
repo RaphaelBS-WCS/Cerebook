@@ -33,7 +33,4 @@ public interface CerebookUserRepository extends JpaRepository<CerebookUser, Long
     List<CerebookUser> findFriendsSuggestions(
             @Param("user") CerebookUser cerebookUser
     );
-
-    @Query("SELECT m FROM Membership m")
-    List<Membership> getAllMemberships();
 }
