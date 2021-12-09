@@ -11047,6 +11047,7 @@ textarea.form-control-lg {
 #cards .modal-content form img {
   height: auto;
   max-width: 95%;
+  max-height: 100%;
 }
 #cards .card-body {
   margin-bottom: 16px;
@@ -11142,10 +11143,23 @@ textarea.form-control-lg {
   align-self: center;
 }
 #cards .card-body .card-content img {
-  width: auto;
-  height: 400px;
+  max-width: 95%;
+  max-height: 390px;
   justify-self: center;
   align-self: center;
+}
+
+#feed h1, #feed .h1 {
+  text-align: center;
+  margin-top: 16px;
+}
+#feed #cards {
+  margin: 2%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 600px);
+  grid-column-gap: 2%;
+  grid-row-gap: 2%;
 }
 
 body {

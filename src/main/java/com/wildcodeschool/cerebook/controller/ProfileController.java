@@ -102,7 +102,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @Override
     protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
-        if(cerebookUser.getProfilImage().isEmpty()) {
+       if(cerebookUser.getProfilImage().isEmpty()) {
             cerebookUser.setProfilImage(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getProfilImage());

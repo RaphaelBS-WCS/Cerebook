@@ -204,12 +204,4 @@ public class CerebookUser {
             return "/images/Profiles/" + id + "/background/" + background;
         }
     }
-
-    public String getDefaultProfilImagePath() {
-        if (Objects.equals(profilImage, "")) {
-            return "/images/default-avatar.png";
-        } else {
-            return "/images/Profiles/" + id + "/profile/" + profilImage;
-        }
-    }
 }
