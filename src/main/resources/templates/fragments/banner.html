@@ -43,7 +43,7 @@
             <div class="name-friendnumb">
                 <p class="profilename"
                    th:text="${cerebookUser.user.firstName} + ' ' + ${cerebookUser.user.lastName}"></p>
-                <p class="friendnumb text-secondary"> 350 friends </p>
+                <p class="friendnumb text-secondary" th:text="${countFriend} + ' friends'"></p>
             </div>
         </div>
     </div>
