@@ -1,8 +1,10 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.entity.User;
+import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.PostRepository;
 import com.wildcodeschool.cerebook.repository.UserRepository;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Controller
 public class IndexController extends AbstractCrudLongController<CerebookUser> {
@@ -37,13 +40,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
             return "redirect:/login";
         }
         model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
-        // envoyer age
-        if (getCurrentCerebookUser(principal).getBirthDate() != null) {
-            model.addAttribute("date", calculateAge(getCurrentCerebookUser(principal).getBirthDate(), java.time.LocalDate.now()));
-        }
-        model.addAttribute("cerebookUserFields", getElementFields());
-        model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
-        model.addAttribute("postElementFields", postController.getElementFields());
         return "index";
     }
 

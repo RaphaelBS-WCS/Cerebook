@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.repository;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 
+import com.wildcodeschool.cerebook.entity.Membership;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Repository
 public interface CerebookUserRepository extends JpaRepository<CerebookUser, Long> {
+
     CerebookUser findCerebookUserById(Long user);
 
     @Query("SELECT c1, count(c1) as cc1 " +

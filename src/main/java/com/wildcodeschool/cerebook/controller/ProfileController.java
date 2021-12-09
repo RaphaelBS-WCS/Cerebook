@@ -1,45 +1,71 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.User;
+import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
 import com.wildcodeschool.cerebook.entity.Post;
+import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
+import com.wildcodeschool.cerebook.repository.MembershipRepository;
 import com.wildcodeschool.cerebook.service.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
-
+import java.util.List;
 
 @Controller
 @RequestMapping("/profiles")
 public class ProfileController extends AbstractCrudLongController<CerebookUser> {
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     private CerebookUserRepository cerebookUserRepository;
 
+    @Autowired
+    private CerebookUserFriendsRepository cerebookUserFriendsRepository;
+
+    @Autowired
+    ProfileController postController;
+
+    private MembershipRepository membershipRepository;
+
+
     @GetMapping("/{id}/getById")
-    public String getById(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", cerebookUserRepository.findCerebookUserById(id));
-        model.addAttribute("userFields", getElementFields());
+    public String getById(Model model, @PathVariable("id") String id, Principal principal) {
+        model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(parseId(id)));
         // envoyer age
-        if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
-            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+        if (cerebookUserRepository.findCerebookUserById(parseId(id)).getBirthDate() != null) {
+            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(parseId(id)).getBirthDate(), java.time.LocalDate.now()));
+            model.addAttribute("cerebookUserFields", getElementFields());
+            model.addAttribute("posts", cerebookUserRepository.findCerebookUserById(parseId(id)).getPosts());
+            model.addAttribute("postElementFields", postController.getElementFields());
+            // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
+            CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
+            List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
+            model.addAttribute("friends", friendsList);
+            // Get the number of friends
+            int countFriend = 0;
+            for (CerebookUserFriends friend: friendsList) {
+                countFriend++;
+            }
+            model.addAttribute("countFriend", countFriend);
         }
+
         return getControllerRoute() + "/getById";
     }
 
@@ -62,11 +88,19 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     protected Class<CerebookUser> getElementClass() {
         return null;
     }
+    @Override
+    @GetMapping("/{id}/update")
+    public String updateGet(@PathVariable("id") String id, Model model) {
+        model.addAttribute("memberships", membershipRepository.findAll());
+        return super.updateGet(id, model);
+    }
 
     @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
+
        try {
+
             Part backgroundImagePart = hsr.getPart("backgroundImage");
             String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();
             cerebookUser.setBackground(fileName);
@@ -102,12 +136,12 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @Override
     protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
-        if(cerebookUser.getProfilImage().isEmpty()) {
+        if (cerebookUser.getProfilImage().isEmpty()) {
             cerebookUser.setProfilImage(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getProfilImage());
         }
-        if(cerebookUser.getBackground().isEmpty()) {
+        if (cerebookUser.getBackground().isEmpty()) {
             cerebookUser.setBackground(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getBackground());

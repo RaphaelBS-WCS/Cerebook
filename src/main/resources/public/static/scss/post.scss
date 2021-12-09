@@ -52,6 +52,7 @@
       img {
         height: auto;
         max-width: 95%;
+        max-height: 100%;
       }
       display: flex;
       flex-direction: column;
@@ -157,8 +158,8 @@
       }
 
       img {
-        width: auto;
-        height: 400px;
+        max-width: 95%;
+        max-height: 390px;
         justify-self: center;
         align-self: center;
       }
