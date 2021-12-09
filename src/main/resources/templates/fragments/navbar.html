@@ -43,15 +43,10 @@
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Hello
                                 <span sec:authentication="principal.username">User!</span>
-                          <!--      <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>-->
-                                <img  th:src="${cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>
-                            <!--    <img th:unless="${cerebookUser.profilImage}" th:src="@{cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
-                                     width="60" height="60"/>-->
+                                <img  th:if="${cerebookUser.getDefaultProfilImagePath()}" th:src="${cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2" width="60" height="60"/>
+                                <img th:unless="${cerebookUser.getDefaultProfilImagePath()}" th:src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Clipart.png" class="border bg-light rounded-circle mx-2" width="60" height="60"/>
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
-                                <!-- The content of the list can be modified if necessary -->
                                 <li>
                                     <a class="dropdown-item text-wrap py-2 text-white fw-bold" th:href="@{|/profiles/${cerebookUser.id}/update|}">
                                         <i class="bi bi-pencil-square"></i>Edit my profil</a>
