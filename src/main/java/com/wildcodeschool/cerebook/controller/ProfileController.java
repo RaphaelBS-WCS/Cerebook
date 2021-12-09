@@ -1,7 +1,11 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
+import com.wildcodeschool.cerebook.entity.Post;
+import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.UserRepository;
 import com.wildcodeschool.cerebook.repository.MembershipRepository;
 import com.wildcodeschool.cerebook.service.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +18,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
+import java.sql.Date;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Controller
 @RequestMapping("/profiles")
@@ -25,16 +34,44 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     private CerebookUserRepository cerebookUserRepository;
 
     @Autowired
+    private CerebookUserFriendsRepository cerebookUserFriendsRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ProfileController postController;
+
     private MembershipRepository membershipRepository;
 
     @GetMapping("/{id}/getById")
-    public String getById(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", cerebookUserRepository.findCerebookUserById(id));
-        model.addAttribute("userFields", getElementFields());
-        // envoyer age
-        if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
-            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+    public String getById(Model model, @PathVariable("id") Long id, Principal principal) {
+        if (principal != null) {
+
+            model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(id));
+
+            // envoyer age
+            if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
+                model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+            }
+
+            model.addAttribute("cerebookUserFields", getElementFields());
+            model.addAttribute("posts", cerebookUserRepository.findCerebookUserById(id).getPosts());
+            model.addAttribute("postElementFields", postController.getElementFields());
+
+            // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
+            CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
+            List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
+            model.addAttribute("friends", friendsList);
+            // Get the number of friends
+            int countFriend = 0;
+            for (CerebookUserFriends friend: friendsList) {
+                countFriend++;
+            }
+
+            model.addAttribute("countFriend", countFriend);
         }
+
         return getControllerRoute() + "/getById";
     }
 
