@@ -49,17 +49,9 @@ public class EventController {
         User user = userRepository.getUserByUsername(principal.getName());
 
         model.addAttribute("cerebookUser", user.getCerebookUser());
-
         model.addAttribute("allEvents", allEvents);
-
         model.addAttribute("principal", principal);
-        /*  Set<User> eventCreators = allEvents.stream().map(Event::getCreator).collect(Collectors.toSet());
 
-         *//*        participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());*//*
-    if (eventCreators.contains(principal)) {
-
-    }
-*/
         return "events/allEvents";
     }
 

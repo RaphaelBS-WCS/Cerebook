@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -9,113 +9,113 @@
     <link rel="stylesheet" href="/static/scss/style.css">
 </head>
 <body>
-
-
 <!-- Navbar update -->
 <div th:replace="fragments/navbar_update :: navbar-update"></div>
 
 <div>
-
     <div class="container text-center justify-content-center form-box mt-5">
+        <h1 class="mt-5 title-form text-uppercase fw-bold">Edit my profile</h1>
 
-    <h1 class="mt-5 title-form text-uppercase fw-bold">Edit my profile</h1>
+        <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}"
+              th:object="${element}" method="POST" enctype="multipart/form-data">
+            <div class="my-3">
 
-    <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
-        <div class="my-3">
+                <div class="my-5" id="backgroundImageDiv">
+                    <label class="mt-5 bg-light p-2">BACKGROUND PHOTO </label>
+                    <label class="btn btn-secondary btn-block btn-outlined"
+                           onclick="document.getElementById('backgroundImageId').click()">Choose Your Background
+                        Image</label>
+                    <input style="display: none" id="backgroundImageId" type="file" name="backgroundImage"
+                           accept="image/*" onchange="loadFile(event)"/>
+                </div>
+                <script>
+                    var loadFile = function (event) {
+                        var output = document.getElementById('backgroundImageDiv');
+                        output.style.minHeight = "400px";
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.style.backgroundImage = `url(${output.src})`;
 
-            <div class="mb-3" id="backgroundImageDiv">
-                <label  class="mb-1">BACKGROUND PHOTO </label>
-                <label class="btn btn-secondary btn-block btn-outlined" onclick="document.getElementById('backgroundImageId').click()">Choose Your Background Image</label>
-                <input  style="display: none" id="backgroundImageId" type="file" name="backgroundImage" accept="image/*" onchange="loadFile(event)" />
-            </div>
-            <script>
-                var loadFile = function(event) {
-                    var output = document.getElementById('backgroundImageDiv');
-                    output.src = URL.createObjectURL(event.target.files[0]);
-                    output.style.backgroundImage=`url(${output.src})`;
-                    output.onload = function() {
-                        URL.revokeObjectURL(output.src)
-                    }
-                };
-            </script>
+                        output.onload = function () {
+                            URL.revokeObjectURL(output.src)
+                        }
+                    };
+                </script>
 
-            <div class="mb-3">
-                <label>PROFILE PHOTO</label>
-                <img id="profilImage"/>
-                <label class="btn btn-secondary btn-block btn-outlined" onclick="document.getElementById('profileImageId').click()">Choose Your Profile Image</label>
-                <input  style="display: none" id="profileImageId" type="file" name="profileImage" accept="image/*" onchange="loadFile2(event)" />
-            </div>
-            <script>
-                var loadFile2 = function(event) {
-                    var output = document.getElementById('profilImage');
-                    output.src = URL.createObjectURL(event.target.files[0]);
-                    output.onload = function() {
-                        URL.revokeObjectURL(output.src)
-                    }
-                };
-            </script>
-            <input hidden th:id="*{id}">
-            <div class="mb-3">
-                <label class="form-label" th:for="genre">Genre</label>
-                <input class="form-control" th:field="*{genre}">
-            </div>
+                <div class="my-5">
+                    <label>PROFILE PHOTO</label>
+                    <img class="img-thumbnail w-25 d-block m-auto" id="profilImage"/>
+                    <label class="btn btn-secondary btn-block btn-outlined"
+                           onclick="document.getElementById('profileImageId').click()">Choose Your Profile
+                        Image</label>
+                    <input style="display: none" id="profileImageId" type="file" name="profileImage"
+                           accept="image/*" onchange="loadFile2(event)"/>
+                </div>
+                <script>
+                    var loadFile2 = function (event) {
+                        var output = document.getElementById('profilImage');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                        output.onload = function () {
+                            URL.revokeObjectURL(output.src)
+                        }
+                    };
+                </script>
+                <input hidden th:id="*{id}">
+                <div class="my-3">
+                    <label class="form-label" th:for="genre">Genre</label>
+                    <input class="form-control" th:field="*{genre}">
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label" th:for="birthDate">Birthdate</label>
-                <input class="form-control" type="date" th:field="*{birthDate}">
-            </div>
+                <div class="my-3">
+                    <label class="form-label" th:for="birthDate">Birthdate</label>
+                    <input class="form-control" type="date" th:field="*{birthDate}">
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label" th:for="superPowers">Superpowers</label>
-                <input class="form-control" th:field="*{superPowers}">
-            </div>
+                <div class="my-3">
+                    <label class="form-label" th:for="superPowers">Superpowers</label>
+                    <input class="form-control" th:field="*{superPowers}">
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label" th:for="bio">Biography</label>
-                <input class="form-control" th:field="*{bio}" >
+                <div class="my-3">
+                    <label class="form-label" th:for="bio">Biography</label>
+                    <input class="form-control" th:field="*{bio}">
+                </div>
+                <div class="my-3">
+                    <label class="form-label" th:for="membership.id">Membership</label>
+                    <input class="form-control" th:field="*{membership.id}">
+                    <!--                <select class="form-select" id="eventCategory" th:field="*{membership}">
+                                        <option th:each="member : ${membership}" th:value="${membership.getId()}"
+                                                th:text="${member.name}"></option>
+                                    </select>-->
+                </div>
+                <div class="my-3">
+                    <input type="hidden" class="form-control" th:field="*{user}">
+                </div>
+                <div class="my-3">
+                    <label class="form-label" th:for="user.firstName">First Name</label>
+                    <input class="form-control" th:field="*{user.firstName}">
+                </div>
+                <div class="my-3">
+                    <label class="form-label" th:for="user.lastName">Last Name</label>
+                    <input class="form-control" th:field="*{user.lastName}">
+                </div>
+                <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
             </div>
-            <div class="mb-3">
-                <label class="form-label" th:for="membership.id">Membership</label>
-                <input class="form-control" th:field="*{membership.id}" >
-<!--                <select class="form-select" id="eventCategory" th:field="*{membership}">
-                    <option th:each="member : ${membership}" th:value="${membership.getId()}"
-                            th:text="${member.name}"></option>
-                </select>-->
-            </div>
-           <div class="mb-3">
-                <input type="hidden" class="form-control" th:field="*{user}" >
-            </div>
-            <div class="mb-3">
-                <label class="form-label" th:for="user.firstName">First Name</label>
-                <input class="form-control" th:field="*{user.firstName}" >
-            </div>
-            <div class="mb-3">
-                <label class="form-label" th:for="user.lastName">Last Name</label>
-                <input class="form-control" th:field="*{user.lastName}" >
-            </div>
-            <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
-        </div>
-    </form>
-        <form method="POST" th:action="'/profiles/' + ${id} + '/delete'" >
+        </form>
+        <form method="POST" th:action="'/profiles/' + ${id} + '/delete'">
             <input type="hidden" name="urlRedirect" value="/"/>
             <a class="btn btn-primary btn-block btn-outlined" onclick="confirmSubmit(this)">Delete my profile</a>
 
             <script>
-                function confirmSubmit(link)
-                {
-                    let agree=confirm("Are you sure to delete your profile ?");
+                function confirmSubmit(link) {
+                    let agree = confirm("Are you sure to delete your profile ?");
                     if (agree)
                         link.parentNode.submit();
                     else
-                        return false ;
+                        return false;
                 }
             </script>
         </form>
-
     </div>
-
 </div>
-
-
 </body>
 </html>
