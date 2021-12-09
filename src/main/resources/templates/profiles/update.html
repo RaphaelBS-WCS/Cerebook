@@ -56,8 +56,12 @@
             </script>
             <input hidden th:id="*{id}">
             <div class="mb-3">
-                <label class="form-label" th:for="genre">Genre</label>
-                <input class="form-control" th:field="*{genre}">
+                <label class="form-label" th:for="genre">Gender</label>
+                <select class="form-control"  th:field="*{genre}">
+                    <option th:value="'M'" th:text="Male"></option>
+                    <option th:value="'F'" th:text="Female"></option>
+                    <option th:value="'O'" th:text="Other"></option>
+                </select>
             </div>
 
             <div class="mb-3">
@@ -75,12 +79,14 @@
                 <input class="form-control" th:field="*{bio}" >
             </div>
             <div class="mb-3">
-                <label class="form-label" th:for="membership.id">Membership</label>
-                <input class="form-control" th:field="*{membership.id}" >
-<!--                <select class="form-select" id="eventCategory" th:field="*{membership}">
-                    <option th:each="member : ${membership}" th:value="${membership.getId()}"
+<!--                <label class="form-label" th:for="membership.id">Membership</label>
+                <input class="form-control" th:field="*{membership.id}" >-->
+                <select class="form-select" id="memberships" >
+                    <th:block th:each="member : ${memberships}">
+                    <option th:value="${member.id}"
                             th:text="${member.name}"></option>
-                </select>-->
+                    </th:block>
+                </select>
             </div>
            <div class="mb-3">
                 <input type="hidden" class="form-control" th:field="*{user}" >
@@ -96,6 +102,12 @@
             <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
         </div>
     </form>
+        <select class="form-select" id="memberships" >
+            <th:block th:each="member : ${memberships}">
+                <option th:value="${member.id}"
+                        th:text="${member.name}"></option>
+            </th:block>
+        </select>
         <form method="POST" th:action="'/profiles/' + ${id} + '/delete'" >
             <input type="hidden" name="urlRedirect" value="/"/>
             <a class="btn btn-primary btn-block btn-outlined" onclick="confirmSubmit(this)">Delete my profile</a>

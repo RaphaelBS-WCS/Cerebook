@@ -1,8 +1,10 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.Membership;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
+import com.wildcodeschool.cerebook.repository.MembershipRepository;
 import com.wildcodeschool.cerebook.service.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +25,8 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Collection;
+import java.util.Map;
 
 
 @Controller
@@ -31,6 +35,8 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
+
+    private MembershipRepository membershipRepository;
 
     @GetMapping("/{id}/getById")
     public String getById(Model model, @PathVariable("id") Long id) {
@@ -66,6 +72,9 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
+        //Model toto = new Model();
+
+       hsr.setAttribute("memberships", "toto");
        try {
             Part backgroundImagePart = hsr.getPart("backgroundImage");
             String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();
