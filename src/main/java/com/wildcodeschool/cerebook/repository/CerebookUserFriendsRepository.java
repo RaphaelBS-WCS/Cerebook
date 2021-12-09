@@ -29,13 +29,13 @@ public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUse
     @Transactional
     void acceptFriend(@Param("originatedUser") CerebookUser originatedUser, @Param("friend") CerebookUser friend);
 
-    // Query served to add a suggested friend into friend list
+  /*  // Query served to add a suggested friend into friend list
     @Modifying(clearAutomatically = true)
-    @Query(value = "INSERT INTO CerebookUserFriends c (originatedUser, friend, isAccepted) VALUES (:originatedUser, :friend, false)",
-            nativeQuery = true)
+    @Query(value = "INSERT INTO CerebookUserFriends (originatedUser, friend, isAccepted) VALUES (:originatedUser, :friend, false)")
     @Transactional
     void addFriend(@Param("originatedUser") CerebookUser originatedUser, @Param("friend") CerebookUser friend);
-/*
+*/
+    /*
     @Modifying(clearAutomatically = true)
     @Query("DELETE FROM Friendship f WHERE (f.userSender = :user AND f.userReceiver = :friend) " +
             "OR (f.userSender = :friend AND f.userReceiver = :user)")

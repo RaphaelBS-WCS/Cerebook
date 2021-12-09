@@ -2,25 +2,16 @@ package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
-import com.wildcodeschool.cerebook.entity.Event;
-import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.entity.ids.CerebookUserFriendsId;
 import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletException;
-import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.*;
@@ -82,13 +73,22 @@ public class FriendsController{
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
         CerebookUser friend = cerebookUserRepository.findCerebookUserById(friendId);
 
-        CerebookUserFriends friendRequest = new CerebookUserFriends();
-        friendRequest.getOriginatedUser();
-        cerebookUserFriendsRepository.addFriend(currentCerebookUser, friend);
+        if (!friend.equals(currentCerebookUser)) {
+            // Create a new relationship and set isAccepted to false which means the friend request is pending
+                CerebookUserFriends friendRequest = new CerebookUserFriends(currentCerebookUser, friend, false);
+                cerebookUserFriendsRepository.save(friendRequest);
 
+            /*    CerebookUserFriendsId relationId = new CerebookUserFriendsId(currentCerebookUser, friend, false);*/
+         /*   friendRequest.setAccepted(false);
+            friendRequest.setOriginatedUser(currentCerebookUser);
+            ;
+            friendRequest.setFriend(friend);*/
+
+            // Remove the friend from suggestion friend list
+            // Get the list of all my suggestion friends, define the friend that i added and delete him from the suggestion list
+            List<CerebookUser> suggestfriends = cerebookUserRepository.findFriendsSuggestions(currentCerebookUser);
+            suggestfriends.remove(friend);
+        }
         return "redirect:/friends";
     }
-
-
-
 }

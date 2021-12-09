@@ -28,6 +28,16 @@ public class CerebookUserFriends implements Serializable {
     @Column(nullable = false)
     private boolean isAccepted;
 
+    public CerebookUserFriends(CerebookUser currentCerebookUser, CerebookUser friend, boolean accepted) {
+        this.originatedUser = currentCerebookUser;
+        this.friend = friend;
+        this.isAccepted = accepted;
+    }
+
+    public CerebookUserFriends() {
+
+    }
+
     public Date getDate() {
         return date;
     }
