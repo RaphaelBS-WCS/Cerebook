@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.repository;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 
+import com.wildcodeschool.cerebook.entity.Membership;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -72,6 +72,7 @@ public class PostController extends AbstractCrudLongController<Post> {
         return "redirect:/";
     }
 
+    @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute Post post) {
         try {
