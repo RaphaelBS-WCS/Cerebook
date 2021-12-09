@@ -5,7 +5,7 @@
   h1 {
     text-align: center;
   }
-  .newPost {
+  .newPost, .createButton{
     background-color: $secondary;
     box-shadow: 7px 7px 4px 0px rgba(0,0,0,0.25);
     color: white;
@@ -13,6 +13,7 @@
     padding: 8px;
     width: 100%;
     margin-bottom: 16px;
+    text-decoration: none;
   }
   .modal-content {
     background-color: $bgcolor;
@@ -22,6 +23,12 @@
     form {
       label {
         text-align: center;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      .picPost {
+        margin-top: 8px;
+        margin-bottom: 8px;
       }
       display: flex;
       flex-direction: column;
@@ -29,8 +36,7 @@
       justify-content: center;
       margin-bottom: 16px;
     }
-
-  }
+}
   .card-body {
     margin-bottom: 16px;
     background-color: $bgcolor;

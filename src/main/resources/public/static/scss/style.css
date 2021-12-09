@@ -10989,7 +10989,7 @@ textarea.form-control-lg {
 #cards h1, #cards .h1 {
   text-align: center;
 }
-#cards .newPost {
+#cards .newPost, #cards .createButton {
   background-color: #050340;
   box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
   color: white;
@@ -10997,6 +10997,7 @@ textarea.form-control-lg {
   padding: 8px;
   width: 100%;
   margin-bottom: 16px;
+  text-decoration: none;
 }
 #cards .modal-content {
   background-color: #fefdf9;
@@ -11013,6 +11014,12 @@ textarea.form-control-lg {
 }
 #cards .modal-content form label {
   text-align: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+#cards .modal-content form .picPost {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 #cards .card-body {
   margin-bottom: 16px;

@@ -17,8 +17,9 @@
                             <textarea name = "content" placeholder="What's new?"></textarea>
                             <label class ="mb-2">Video</label>
                             <input type="text" name="video" placeholder="youtube embed url"/>
-                            <div class="mb-3" id="postPicture">
+                            <div class="picPost">
                                 <label class="mb-1">Picture</label>
+                                <img id="postPicture"/>
                                 <input type="file" name="postPicture" accept="image/*" onchange="loadFile(event)" />
                             </div>
                             <button type="submit" name="Create" value="Create" class="btn-link createButton">Create</button>
@@ -26,7 +27,6 @@
                                 var loadFile = function(event) {
                                     var output = document.getElementById('postPicture');
                                     output.src = URL.createObjectURL(event.target.files[0]);
-                                    output.style.backgroundImage=`url(${output.src})`;
                                     output.onload = function() {
                                         URL.revokeObjectURL(output.src)
                                     }
