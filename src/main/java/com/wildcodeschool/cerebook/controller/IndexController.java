@@ -44,7 +44,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         model.addAttribute("cerebookUserFields", getElementFields());
         model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
         model.addAttribute("postElementFields", postController.getElementFields());
-
         return "index";
     }
 

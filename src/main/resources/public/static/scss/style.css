@@ -634,15 +634,19 @@ progress {
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(var(--bs-gutter-y) * -1);
+
   margin-right: calc(var(--bs-gutter-x) * -0.5);
   margin-left: calc(var(--bs-gutter-x) * -0.5);
+
 }
 .row > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
+
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
+
   margin-top: var(--bs-gutter-y);
 }
 
@@ -6101,6 +6105,7 @@ textarea.form-control-lg {
 }
 
 .ratio-4x3 {
+
   --bs-aspect-ratio: 75%;
 }
 
@@ -6110,6 +6115,7 @@ textarea.form-control-lg {
 
 .ratio-21x9 {
   --bs-aspect-ratio: 42.8571428571%;
+
 }
 
 .fixed-top {
@@ -10804,6 +10810,13 @@ textarea.form-control-lg {
   border: 10px solid #0F4C59;
 }
 
+@media (min-width: 992px) {
+  .eventBox {
+    width: 46%;
+  }
+}
+
+
 .heroImageEvent {
   background-position: center;
   background-repeat: no-repeat;
@@ -10835,6 +10848,7 @@ textarea.form-control-lg {
   left: 5%;
   background-color: #A61723;
 }
+
 
 .background-profile {
   margin-left: -25px;
@@ -10917,7 +10931,9 @@ textarea.form-control-lg {
 .background-profile .name-friendnumb .profilename {
   color: #050340;
   font-size: 36px;
+
   font-weight: bold;
+
 }
 @media (max-width: 575.98px) {
   .background-profile .name-friendnumb .profilename {
@@ -10933,6 +10949,7 @@ textarea.form-control-lg {
     font-size: 12px;
   }
 }
+
 
 #profile {
   display: grid;
@@ -10972,6 +10989,7 @@ textarea.form-control-lg {
   }
 }
 
+
 .friends .card-title {
   color: #A61723;
 }
@@ -10981,6 +10999,7 @@ textarea.form-control-lg {
   object-fit: cover;
 }
 
+
 #cards {
   grid-column: 3/6;
   grid-row-start: 1;
@@ -10989,7 +11008,7 @@ textarea.form-control-lg {
 #cards h1, #cards .h1 {
   text-align: center;
 }
-#cards .newPost {
+#cards .newPost, #cards .createButton, #cards .updateButton {
   background-color: #050340;
   box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
   color: white;
@@ -10997,9 +11016,20 @@ textarea.form-control-lg {
   padding: 8px;
   width: 100%;
   margin-bottom: 16px;
+  text-decoration: none;
+}
+#cards .picUpload {
+  background-color: #050340;
+  box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 16px;
+  text-decoration: none;
 }
 #cards .modal-content {
   background-color: #fefdf9;
+  box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
   border: 2px solid #0F4C59;
   border-radius: 10px;
   padding: 8px;
@@ -11013,6 +11043,24 @@ textarea.form-control-lg {
 }
 #cards .modal-content form label {
   text-align: center;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+#cards .modal-content form input, #cards .modal-content form textarea {
+  border: 2px solid #0F4C59;
+  border-radius: 10px;
+}
+#cards .modal-content form .picPost {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#cards .modal-content form img {
+  height: auto;
+  max-width: 95%;
 }
 #cards .card-body {
   margin-bottom: 16px;
@@ -11113,6 +11161,7 @@ textarea.form-control-lg {
   justify-self: center;
   align-self: center;
 }
+
 
 body {
   margin: 0;
