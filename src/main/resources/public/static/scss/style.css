@@ -10989,7 +10989,7 @@ textarea.form-control-lg {
 #cards h1, #cards .h1 {
   text-align: center;
 }
-#cards .newPost, #cards .createButton {
+#cards .newPost, #cards .createButton, #cards .updateButton {
   background-color: #050340;
   box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
   color: white;
@@ -10999,8 +10999,18 @@ textarea.form-control-lg {
   margin-bottom: 16px;
   text-decoration: none;
 }
+#cards .picUpload {
+  background-color: #050340;
+  box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
 #cards .modal-content {
   background-color: #fefdf9;
+  box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
   border: 2px solid #0F4C59;
   border-radius: 10px;
   padding: 8px;
@@ -11017,9 +11027,20 @@ textarea.form-control-lg {
   margin-top: 8px;
   margin-bottom: 8px;
 }
+#cards .modal-content form input, #cards .modal-content form textarea {
+  border: 2px solid #0F4C59;
+  border-radius: 10px;
+}
 #cards .modal-content form .picPost {
   margin-top: 8px;
   margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#cards .modal-content form #updatePostPicturePreview {
+  height: auto;
 }
 #cards .card-body {
   margin-bottom: 16px;
