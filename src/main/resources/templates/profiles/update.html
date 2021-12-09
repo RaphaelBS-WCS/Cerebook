@@ -16,6 +16,7 @@
     <div class="container text-center justify-content-center form-box mt-5">
         <h1 class="mt-5 title-form text-uppercase fw-bold">Edit my profile</h1>
 
+
         <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}"
               th:object="${element}" method="POST" enctype="multipart/form-data">
             <div class="my-3">
@@ -38,10 +39,12 @@
                         output.style.backgroundImage = `url(${output.src})`;
 
                         output.onload = function () {
+
                             URL.revokeObjectURL(output.src)
                         }
                     };
                 </script>
+
 
                 <div class="my-5">
                     <label>PROFILE PHOTO</label>
@@ -57,20 +60,27 @@
                         var output = document.getElementById('profilImage');
                         output.src = URL.createObjectURL(event.target.files[0]);
                         output.onload = function () {
+
                             URL.revokeObjectURL(output.src)
                         }
                     };
                 </script>
                 <input hidden th:id="*{id}">
-                <div class="my-3">
-                    <label class="form-label" th:for="genre">Genre</label>
-                    <input class="form-control" th:field="*{genre}">
+
+                <div class="mb-3">
+                    <label class="form-label" th:for="genre">Gender</label>
+                    <select class="form-control"  th:field="*{genre}">
+                        <option th:value="'M'" th:text="Male"></option>
+                        <option th:value="'F'" th:text="Female"></option>
+                        <option th:value="'O'" th:text="I prefer not to choose one."></option>
+                    </select>
                 </div>
 
-                <div class="my-3">
+                <div class="mb-3">
                     <label class="form-label" th:for="birthDate">Birthdate</label>
                     <input class="form-control" type="date" th:field="*{birthDate}">
                 </div>
+
 
                 <div class="my-3">
                     <label class="form-label" th:for="superPowers">Superpowers</label>
@@ -79,31 +89,34 @@
 
                 <div class="my-3">
                     <label class="form-label" th:for="bio">Biography</label>
-                    <input class="form-control" th:field="*{bio}">
+                    <input class="form-control" th:field="*{bio}" >
                 </div>
-                <div class="my-3">
+                <div class="mb-3">
                     <label class="form-label" th:for="membership.id">Membership</label>
-                    <input class="form-control" th:field="*{membership.id}">
-                    <!--                <select class="form-select" id="eventCategory" th:field="*{membership}">
-                                        <option th:each="member : ${membership}" th:value="${membership.getId()}"
-                                                th:text="${member.name}"></option>
-                                    </select>-->
+                    <select class="form-select" th:field="*{membership.id}"  id="memberships" >
+                        <th:block th:each="member : ${memberships}">
+                        <option th:value="${member.id}"
+                                th:text="${member.name}"></option>
+                        </th:block>
+                    </select>
                 </div>
-                <div class="my-3">
-                    <input type="hidden" class="form-control" th:field="*{user}">
+               <div class="mb-3">
+                    <input type="hidden" class="form-control" th:field="*{user}" >
                 </div>
-                <div class="my-3">
+                <div class="mb-3">
                     <label class="form-label" th:for="user.firstName">First Name</label>
-                    <input class="form-control" th:field="*{user.firstName}">
+                    <input class="form-control" th:field="*{user.firstName}" >
                 </div>
-                <div class="my-3">
+                <div class="mb-3">
                     <label class="form-label" th:for="user.lastName">Last Name</label>
-                    <input class="form-control" th:field="*{user.lastName}">
+                    <input class="form-control" th:field="*{user.lastName}" >
+
                 </div>
                 <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
             </div>
         </form>
-        <form method="POST" th:action="'/profiles/' + ${id} + '/delete'">
+
+        <form method="POST" th:action="'/profiles/' + ${id} + '/delete'" >
             <input type="hidden" name="urlRedirect" value="/"/>
             <a class="btn btn-primary btn-block btn-outlined mb-5" onclick="confirmSubmit(this)">Delete my profile</a>
 
