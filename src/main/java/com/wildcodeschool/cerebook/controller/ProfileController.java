@@ -40,29 +40,20 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     private CerebookUserFriendsRepository cerebookUserFriendsRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     ProfileController postController;
 
     private MembershipRepository membershipRepository;
 
 
     @GetMapping("/{id}/getById")
-    public String getById(Model model, @PathVariable("id") Long id, Principal principal) {
-        if (principal != null) {
-
-            model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(id));
-
-            // envoyer age
-            if (cerebookUserRepository.findCerebookUserById(id).getBirthDate() != null) {
-                model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
-            }
-
+    public String getById(Model model, @PathVariable("id") String id, Principal principal) {
+        model.addAttribute("cerebookUser", cerebookUserRepository.findCerebookUserById(parseId(id)));
+        // envoyer age
+        if (cerebookUserRepository.findCerebookUserById(parseId(id)).getBirthDate() != null) {
+            model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(parseId(id)).getBirthDate(), java.time.LocalDate.now()));
             model.addAttribute("cerebookUserFields", getElementFields());
-            model.addAttribute("posts", cerebookUserRepository.findCerebookUserById(id).getPosts());
+            model.addAttribute("posts", cerebookUserRepository.findCerebookUserById(parseId(id)).getPosts());
             model.addAttribute("postElementFields", postController.getElementFields());
-
             // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
             CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
             List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
@@ -72,7 +63,6 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
             for (CerebookUserFriends friend: friendsList) {
                 countFriend++;
             }
-
             model.addAttribute("countFriend", countFriend);
         }
 
