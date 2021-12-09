@@ -34,9 +34,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
     @Autowired
     private PostController postController;
 
-    @Autowired
-    private CerebookUserFriendsRepository cerebookUserFriendsRepository;
-
     @GetMapping("/")
     public String index(Model model, Principal principal) {
         if(principal == null) {
@@ -50,16 +47,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
         model.addAttribute("cerebookUserFields", getElementFields());
         model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
         model.addAttribute("postElementFields", postController.getElementFields());
-
-        // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
-        List<CerebookUserFriends> friendsList = cerebookUserFriendsRepository.findCerebookUserFriendsByOriginatedUserAndAccepted(currentCerebookUser);
-        model.addAttribute("friends", friendsList);
-        // Get the number of friends
-        int countFriend = 0;
-        for (CerebookUserFriends friend: friendsList) {
-            countFriend++;
-        }
-        model.addAttribute("countFriend", countFriend);
 
         return "index";
     }

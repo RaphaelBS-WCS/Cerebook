@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 @Controller
@@ -29,7 +31,7 @@ public class FriendsController{
     CerebookUserFriendsRepository cerebookUserFriendsRepository;
 
     @GetMapping
-    public String showFriends(@ModelAttribute CerebookUserFriends cerebookUserFriends, Model model, Principal principal) {
+    public String showFriends(@ModelAttribute CerebookUserFriends cerebookUserFriends, Model model, Principal principal, CerebookUser cerebookUser) {
 
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
 
@@ -73,17 +75,12 @@ public class FriendsController{
         CerebookUser friend = cerebookUserRepository.getById(friendId);
 
         if (!friend.equals(currentCerebookUser)) {
+
             currentCerebookUser.getFriends().add(friend);
             cerebookUserRepository.save(currentCerebookUser);
-            // Create a new relationship and set isAccepted to false which means the friend request is pending
-            // CerebookUserFriends friendRequest = new CerebookUserFriends(currentCerebookUser, friend, false);
-            // cerebookUserFriendsRepository.save(friendRequest);
 
-            /*    CerebookUserFriendsId relationId = new CerebookUserFriendsId(currentCerebookUser, friend, false);*/
-         /*   friendRequest.setAccepted(false);
-            friendRequest.setOriginatedUser(currentCerebookUser);
-            ;
-            friendRequest.setFriend(friend);*/
+            friend.getFriends().add(currentCerebookUser);
+            cerebookUserRepository.save(friend);
 
             // Remove the friend from suggestion friend list
             // Get the list of all my suggestion friends, define the friend that i added and delete him from the suggestion list
