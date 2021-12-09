@@ -20,7 +20,7 @@ public class CerebookUserFriends implements Serializable {
     @JoinColumn(name = "friends_id")
     private CerebookUser friend;
 
-    /*public boolean isAccepted() {
+    public boolean isAccepted() {
         return isAccepted;
     }
 
@@ -28,7 +28,7 @@ public class CerebookUserFriends implements Serializable {
         isAccepted = accepted;
     }
 
-    private boolean isAccepted;*/
+    private boolean isAccepted;
 
     public CerebookUser getOriginatedUser() {
         return originatedUser;
