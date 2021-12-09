@@ -59,6 +59,11 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     }
 
     @Override
+    protected Class<CerebookUser> getElementClass() {
+        return null;
+    }
+
+    @Override
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
        try {
@@ -107,6 +112,14 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getBackground());
         }
+    }
+
+    @Override
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") String id) {
+        getRepository().deleteById(parseId(id));
+
+        return "redirect:/logout";
     }
 }
 

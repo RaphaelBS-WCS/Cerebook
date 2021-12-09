@@ -1,10 +1,12 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Entity
 public class Post {
@@ -12,19 +14,25 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date createdAt;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdAt;
+
     @Column(columnDefinition="TEXT")
     private String content;
+
     private String video;
 
+    @JsonManagedReference
     @ManyToOne
     private CerebookUser author;
 
-    @ManyToOne
+    private Boolean isTweetos;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Event event;
 
-    @ManyToOne
-    private Picture picture;
+    private String picture;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
@@ -40,11 +48,11 @@ public class Post {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -80,19 +88,27 @@ public class Post {
         this.event = eventId;
     }
 
-    public Picture getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
-
     public List<Comment> getComments() {
         return comments;
     }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Boolean getTweetos() {
+        return isTweetos;
+    }
+
+    public void setTweetos(Boolean tweetos) {
+        isTweetos = tweetos;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
