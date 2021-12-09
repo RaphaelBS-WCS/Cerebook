@@ -1,6 +1,11 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -27,15 +32,20 @@ public class CerebookUser {
     @Column(columnDefinition="TEXT")
     private String bio;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
+    @JsonManagedReference
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="cerebook_user_friends")
     @JsonIgnore
@@ -165,6 +175,10 @@ public class CerebookUser {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getUserName() {
+        return user.getUsername();
     }
 
     /*Interpretating all objects with the same Cerebook ID as the same object */
