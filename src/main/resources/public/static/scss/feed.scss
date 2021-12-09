@@ -3,6 +3,7 @@
     text-align: center;
     margin-top: 16px;
   }
+
   #cards {
     margin: 2%;
     display: grid;
@@ -10,6 +11,19 @@
     grid-template-rows: repeat(3, 600px);
     grid-column-gap: 2%;
     grid-row-gap: 2%;
+    @include lg-max {
+      grid-template-columns: repeat(1, 1fr);
+      font-size: 35px;
+      .card-text, .card-content {
+        font-size: 30px;
+      }
+      img {
+        max-width: 368px;
+      }
+    }
   }
+
+
+
 
 }

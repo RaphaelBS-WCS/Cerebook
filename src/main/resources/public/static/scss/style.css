@@ -11161,6 +11161,18 @@ textarea.form-control-lg {
   grid-column-gap: 2%;
   grid-row-gap: 2%;
 }
+@media (max-width: 991.92px) {
+  #feed #cards {
+    grid-template-columns: repeat(1, 1fr);
+    font-size: 35px;
+  }
+  #feed #cards .card-text, #feed #cards .card-content {
+    font-size: 30px;
+  }
+  #feed #cards img {
+    max-width: 368px;
+  }
+}
 
 body {
   margin: 0;
