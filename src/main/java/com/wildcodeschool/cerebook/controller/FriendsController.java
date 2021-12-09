@@ -58,7 +58,7 @@ public class FriendsController{
 
         // Get the current user and the user who sent the invitation
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
-        CerebookUser friend = cerebookUserRepository.findCerebookUserById(friendId);
+        CerebookUser friend = cerebookUserRepository.getById(friendId);
 
         // Run the request that add the new-added friend in to the friend list
         cerebookUserFriendsRepository.acceptFriend(currentCerebookUser, friend);
@@ -66,17 +66,18 @@ public class FriendsController{
         return "redirect:/friends";
     }
 
-    @Transactional
     @GetMapping("/{friendId}/addFriend")
     public String addFriend(@PathVariable Long friendId, Principal principal) {
 
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
-        CerebookUser friend = cerebookUserRepository.findCerebookUserById(friendId);
+        CerebookUser friend = cerebookUserRepository.getById(friendId);
 
         if (!friend.equals(currentCerebookUser)) {
+            currentCerebookUser.getFriends().add(friend);
+            cerebookUserRepository.save(currentCerebookUser);
             // Create a new relationship and set isAccepted to false which means the friend request is pending
-                CerebookUserFriends friendRequest = new CerebookUserFriends(currentCerebookUser, friend, false);
-                cerebookUserFriendsRepository.save(friendRequest);
+            // CerebookUserFriends friendRequest = new CerebookUserFriends(currentCerebookUser, friend, false);
+            // cerebookUserFriendsRepository.save(friendRequest);
 
             /*    CerebookUserFriendsId relationId = new CerebookUserFriendsId(currentCerebookUser, friend, false);*/
          /*   friendRequest.setAccepted(false);

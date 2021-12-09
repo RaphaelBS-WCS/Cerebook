@@ -26,10 +26,10 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @GetMapping("/{id}/getById")
     public String getById(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", cerebookUserRepository.findCerebookUserById(id));
+        model.addAttribute("user", cerebookUserRepository.getById(id));
         model.addAttribute("userFields", getElementFields());
         // envoyer age
-        model.addAttribute("date", calculateAge(cerebookUserRepository.findCerebookUserById(id).getBirthDate(), java.time.LocalDate.now()));
+        model.addAttribute("date", calculateAge(cerebookUserRepository.getById(id).getBirthDate(), java.time.LocalDate.now()));
         return getControllerRoute() + "/getById";
     }
 

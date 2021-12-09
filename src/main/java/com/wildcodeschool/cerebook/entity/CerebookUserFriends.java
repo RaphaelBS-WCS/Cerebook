@@ -25,7 +25,7 @@ public class CerebookUserFriends implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean isAccepted;
 
     public CerebookUserFriends(CerebookUser currentCerebookUser, CerebookUser friend, boolean accepted) {
