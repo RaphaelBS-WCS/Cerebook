@@ -23,10 +23,10 @@
     <form th:action="@{/{controllerRoute}/{element_id}/update(controllerRoute=${controllerRoute}, element_id=${element.id})}" th:object="${element}" method="POST" enctype="multipart/form-data">
         <div class="my-3">
 
-           <div class="mb-3" id="backgroundImageDiv">
-                <label class="mb-1">BACKGROUND PHOTO </label>
-                <input type="file" name="backgroundImage" accept="image/*" onchange="loadFile(event)" />
-
+            <div class="mb-3" id="backgroundImageDiv">
+                <label  class="mb-1">BACKGROUND PHOTO </label>
+                <label class="btn btn-secondary btn-block btn-outlined" onclick="document.getElementById('backgroundImageId').click()">Choose Your Background Image</label>
+                <input  style="display: none" id="backgroundImageId" type="file" name="backgroundImage" accept="image/*" onchange="loadFile(event)" />
             </div>
             <script>
                 var loadFile = function(event) {
@@ -38,12 +38,13 @@
                     }
                 };
             </script>
+
             <div class="mb-3">
                 <label>PROFILE PHOTO</label>
                 <img id="profilImage"/>
-                <input type="file" name="profileImage" accept="image/*" onchange="loadFile2(event)" />
+                <label class="btn btn-secondary btn-block btn-outlined" onclick="document.getElementById('profileImageId').click()">Choose Your Profile Image</label>
+                <input  style="display: none" id="profileImageId" type="file" name="profileImage" accept="image/*" onchange="loadFile2(event)" />
             </div>
-
             <script>
                 var loadFile2 = function(event) {
                     var output = document.getElementById('profilImage');
@@ -84,11 +85,29 @@
                 <label class="form-label" th:for="user">user</label>
                 <input class="form-control" th:field="*{user.firstName}" >
             </div>
-            <button type="submit" name="Update" class="btn btn-success px-4 my-5">Valider</button>
+            <button type="submit" name="Update" class="btn btn-success px-4 my-5">Submit</button>
         </div>
     </form>
+        <form method="POST" th:action="'/profiles/' + ${id} + '/delete'" >
+            <input type="hidden" name="urlRedirect" value="/"/>
+            <a class="btn btn-primary btn-block btn-outlined" onclick="confirmSubmit(this)">Delete my profile</a>
+
+            <script>
+                function confirmSubmit(link)
+                {
+                    let agree=confirm("Are you sure to delete your profile ?");
+                    if (agree)
+                        link.parentNode.submit();
+                    else
+                        return false ;
+                }
+            </script>
+        </form>
+
     </div>
 
 </div>
+
+
 </body>
 </html>

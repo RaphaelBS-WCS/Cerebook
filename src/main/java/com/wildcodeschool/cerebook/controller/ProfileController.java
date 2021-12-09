@@ -113,5 +113,13 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
                             .getBackground());
         }
     }
+
+    @Override
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") String id) {
+        getRepository().deleteById(parseId(id));
+
+        return "redirect:/logout";
+    }
 }
 
