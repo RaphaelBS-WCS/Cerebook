@@ -1,6 +1,7 @@
 package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
+import com.wildcodeschool.cerebook.entity.User;
 import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
 import com.wildcodeschool.cerebook.entity.Post;
 import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
@@ -21,7 +22,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.sql.Date;
-
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -29,6 +29,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/profiles")
 public class ProfileController extends AbstractCrudLongController<CerebookUser> {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     private CerebookUserRepository cerebookUserRepository;
@@ -43,6 +46,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     ProfileController postController;
 
     private MembershipRepository membershipRepository;
+
 
     @GetMapping("/{id}/getById")
     public String getById(Model model, @PathVariable("id") Long id, Principal principal) {
@@ -106,6 +110,7 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute CerebookUser cerebookUser) {
 
        try {
+
             Part backgroundImagePart = hsr.getPart("backgroundImage");
             String fileName = Paths.get(backgroundImagePart.getSubmittedFileName()).getFileName().toString();
             cerebookUser.setBackground(fileName);
@@ -141,12 +146,12 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
 
     @Override
     protected void preProcessElement(CerebookUser cerebookUser, HttpServletRequest _hsr) {
-        if(cerebookUser.getProfilImage().isEmpty()) {
+        if (cerebookUser.getProfilImage().isEmpty()) {
             cerebookUser.setProfilImage(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getProfilImage());
         }
-        if(cerebookUser.getBackground().isEmpty()) {
+        if (cerebookUser.getBackground().isEmpty()) {
             cerebookUser.setBackground(
                     cerebookUserRepository.getById(cerebookUser.getId())
                             .getBackground());
