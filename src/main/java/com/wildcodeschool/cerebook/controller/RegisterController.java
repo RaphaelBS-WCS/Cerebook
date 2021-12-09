@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.User;
+import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
 import com.wildcodeschool.cerebook.repository.UserRepository;
 import com.wildcodeschool.cerebook.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,11 @@ public class RegisterController {
             user.setPassword(encodedPassword);
             user.setRole("ROLE_USER");
 
-            user.setCerebookUser(new CerebookUser());
+            CerebookUser cerebookUser = new CerebookUser();
+            user.setCerebookUser(cerebookUser);
+            cerebookUser.setUser(user);
+            cerebookUser.setProfilImage("");
+            cerebookUser.setBackground("");
             userRepo.save(user);
 
             return "register_success";

@@ -44,16 +44,37 @@ public class EventController {
             return "redirect: /login";
         }
 
-        model.addAttribute("allEvents", eventRepository.findAllEvents());
+        List<Event> allEvents = eventRepository.findAllEvents();
 
+        User user = userRepository.getUserByUsername(principal.getName());
+
+        model.addAttribute("cerebookUser", user.getCerebookUser());
+
+        model.addAttribute("allEvents", allEvents);
+
+        model.addAttribute("principal", principal);
+        /*  Set<User> eventCreators = allEvents.stream().map(Event::getCreator).collect(Collectors.toSet());
+
+         *//*        participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());*//*
+    if (eventCreators.contains(principal)) {
+
+    }
+*/
         return "events/allEvents";
     }
 
     @GetMapping("/myown")
     public String showMyEvents(@ModelAttribute Event event, Model model, Principal principal) {
 
+        if (principal == null) {
+            return "redirect: /login";
+        }
+
         String username = principal.getName();
         User currentUser = userRepository.getUserByUsername(username);
+
+        User user = userRepository.getUserByUsername(principal.getName());
+        model.addAttribute("cerebookUser", user.getCerebookUser());
 
         try {
             model.addAttribute("eventsByUser", eventRepository.getAllEventsByCreator(currentUser));
@@ -69,16 +90,22 @@ public class EventController {
     public String showEventsById(@ModelAttribute Event event,
                                  Model model,
                                  Principal principal,
-                                 @PathVariable Long eventId) {
+                                 @PathVariable Long eventId,
+                                 RedirectAttributes redirAttrs) {
 
         boolean isParticipating = false;
+        boolean isOwner = false;
         Event currentEvent = eventRepository.getEventById(eventId);
         List<Participation> participants = participationRepository.getAllByEvent(currentEvent);
         String username = principal.getName();
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(username).getCerebookUser();
+        String eventCreator = currentEvent.getCreator().getUsername();
 
         model.addAttribute("eventById", eventRepository.getEventById(eventId));
         model.addAttribute("findAllParticipations", participants);
+
+        User user = userRepository.getUserByUsername(principal.getName());
+        model.addAttribute("cerebookUser", user.getCerebookUser());
 
         Set<CerebookUser> cuSet = participants.stream().map(Participation::getParticipant).collect(Collectors.toSet());
 
@@ -87,7 +114,33 @@ public class EventController {
         }
         model.addAttribute("isParticipating", isParticipating);
 
+        if (Objects.equals(username, eventCreator)) {
+            isOwner = true;
+        }
+        model.addAttribute("isOwner", isOwner);
+
         return "events/showEventById";
+    }
+
+    @PostMapping("/delete_event/{eventId}")
+    public String removeEvent(@ModelAttribute Event event,
+                              @PathVariable Long eventId,
+                              Principal principal,
+                              Model model,
+                              RedirectAttributes redirAttrs) {
+        Event currentEvent = eventRepository.getEventById(eventId);
+        model.addAttribute("eventById", currentEvent);
+
+        String username = principal.getName();
+        String eventCreator = currentEvent.getCreator().getUsername();
+
+        if (Objects.equals(username, eventCreator)) {
+            redirAttrs.addFlashAttribute("error", "You are not authorized.");
+        } else {
+            eventRepository.delete(currentEvent);
+            redirAttrs.addFlashAttribute("success", "Event successfully deleted.");
+        }
+        return "redirect:/events/myown";
     }
 
     @PostMapping("/inscription_event/{eventId}")
@@ -155,6 +208,7 @@ public class EventController {
         String username = principal.getName();
         User currentUser = userRepository.getUserByUsername(username);
 
+        model.addAttribute("cerebookUser", currentUser.getCerebookUser());
         model.addAttribute("eventByIdAndUser", eventRepository.getEventByIdAndByCreator(currentUser, id));
         model.addAttribute("eventCategories", eventCategoryRepository.getAllEventCategories());
         return "events/update";
@@ -183,11 +237,22 @@ public class EventController {
 
         model.addAttribute("eventByIdAndUser", eventRepository.getEventByIdAndByCreator(currentUser, id));
         model.addAttribute("eventCategories", eventCategoryRepository.getAllEventCategories());
-
+        model.addAttribute("cerebookUser", currentUser.getCerebookUser());
 
         if (eventDate.before(localDate)) {
             bindingResult.rejectValue("date", "error.date", "The event date cannot be before the current date.");
         }
+
+
+        if (multipartFile.getSize() > 1048576) {
+            bindingResult.rejectValue(String.valueOf(multipartFile), "error.date", "The event date cannot be before the current date.");
+            return "events/update";
+        }
+
+        if (multipartFile.isEmpty()) {
+            return "events/create";
+        }
+
         if (bindingResult.hasErrors()) {
             return "events/update";
         } else {
@@ -207,9 +272,11 @@ public class EventController {
 
 
     @GetMapping("/create")
-    public String createEvent(Model model) {
+    public String createEvent(Model model, Principal principal) {
         model.addAttribute("event", new Event());
         model.addAttribute("eventCategories", eventCategoryRepository.getAllEventCategories());
+        User user = userRepository.getUserByUsername(principal.getName());
+        model.addAttribute("cerebookUser", user.getCerebookUser());
         return "events/create";
     }
 
@@ -219,7 +286,8 @@ public class EventController {
                             BindingResult bindingResult,
                             Principal principal,
                             @RequestParam("date") Date eventDate,
-                            @RequestParam("backgroundPhotoFile") MultipartFile multipartFile) throws ServletException, IOException {
+                            @RequestParam("backgroundPhotoFile") MultipartFile multipartFile
+    ) throws ServletException, IOException {
 
         long millis = System.currentTimeMillis();
         Date localDate = new Date(millis);
@@ -228,6 +296,10 @@ public class EventController {
 
         if (eventDate.before(localDate)) {
             bindingResult.rejectValue("date", "error.date", "The event date cannot be before the current date.");
+        }
+
+        if (multipartFile.isEmpty()) {
+            return "events/create";
         }
 
         if (bindingResult.hasErrors()) {

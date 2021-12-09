@@ -37,9 +37,6 @@ public class Event {
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private List<Picture> pictures;
-
     @ManyToOne
     private User creator;
 
@@ -99,14 +96,6 @@ public class Event {
         this.posts = posts;
     }
 
-    public List<Picture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(List<Picture> pictures) {
-        this.pictures = pictures;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -158,7 +147,7 @@ public class Event {
     public String getBackgroundPhotoPath() {
         if (backgroundPhoto == null || id == null) return null;
 
-        return "src/main/resources/public/images/WebContent/events-uploaded-files" + id + "/" + backgroundPhoto;
+        return "src/main/resources/public/images/WebContent/events-uploaded-files/" + id + "/" + backgroundPhoto;
     }
 
     public String getBackgroundPhotoShortPath() {

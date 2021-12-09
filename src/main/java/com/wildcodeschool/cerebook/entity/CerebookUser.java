@@ -1,5 +1,9 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,17 +30,23 @@ public class CerebookUser implements Serializable {
     private LocalDate birthDate;
     private String superPowers;
     private String genre;
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String bio;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "cerebookUser")
+
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Post> posts;
 
-    @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
+    @JsonManagedReference
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cerebook_user_friends")
     @JsonIgnore
@@ -128,6 +138,7 @@ public class CerebookUser implements Serializable {
         friend.getFriends().add(this);
     }
 
+
     public Membership getMembership() {
         return membership;
     }
@@ -168,6 +179,10 @@ public class CerebookUser implements Serializable {
         this.user = user;
     }
 
+    public String getUserName() {
+        return user.getUsername();
+    }
+
     /*Interpretating all objects with the same Cerebook ID as the same object */
     @Override
     public boolean equals(Object o) {
@@ -182,4 +197,20 @@ public class CerebookUser implements Serializable {
         return Objects.hash(id);
     }
 
+    public String getDefaultBackgroundPath() {
+
+        if (Objects.equals(background, "")) {
+            return "/images/graybg.jpg";
+        } else {
+            return "/images/Profiles/" + id + "/background/" + background;
+        }
+    }
+
+    public String getDefaultProfilImagePath() {
+        if (Objects.equals(profilImage, "")) {
+            return "/images/default-avatar.png";
+        } else {
+            return "/images/Profiles/" + id + "/profile/" + profilImage;
+        }
+    }
 }
