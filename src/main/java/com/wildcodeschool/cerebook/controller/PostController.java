@@ -57,7 +57,7 @@ public class PostController extends AbstractCrudLongController<Post> {
     @PostMapping("/create")
     public String create(HttpServletRequest hsr, Post post) {
         try {
-            Part picture = hsr.getPart("postPicture");
+            Part picture = hsr.getPart("createPostPicture");
             String fileName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
             post.setPicture(fileName);
             String uploadDir = "src/main/resources/public/images/Posts/";
@@ -76,7 +76,7 @@ public class PostController extends AbstractCrudLongController<Post> {
     @PostMapping("/{id}/update")
     public String update(HttpServletRequest hsr, @PathVariable("id") String id, @ModelAttribute Post post) {
         try {
-            Part picture = hsr.getPart("picture");
+            Part picture = hsr.getPart("updatePostPicture");
             String fileName = Paths.get(picture.getSubmittedFileName()).getFileName().toString();
             post.setPicture(fileName);
             String uploadDir = "src/main/resources/public/images/Posts/";

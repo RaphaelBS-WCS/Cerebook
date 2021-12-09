@@ -21,6 +21,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.author IN :author.friends")
     List<Post> findAllByAuthorOrByAuthorFriends(@Param("author") CerebookUser author);*/
 
-    @Query("SELECT p FROM Post p INNER JOIN CerebookUser c ON p.author=c WHERE p.author = :author OR p.author IN (SELECT cf FROM c.friends cf) ORDER BY p.createdAt DESC ")
+    //@Query("SELECT p FROM Post p INNER JOIN CerebookUser c ON p.author=c WHERE p.author = :author OR p.author IN (SELECT cf FROM c.friends cf) ORDER BY p.createdAt DESC ")
+    @Query("SELECT p FROM Post p INNER JOIN CerebookUser c ON p.author=c WHERE p.author = :author OR p.author IN (SELECT friend FROM CerebookUserFriends WHERE originatedUser = :author AND isAccepted = true) ORDER BY p.createdAt DESC ")
     List<Post> findAllByAuthorOrByAuthorFriends(@Param("author") CerebookUser author);
 };

@@ -40,10 +40,6 @@ public class IndexController extends AbstractCrudLongController<CerebookUser> {
             return "redirect:/login";
         }
         model.addAttribute("cerebookUser", getCurrentCerebookUser(principal));
-        model.addAttribute("cerebookUserFields", getElementFields());
-        model.addAttribute("posts", getCurrentCerebookUser(principal).getPosts());
-        model.addAttribute("postElementFields", postController.getElementFields());
-
         return "index";
     }
 

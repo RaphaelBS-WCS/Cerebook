@@ -26,7 +26,7 @@
                                                                                      alt="icon profile"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
-                        <a class="nav-link active" href="#"><img class="icon" src="/images/home.svg"
+                        <a class="nav-link active" href="/"><img class="icon" src="/images/home.svg"
                                                                  alt="icon homepage"></a>
                     </li>
                     <li class="nav-item d-flex align-items-center justify-content-center mx-3">
@@ -43,26 +43,29 @@
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 Hello
                                 <span sec:authentication="principal.username">User!</span>
-                                <!--      <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
-                                           width="60" height="60"/>-->
-                                <img  th:src="${cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
-                                      width="60" height="60"/>
-                                <!--    <img th:unless="${cerebookUser.profilImage}" th:src="@{cerebookUser.getDefaultProfilImagePath()}" class="border bg-light rounded-circle mx-2"
-                                         width="60" height="60"/>-->
+                                <img th:if="${cerebookUser.profilImage} != ''" th:src="@{|/images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}}" class="border bg-light rounded-circle mx-2"
+                                     width="60" height="60"/>
+                                <img th:unless="${cerebookUser.profilImage} != ''"  th:src="@{https://cdn5.vectorstock.com/i/1000x1000/47/94/unknown-person-icon-vector-28334794.jpg}" class="border bg-light rounded-circle mx-2"
+                                     width="60" height="60"/>
+
                             </a>
                             <ul class="dropdown-menu shadow-lg w-100" aria-labelledby="dropdownMenuLink">
-                                <!-- The content of the list can be modified if necessary -->
                                 <li>
                                     <a class="dropdown-item text-wrap py-2 text-white fw-bold" th:href="@{|/profiles/${cerebookUser.id}/update|}">
-                                        <i class="bi bi-pencil-square"></i>Edit my profil</a>
+                                        <i class="bi bi-pencil-square"></i>
+                                        Edit my profil
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-wrap py-2 text-white fw-bold" href="#">
-                                        <i class="bi bi-geo-alt-fill"></i>Manage my events</a>
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        Manage my events
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-wrap text-danger py-2 fw-bold" th:href="@{/logout}">
-                                        <i class="bi bi-power text-primary"></i>Disconnection
+                                        <i class="bi bi-power text-primary"></i>
+                                        Disconnection
                                     </a>
                                 </li>
                             </ul>

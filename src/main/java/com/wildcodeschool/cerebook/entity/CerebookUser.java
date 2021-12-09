@@ -19,6 +19,7 @@ import java.util.Objects;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "friends"})
 public class CerebookUser implements Serializable {
 
     @Id
@@ -46,10 +47,9 @@ public class CerebookUser implements Serializable {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Membership membership;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cerebook_user_friends")
-    @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
 
