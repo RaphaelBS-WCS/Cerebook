@@ -40,9 +40,6 @@ public class ProfileController extends AbstractCrudLongController<CerebookUser> 
     private CerebookUserFriendsRepository cerebookUserFriendsRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     ProfileController postController;
 
     private MembershipRepository membershipRepository;

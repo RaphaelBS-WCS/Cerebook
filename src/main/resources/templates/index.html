@@ -3,7 +3,7 @@
       layout:decorate="~{layout.html}">
 <body>
 <div layout:fragment="content" id="feed">
-    <h1>FEED</h1>
+    <h2 class="display-1 mt-5 headingEvents fw-bold">FEED</h2>
     <div class="three" th:replace="posts/getAllByAuthorOrByAuthorFriends :: postByAuthor"></div>
 </div>
 </body>

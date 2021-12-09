@@ -4,7 +4,7 @@ import com.wildcodeschool.cerebook.entity.ids.CerebookUserFriendsId;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "cerebook_user_friends")

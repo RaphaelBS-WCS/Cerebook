@@ -1,7 +1,6 @@
 #feed {
-  h1 {
+  h2{
     text-align: center;
-    margin-top: 16px;
   }
 
   #cards {
@@ -10,7 +9,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 600px);
     grid-column-gap: 2%;
-    grid-row-gap: 2%;
+    grid-row-gap: 1%;
     @include lg-max {
       grid-template-columns: repeat(1, 1fr);
       font-size: 35px;
