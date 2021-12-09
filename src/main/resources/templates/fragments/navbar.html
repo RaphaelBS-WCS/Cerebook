@@ -41,7 +41,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white fw-bold me-3" href="#" role="button"
                                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                Bonjour
+                                Hello
                                 <span sec:authentication="principal.username">User!</span>
                                 <img th:if="${cerebookUser.profilImage} != null"  th:src="@{|images/Profiles/${cerebookUser.id}/profile/${cerebookUser.profilImage}|}" class="border bg-light rounded-circle mx-2"
                                      width="60" height="60"/>
@@ -52,15 +52,15 @@
                                 <!-- The content of the list can be modified if necessary -->
                                 <li>
                                     <a class="dropdown-item text-wrap py-2 text-white fw-bold" th:href="@{|/profiles/${cerebookUser.id}/update|}">
-                                        <i class="bi bi-pencil-square"></i> Éditer mon profil</a>
+                                        <i class="bi bi-pencil-square"></i>Edit my profil</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-wrap py-2 text-white fw-bold" href="#">
-                                        <i class="bi bi-geo-alt-fill"></i> Gérer mes événements</a>
+                                        <i class="bi bi-geo-alt-fill"></i>Manage my events</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-wrap text-danger py-2 fw-bold" th:href="@{/logout}">
-                                        <i class="bi bi-power text-primary"></i> Déconnexion
+                                        <i class="bi bi-power text-primary"></i>Disconnection
                                     </a>
                                 </li>
                             </ul>
