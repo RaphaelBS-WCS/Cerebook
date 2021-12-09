@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 
 @Entity
-public class CerebookUser {
+public class CerebookUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,7 @@ public class CerebookUser {
     private Membership membership;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="cerebook_user_friends")
+    @JoinTable(name = "cerebook_user_friends")
     @JsonIgnore
     private final Set<CerebookUser> friends = new TreeSet<>();
 
@@ -180,4 +181,5 @@ public class CerebookUser {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

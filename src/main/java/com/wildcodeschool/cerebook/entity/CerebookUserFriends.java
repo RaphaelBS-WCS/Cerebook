@@ -5,6 +5,7 @@ import com.wildcodeschool.cerebook.entity.ids.CerebookUserFriendsId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "cerebook_user_friends")
@@ -20,15 +21,28 @@ public class CerebookUserFriends implements Serializable {
     @JoinColumn(name = "friends_id")
     private CerebookUser friend;
 
-    /*public boolean isAccepted() {
+    // property Date served to list recent friend requests
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date date;
+
+    @Column(nullable = false)
+    private boolean isAccepted;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isAccepted() {
         return isAccepted;
     }
 
     public void setAccepted(boolean accepted) {
-        isAccepted = accepted;
+        this.isAccepted = accepted;
     }
-
-    private boolean isAccepted;*/
 
     public CerebookUser getOriginatedUser() {
         return originatedUser;
