@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Objects;
 
 public abstract class AbstractCrudController<E, EK> {
 
@@ -20,6 +21,7 @@ public abstract class AbstractCrudController<E, EK> {
     protected abstract String getControllerRoute();
     protected abstract EK parseId(String id);
     protected abstract String[] getElementFields();
+    protected abstract Class<E> getElementClass();
     // </editor-fold>
 
     // <editor-fold desc="Route methods">
@@ -32,7 +34,7 @@ public abstract class AbstractCrudController<E, EK> {
 
     public CerebookUser getCurrentCerebookUser(Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
-        System.out.println(user + " / " + principal.getName());
+//        System.out.println(user + " / " + principal.getName());
         return user.getCerebookUser();
     }
 
@@ -67,14 +69,13 @@ public abstract class AbstractCrudController<E, EK> {
         preProcessElement(e, hsr);
         getRepository().save(e);
 
-        return "redirect:/" + getControllerRoute();
+        return "redirect:/";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") String id) {
         getRepository().deleteById(parseId(id));
-
-        return "redirect:/" + getControllerRoute();
+        return "redirect:/";
     }
     // </editor-fold>
 

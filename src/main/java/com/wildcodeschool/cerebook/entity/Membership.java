@@ -1,5 +1,8 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +15,7 @@ public class Membership {
     private String name;
     private String photo;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "membership", cascade = CascadeType.REFRESH)
     private List<CerebookUser> members;
 
