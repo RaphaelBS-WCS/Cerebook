@@ -23,16 +23,6 @@
                         </div>
                         ${(post.tweetos) ? '<img src="/images/tweetos.png" class="tweetos" alt="tweetos">' : ""}
                     </div>
-                    ${(post.author.user.username === currentUser.user.username) ?
-                    `<div class="dropdown">
-                      <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="fas fa-ellipsis-h"></span>
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href='/posts/${id}/update'>Modifier mon post</a></li>
-                        <li><a class="dropdown-item  upline" href='/posts/${id}/delete'>Supprimmer mon post</a></li>
-                      </ul>
-                    </div>` : ``}
                 </div>
                 <div class="card-content">
                     <p class="card-text">${post.content}</p>

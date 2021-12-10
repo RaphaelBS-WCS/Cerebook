@@ -11164,6 +11164,7 @@ textarea.form-control-lg {
   #feed #cards {
     grid-template-columns: repeat(1, 1fr);
     font-size: 35px;
+    grid-row-gap: 0.3%;
   }
   #feed #cards .card-text, #feed #cards .card-content {
     font-size: 30px;

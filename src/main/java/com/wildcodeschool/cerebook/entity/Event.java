@@ -1,5 +1,7 @@
 package com.wildcodeschool.cerebook.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -40,6 +42,7 @@ public class Event {
     @ManyToOne
     private User creator;
 
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
     private EventCategory eventCategory;
 

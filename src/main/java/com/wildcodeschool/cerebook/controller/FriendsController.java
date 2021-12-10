@@ -32,7 +32,7 @@ public class FriendsController{
 
     @GetMapping
     public String showFriends(@ModelAttribute CerebookUserFriends cerebookUserFriends, Model model, Principal principal, CerebookUser cerebookUser) {
-
+        model.addAttribute("cerebookUser", userRepository.getUserByUsername(principal.getName()).getCerebookUser());
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
         model.addAttribute("currentUser", currentCerebookUser);
         // Get the friend list:  retrieve the rows of friendship with isAccepted set to true
