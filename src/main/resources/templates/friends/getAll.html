@@ -51,6 +51,13 @@
         <!-- friend request card ends -->
     </div>
 
+    <form th:action="@{/friends/delete/{friendId}(friendId=3)}" method="POST"
+          th:object="${cerebookUserFriends}">
+        <div th:each="friend : ${cerebookUserFriend}">
+            <button type="submit" class="btn btn-danger" th:text="${friend.id}">Delete</button>
+        </div>
+    </form>
+
     <!-- List of friend suggestions -->
     <h2 class="text-start title-form fw-bold mt-5">Suggestion Friends</h2>
 

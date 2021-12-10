@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.repository;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
+import com.wildcodeschool.cerebook.entity.Event;
 import com.wildcodeschool.cerebook.entity.ids.CerebookUserFriendsId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUserFriends, CerebookUserFriendsId> {
+public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUserFriends, Long> {
 
     // Query served to get all friend requests (unconfirmed relation)
     @Query("select c from CerebookUserFriends c where c.originatedUser = :originatedUser AND c.isAccepted = false")
@@ -40,4 +41,17 @@ public interface CerebookUserFriendsRepository extends JpaRepository<CerebookUse
     @Query("DELETE FROM Friendship f WHERE (f.userSender = :user AND f.userReceiver = :friend) " +
             "OR (f.userSender = :friend AND f.userReceiver = :user)")
     void deleteFriendRequests(@Param("user") User user, @Param("friend") User friend);*/
+
+    @Query("SELECT cuf FROM CerebookUserFriends cuf WHERE cuf.originatedUser =  :cerebookUser")
+    List<CerebookUserFriends> findCerebookUserFriends(@Param("cerebookUser") CerebookUser cerebookUser);
+
+/*    CerebookUserFriends findCerebookUserFriendsByFriendIdAAndAccepted(Long friendsId);*/
+
+    @Query("SELECT c FROM CerebookUserFriends c WHERE c.originatedUser = :currentUser")
+    List<CerebookUserFriends> findFriends(Long currentUser);
+
+    @Query("SELECT c FROM CerebookUserFriends c WHERE c.originatedUser = :currentUser AND c.friend = :friend")
+    CerebookUserFriends findFriend(Long currentUser, Long friend);
+
+    CerebookUserFriends getCerebookUserFriendsById(Long id);
 }

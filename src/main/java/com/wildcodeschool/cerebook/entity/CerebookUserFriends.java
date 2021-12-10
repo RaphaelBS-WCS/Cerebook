@@ -11,6 +11,18 @@ import java.util.Date;
 @Table(name = "cerebook_user_friends")
 @IdClass(CerebookUserFriendsId.class)
 public class CerebookUserFriends implements Serializable {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Id
     @ManyToOne
     @JoinColumn(name = "cerebook_user_id")
@@ -25,13 +37,25 @@ public class CerebookUserFriends implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date;
 
+    public boolean isFriend() {
+        return isFriend;
+    }
+
+    public void setFriend(boolean friend) {
+        isFriend = friend;
+
+    }
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean isFriend;
+
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean isAccepted;
-
-    public CerebookUserFriends(CerebookUser currentCerebookUser, CerebookUser friend, boolean accepted) {
+    public CerebookUserFriends(CerebookUser currentCerebookUser, CerebookUser friend, boolean accepted, boolean friendAccepted) {
         this.originatedUser = currentCerebookUser;
         this.friend = friend;
         this.isAccepted = accepted;
+        this.isFriend = friendAccepted;
     }
 
     public CerebookUserFriends() {

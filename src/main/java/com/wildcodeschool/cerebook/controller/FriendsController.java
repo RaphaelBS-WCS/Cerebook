@@ -2,6 +2,7 @@ package com.wildcodeschool.cerebook.controller;
 
 import com.wildcodeschool.cerebook.entity.CerebookUser;
 import com.wildcodeschool.cerebook.entity.CerebookUserFriends;
+import com.wildcodeschool.cerebook.entity.Event;
 import com.wildcodeschool.cerebook.entity.ids.CerebookUserFriendsId;
 import com.wildcodeschool.cerebook.repository.CerebookUserFriendsRepository;
 import com.wildcodeschool.cerebook.repository.CerebookUserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.sql.Date;
@@ -51,6 +53,8 @@ public class FriendsController{
         // Get the suggestion friend list
         model.addAttribute("suggestfriends", cerebookUserRepository.findFriendsSuggestions(currentCerebookUser));
 
+        model.addAttribute("cerebookUserFriend", cerebookUserFriendsRepository.findFriends(currentCerebookUser.getId()));
+
         return "friends/getAll";
     }
 
@@ -61,15 +65,16 @@ public class FriendsController{
         // Get the current user and the user who sent the invitation
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
         CerebookUser friend = cerebookUserRepository.getById(friendId);
+        List<CerebookUserFriends> cerebookUserFrien = cerebookUserFriendsRepository.findCerebookUserFriends(currentCerebookUser);
 
-        // Run the request that add the new-added friend in to the friend list
-        cerebookUserFriendsRepository.acceptFriend(currentCerebookUser, friend);
+            // Run the request that add the new-added friend in to the friend list
+            cerebookUserFriendsRepository.acceptFriend(currentCerebookUser, friend);
 
         return "redirect:/friends";
     }
 
     @GetMapping("/{friendId}/addFriend")
-    public String addFriend(@PathVariable Long friendId, Principal principal) {
+    public String addFriend(@PathVariable("friendId") Long friendId, Principal principal) {
 
         CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
         CerebookUser friend = cerebookUserRepository.getById(friendId);
@@ -79,8 +84,9 @@ public class FriendsController{
             currentCerebookUser.getFriends().add(friend);
             cerebookUserRepository.save(currentCerebookUser);
 
-            friend.getFriends().add(currentCerebookUser);
+/*            friend.getFriends().add(currentCerebookUser);
             cerebookUserRepository.save(friend);
+            */
 
             // Remove the friend from suggestion friend list
             // Get the list of all my suggestion friends, define the friend that i added and delete him from the suggestion list
@@ -88,5 +94,21 @@ public class FriendsController{
             suggestfriends.remove(friend);
         }
         return "redirect:/friends";
+    }
+
+    @PostMapping("/delete/{friendId}")
+    public String removeEvent(@ModelAttribute CerebookUserFriends cerebookUserFriends, @PathVariable("friendId") Long friendId, Principal principal, Model model) {
+
+        CerebookUser currentCerebookUser = userRepository.getUserByUsername(principal.getName()).getCerebookUser();
+/*        List<CerebookUserFriends> cerebookUserFriend = cerebookUserFriendsRepository.findFriend(currentCerebookUser.getId());
+        System.out.println(cerebookUserFriend);
+
+        model.addAttribute("cerebookUserFriend", cerebookUserFriend);*/
+
+        CerebookUserFriends friendToDelete = cerebookUserFriendsRepository.findFriend(currentCerebookUser.getId(), friendId);
+
+        cerebookUserFriendsRepository.delete(friendToDelete);
+
+        return "redirect:/";
     }
 }
